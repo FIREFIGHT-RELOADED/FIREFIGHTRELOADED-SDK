@@ -1,4 +1,6 @@
-﻿using Steamworks;
+﻿#if STEAM
+using Steamworks;
+#endif
 using System;
 using System.Diagnostics;
 using System.IO;

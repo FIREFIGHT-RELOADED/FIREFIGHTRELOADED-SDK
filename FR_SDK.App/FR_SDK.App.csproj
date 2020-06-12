@@ -41,9 +41,6 @@
     <ApplicationIcon>game.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Facepunch.Steamworks.Win32, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>packages\Facepunch.Steamworks.win32.2.3.3\lib\net46\Facepunch.Steamworks.Win32.dll</HintPath>
-    </Reference>
     <Reference Include="KVLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\KVLib.1.0.0.0\lib\net45\KVLib.dll</HintPath>
     </Reference>
@@ -71,7 +68,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SteamworksIntegration.cs" />
     <Page Include="CustomMessageBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
