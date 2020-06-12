@@ -1,0 +1,202 @@
+﻿<!--  TODO: Add styling for scrollbars. Make script/mapadd editor.  -->
+<Window
+    x:Class="FR_SDK.App.CustomMessageBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:FR_SDK.App"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="FIREFIGHT RELOADED SDK"
+    Width="373.345"
+    Height="161.811"
+    MinWidth="237"
+    MinHeight="154"
+    Closing="window_closing"
+    Initialized="Window_init"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="5" />
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <Style x:Key="BorderLight_Style" TargetType="Border">
+            <Setter Property="BorderBrush" Value="#889180" />
+            <Setter Property="BorderThickness" Value="1,1,0,0" />
+        </Style>
+        <Style x:Key="BorderShadow_Style" TargetType="Border">
+            <Setter Property="BorderBrush" Value="#FF282E22" />
+            <Setter Property="BorderThickness" Value="0,0,1,1" />
+        </Style>
+        <Style x:Key="BorderLight_Style_pressed" TargetType="Border">
+            <Setter Property="BorderBrush" Value="#FF282E22" />
+            <Setter Property="BorderThickness" Value="1,1,0,0" />
+        </Style>
+        <Style x:Key="BorderShadow_Style_pressed" TargetType="Border">
+            <Setter Property="BorderBrush" Value="#889180" />
+            <Setter Property="BorderThickness" Value="0,0,1,1" />
+        </Style>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="#FF4C5844" />
+        </Style>
+        <Style x:Key="BaseButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#D8DED3" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            x:Name="border"
+                            Margin="0,0,0,0"
+                            Background="Transparent"
+                            Style="{StaticResource BorderShadow_Style}">
+                            <Border
+                                x:Name="border2"
+                                Background="Transparent"
+                                Style="{StaticResource BorderLight_Style}">
+                                <Label
+                                    x:Name="label"
+                                    Margin="-2,-2,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Content}"
+                                    FontFamily="Tahoma"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    TextBlock.TextAlignment="Left"
+                                    TextOptions.TextFormattingMode="Display"
+                                    TextOptions.TextRenderingMode="Aliased" />
+                            </Border>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Style" Value="{StaticResource BorderShadow_Style_pressed}" />
+                                <Setter TargetName="border2" Property="Style" Value="{StaticResource BorderLight_Style_pressed}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style
+            x:Key="WindowButtonStyle"
+            BasedOn="{StaticResource BaseButtonStyle}"
+            TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            x:Name="border"
+                            Margin="0,0,0,0"
+                            Background="Transparent"
+                            Style="{StaticResource BorderShadow_Style}">
+                            <Border
+                                x:Name="border2"
+                                Background="Transparent"
+                                Style="{StaticResource BorderLight_Style}">
+                                <Label
+                                    x:Name="label"
+                                    Margin="-4,-6,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Content="{TemplateBinding Content}"
+                                    FontFamily="Webdings"
+                                    Foreground="{TemplateBinding Foreground}"
+                                    TextBlock.TextAlignment="Center"
+                                    TextOptions.TextRenderingMode="Aliased"/>
+                            </Border>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Style" Value="{StaticResource BorderShadow_Style_pressed}" />
+                                <Setter TargetName="border2" Property="Style" Value="{StaticResource BorderLight_Style_pressed}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="titleText" TargetType="Label">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#D8DED3" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Border
+                            Name="_Border"
+                            Margin="4,0,5,0"
+                            Padding="2"
+                            SnapsToDevicePixels="true">
+                            <StackPanel Orientation="Horizontal">
+                                <Image
+                                    Width="16"
+                                    Margin="0,9,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Source="icon.png"
+                                    Stretch="None" />
+                                <TextBlock
+                                    Margin="6,9,0,0"
+                                    FontFamily="Tahoma"
+                                    Text="{TemplateBinding Content}"
+                                    TextOptions.TextFormattingMode="Display"
+                                    TextOptions.TextRenderingMode="Aliased" />
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="messageText" TargetType="TextBlock">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#D8DED3" />
+            <Setter Property="Height" Value="Auto" />
+            <Setter Property="FontFamily" Value="Tahoma" />
+            <Setter Property="TextWrapping" Value="WrapWithOverflow" />
+            <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+            <Setter Property="TextOptions.TextRenderingMode" Value="Aliased" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Border x:Name="BorderShadow" Style="{StaticResource BorderShadow_Style}" />
+        <Border x:Name="BorderLight" Style="{StaticResource BorderLight_Style}" />
+        <Label
+            x:Name="title"
+            Content="FIREFIGHT RELOADED SDK"
+            Style="{StaticResource titleText}" />
+        <!--  TODO: add styling for scrollbars. Disabled scrollbars for the time being.  -->
+        <Button
+            x:Name="button"
+            Width="76"
+            Height="24"
+            Margin="153,0,144,11"
+            Click="close_Click"
+            Content="OK"
+            Style="{StaticResource BaseButtonStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+        <Button
+            x:Name="minmize"
+            Width="18"
+            Height="17"
+            Margin="0,10,39,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Click="minmize_Click"
+            Content="0"
+            Style="{StaticResource WindowButtonStyle}" />
+        <Button
+            x:Name="close"
+            Width="18"
+            Height="17"
+            Margin="0,10,16,0"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Click="close_Click"
+            Content="r"
+            Style="{StaticResource WindowButtonStyle}" />
+        <TextBlock
+            x:Name="content"
+            Height="90"
+            Margin="10,32,10,40"
+            Style="{StaticResource messageText}"/>
+    </Grid>
+</Window>
