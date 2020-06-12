@@ -43,6 +43,7 @@ namespace FR_SDK.App
         public static int DelayMiliseconds = 100;
         #endregion
         #region Global Methods
+#if STEAM
         public static void RefreshPathsForSteam()
         {
             #region Refresh Basic Directories
@@ -66,6 +67,7 @@ namespace FR_SDK.App
             gameconfig = bindir + @"\GameConfig.txt";
             #endregion
         }
+#endif
 
         public static void CreateMessageBox(string text)
         {

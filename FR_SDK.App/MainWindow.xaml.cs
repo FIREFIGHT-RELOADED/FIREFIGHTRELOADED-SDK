@@ -66,7 +66,7 @@ namespace FR_SDK.App
                 //check if we're just launching it from the exe file.
                 GenerateGameConfig();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 Hide();
                 GlobalVars.CreateMessageBox("An error has occured when generating the game configuration: " + ex.Message);
