@@ -35,7 +35,7 @@ namespace FR_SDK.App
             catch (Exception ex)
             {
                 Hide();
-                GlobalVars.CreateMessageBox("An error has occured when setting VPROJECT: " + ex.Message);
+                GlobalVars.CreateMessageBox("An error has occurred when setting VPROJECT: " + ex.Message);
                 Close();
             }
 
@@ -56,7 +56,7 @@ namespace FR_SDK.App
                 catch (Exception ex)
                 {
                     Hide();
-                    GlobalVars.CreateMessageBox("An error has occured when generating the game configuration: " + ex.Message);
+                    GlobalVars.CreateMessageBox("An error has occurred when generating the game configuration: " + ex.Message);
                     Close();
                 }
             }
@@ -69,7 +69,7 @@ namespace FR_SDK.App
             catch (Exception ex)
             {
                 Hide();
-                GlobalVars.CreateMessageBox("An error has occured when generating the game configuration: " + ex.Message);
+                GlobalVars.CreateMessageBox("An error has occurred when generating the game configuration: " + ex.Message);
                 Close();
             }
 #endif
