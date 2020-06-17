@@ -64,6 +64,7 @@ namespace FR_SDK.App
                 Environment.SetEnvironmentVariable("VPROJECT",
                 GlobalVars.moddir,
                 EnvironmentVariableTarget.User);
+                GlobalVars.CreateMessageBox("VPROJECT has been set to " + Environment.GetEnvironmentVariable("VPROJECT") + ". If you experience issues launching any of the SDK tools, try restarting your computer." );
             }
             catch (Exception ex)
             {
@@ -76,7 +77,7 @@ namespace FR_SDK.App
         private void window_closing(object sender, CancelEventArgs e)
         {
 #if STEAM
-            SteamworksIntegration.InitSteam(this);
+            SteamworksIntegration.ShutdownSteam(this);
 #endif
         }
 
