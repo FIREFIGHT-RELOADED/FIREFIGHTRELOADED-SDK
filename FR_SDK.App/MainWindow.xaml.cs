@@ -36,7 +36,7 @@ namespace FR_SDK.App
             {
                 Hide();
                 GlobalVars.CreateMessageBox("An error has occurred when setting VPROJECT: " + ex.Message);
-                Close();
+                Application.Current.Shutdown();
             }
 
 #if STEAM
@@ -57,7 +57,7 @@ namespace FR_SDK.App
                 {
                     Hide();
                     GlobalVars.CreateMessageBox("An error has occurred when generating the game configuration: " + ex.Message);
-                    Close();
+                    Application.Current.Shutdown();
                 }
             }
 #else
@@ -70,7 +70,7 @@ namespace FR_SDK.App
             {
                 Hide();
                 GlobalVars.CreateMessageBox("An error has occurred when generating the game configuration: " + ex.Message);
-                Close();
+                Application.Current.Shutdown();
             }
 #endif
         }

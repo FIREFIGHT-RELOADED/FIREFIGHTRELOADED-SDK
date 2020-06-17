@@ -30,7 +30,7 @@ namespace FR_SDK.App
         public static string vrad = bindir + @"\vrad.exe";
         #endregion
         #region Important files
-        public static string fgd = sdkdir + @"\firefightreloaded.fgd";
+        public static string fgd = sdkdir + @"\fgd\firefightreloaded.fgd";
         public static string gameconfig = bindir + @"\GameConfig.txt";
         #endregion
         #region GameConfig Settings
@@ -67,22 +67,23 @@ namespace FR_SDK.App
             vrad = bindir + @"\vrad.exe";
             #endregion
             #region Refresh Important files
-            fgd = sdkdir + @"\firefightreloaded.fgd";
+            fgd = sdkdir + @"\fgd\firefightreloaded.fgd";
             gameconfig = bindir + @"\GameConfig.txt";
             #endregion
         }
+
 #endif
 
         public static void CreateMessageBox(string text)
         {
             CustomMessageBox box = new CustomMessageBox(text);
-            box.Show();
+            box.ShowDialog();
         }
 
         public static void CreateMessageBox(string name, string text)
         {
             CustomMessageBox box = new CustomMessageBox(name, text);
-            box.Show();
+            box.ShowDialog();
         }
 
         //credits to https://stackoverflow.com/questions/5363015/close-a-wpf-window-separately
