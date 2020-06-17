@@ -15,6 +15,7 @@ namespace FR_SDK.App
         #region Basic Directories
         public static string gamedir = Directory.GetParent(Environment.CurrentDirectory).ToString();
         public static string moddir = gamedir + @"\firefightreloaded";
+        public static string sdkdir = gamedir + @"\sdk"; //LAZY AS FUCK.
         public static string bindir = gamedir + @"\bin";
         public static string mapdir = moddir + @"\maps";
         public static string mapsrcdir = moddir + @"\mapsrc";
@@ -29,7 +30,7 @@ namespace FR_SDK.App
         public static string vrad = bindir + @"\vrad.exe";
         #endregion
         #region Important files
-        public static string fgd = moddir + @"\firefightreloaded.fgd";
+        public static string fgd = sdkdir + @"\firefightreloaded.fgd";
         public static string gameconfig = bindir + @"\GameConfig.txt";
         #endregion
         #region GameConfig Settings
@@ -51,6 +52,7 @@ namespace FR_SDK.App
             #region Refresh Basic Directories
             gamedir = Directory.GetParent(Environment.CurrentDirectory).ToString() + @"\FIREFIGHT RELOADED";
             moddir = gamedir + @"\firefightreloaded";
+            sdkdir = gamedir + @"\sdk"; //LAZY AS FUCK.
             bindir = gamedir + @"\bin";
             mapdir = moddir + @"\maps";
             mapsrcdir = moddir + @"\mapsrc";
@@ -65,7 +67,7 @@ namespace FR_SDK.App
             vrad = bindir + @"\vrad.exe";
             #endregion
             #region Refresh Important files
-            fgd = moddir + @"\firefightreloaded.fgd";
+            fgd = sdkdir + @"\firefightreloaded.fgd";
             gameconfig = bindir + @"\GameConfig.txt";
             #endregion
         }
