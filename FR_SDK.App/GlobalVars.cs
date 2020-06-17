@@ -80,10 +80,10 @@ namespace FR_SDK.App
             box.ShowDialog();
         }
 
-        public static void CreateMessageBox(string name, string text)
+        public static void CreateMessageBoxAppLaunch(string name, string text)
         {
             CustomMessageBox box = new CustomMessageBox(name, text);
-            box.ShowDialog();
+            box.Show();
         }
 
         //credits to https://stackoverflow.com/questions/5363015/close-a-wpf-window-separately

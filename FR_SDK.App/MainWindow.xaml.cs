@@ -23,23 +23,7 @@ namespace FR_SDK.App
         {
 #if STEAM
             SteamworksIntegration.InitSteam(this);
-#endif
 
-            try
-            {
-                //Set VPROJECT to the mod dir
-                Environment.SetEnvironmentVariable("VPROJECT",
-                GlobalVars.moddir,
-                EnvironmentVariableTarget.User);
-            }
-            catch (Exception ex)
-            {
-                Hide();
-                GlobalVars.CreateMessageBox("An error has occurred when setting VPROJECT: " + ex.Message);
-                Application.Current.Shutdown();
-            }
-
-#if STEAM
             try
             {
                 //check if we're just launching it from the exe file.
@@ -73,6 +57,20 @@ namespace FR_SDK.App
                 Application.Current.Shutdown();
             }
 #endif
+
+            try
+            {
+                //Set VPROJECT to the mod dir
+                Environment.SetEnvironmentVariable("VPROJECT",
+                GlobalVars.moddir,
+                EnvironmentVariableTarget.User);
+            }
+            catch (Exception ex)
+            {
+                Hide();
+                GlobalVars.CreateMessageBox("An error has occurred when setting VPROJECT: " + ex.Message);
+                Application.Current.Shutdown();
+            }
         }
 
         private void window_closing(object sender, CancelEventArgs e)
@@ -116,7 +114,7 @@ namespace FR_SDK.App
         private void hammer_DoubleClick(object sender, RoutedEventArgs e)
         {
             string msgboxname = "hammerbox";
-            GlobalVars.CreateMessageBox(msgboxname, "Starting Hammer...");
+            GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Hammer...");
             var proc = Process.Start(GlobalVars.hammer);
             while (string.IsNullOrEmpty(proc.MainWindowTitle))
             {
@@ -128,7 +126,7 @@ namespace FR_SDK.App
         private void model_DoubleClick(object sender, RoutedEventArgs e)
         {
             string msgboxname = "hlmvbox";
-            GlobalVars.CreateMessageBox(msgboxname, "Starting Model Viewer...");
+            GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Model Viewer...");
             var proc = Process.Start(GlobalVars.hlmv, "-olddialogs");
             while (string.IsNullOrEmpty(proc.MainWindowTitle))
             {
@@ -140,7 +138,7 @@ namespace FR_SDK.App
         private void faceposer_DoubleClick(object sender, RoutedEventArgs e)
         {
             string msgboxname = "facebox";
-            GlobalVars.CreateMessageBox(msgboxname, "Starting Face Poser...");
+            GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Face Poser...");
             var proc = Process.Start(GlobalVars.hlfaceposer);
             while (string.IsNullOrEmpty(proc.MainWindowTitle))
             {
@@ -152,7 +150,7 @@ namespace FR_SDK.App
         private void launchmod_DoubleClick(object sender, RoutedEventArgs e)
         {
             string msgboxname = "gamebox";
-            GlobalVars.CreateMessageBox(msgboxname, "Launching FIREFIGHT RELOADED...");
+            GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Launching FIREFIGHT RELOADED...");
             var proc = Process.Start(GlobalVars.gameexe, "-steam -game firefightreloaded");
             while (string.IsNullOrEmpty(proc.MainWindowTitle))
             {
