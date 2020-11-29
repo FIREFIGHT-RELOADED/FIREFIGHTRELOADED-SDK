@@ -57,8 +57,9 @@ namespace FR_SDK.App
                 Application.Current.Shutdown();
             }
 #endif
-
-            try
+            
+            //no more vproject
+            /*try
             {
                 //Set VPROJECT to the mod dir
                 Environment.SetEnvironmentVariable("VPROJECT",
@@ -71,7 +72,7 @@ namespace FR_SDK.App
                 Hide();
                 GlobalVars.CreateMessageBox("An error has occurred when setting VPROJECT: " + ex.Message);
                 Application.Current.Shutdown();
-            }
+            }*/
         }
 
         private void window_closing(object sender, CancelEventArgs e)
@@ -116,7 +117,7 @@ namespace FR_SDK.App
         {
             string msgboxname = "hammerbox";
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Hammer...");
-            var proc = Process.Start(GlobalVars.hammer);
+            var proc = Process.Start(GlobalVars.hammer, " -game \"" + GlobalVars.moddir + "\"");
             while (string.IsNullOrEmpty(proc.MainWindowTitle))
             {
                 GlobalVars.WaitForProcess(proc, GlobalVars.DelayMiliseconds);
@@ -128,7 +129,7 @@ namespace FR_SDK.App
         {
             string msgboxname = "hlmvbox";
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Model Viewer...");
-            var proc = Process.Start(GlobalVars.hlmv, "-olddialogs");
+            var proc = Process.Start(GlobalVars.hlmv, " -game \"" + GlobalVars.moddir + "\" -olddialogs");
             while (string.IsNullOrEmpty(proc.MainWindowTitle))
             {
                 GlobalVars.WaitForProcess(proc, GlobalVars.DelayMiliseconds);
@@ -140,7 +141,7 @@ namespace FR_SDK.App
         {
             string msgboxname = "facebox";
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Face Poser...");
-            var proc = Process.Start(GlobalVars.hlfaceposer);
+            var proc = Process.Start(GlobalVars.hlfaceposer, " -game \"" + GlobalVars.moddir + "\"");
             while (string.IsNullOrEmpty(proc.MainWindowTitle))
             {
                 GlobalVars.WaitForProcess(proc, GlobalVars.DelayMiliseconds);
@@ -152,7 +153,7 @@ namespace FR_SDK.App
         {
             string msgboxname = "gamebox";
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Launching FIREFIGHT RELOADED...");
-            var proc = Process.Start(GlobalVars.gameexe, "-steam -game firefightreloaded");
+            var proc = Process.Start(GlobalVars.gameexe, " -steam -game firefightreloaded");
             while (string.IsNullOrEmpty(proc.MainWindowTitle))
             {
                 GlobalVars.WaitForProcess(proc, GlobalVars.DelayMiliseconds);
