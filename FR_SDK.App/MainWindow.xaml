@@ -360,7 +360,38 @@
                                     Margin="0,9,0,0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
-                                    Source="icon.png"
+                                    Source="icon_normal.png"
+                                    Stretch="None" />
+                                <TextBlock
+                                    Margin="6,9,0,0"
+                                    FontFamily="Tahoma"
+                                    Text="{TemplateBinding Content}"
+                                    TextOptions.TextFormattingMode="Display"
+                                    TextOptions.TextRenderingMode="Aliased" />
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="titleTextInactive" TargetType="Label">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#889180" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Border
+                            Name="_Border"
+                            Margin="4,0,5,0"
+                            Padding="2"
+                            SnapsToDevicePixels="true">
+                            <StackPanel Orientation="Horizontal">
+                                <Image
+                                    Width="16"
+                                    Margin="0,9,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Source="icon_inactive.png"
                                     Stretch="None" />
                                 <TextBlock
                                     Margin="6,9,0,0"

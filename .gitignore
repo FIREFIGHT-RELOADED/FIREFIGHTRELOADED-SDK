@@ -359,7 +359,9 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
+# steamworks only stuff we should ignore
 packages_steam.config
-SteamworksIntegration.cs
 FR_SDK.App.Steam.sln
 FR_SDK.App.Steam.csproj
+steam/
+**/steam
