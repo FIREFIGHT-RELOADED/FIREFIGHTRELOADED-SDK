@@ -81,6 +81,7 @@
             x:Key="WindowButtonStyle"
             BasedOn="{StaticResource BaseButtonStyle}"
             TargetType="Button">
+            <Setter Property="Foreground" Value="#889180" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -95,14 +96,15 @@
                                 Style="{StaticResource BorderLight_Style}">
                                 <Label
                                     x:Name="label"
-                                    Margin="-4,-6,0,0"
+                                    Margin="-5,-5,-2,-2"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Content="{TemplateBinding Content}"
                                     FontFamily="Webdings"
                                     Foreground="{TemplateBinding Foreground}"
                                     TextBlock.TextAlignment="Center"
-                                    TextOptions.TextRenderingMode="Aliased" />
+                                    TextOptions.TextRenderingMode="Aliased" 
+                                    FontSize="12.5" />
                             </Border>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -320,6 +322,47 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style
+            x:Key="SDKItemStyle"
+            BasedOn="{StaticResource BaseItemStyle}"
+            TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border
+                            Name="_Border"
+                            Margin="4,0,5,0"
+                            Padding="2"
+                            SnapsToDevicePixels="true">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="icon.png" />
+                                <TextBlock
+                                    Margin="4,0,0,0"
+                                    FontFamily="Tahoma"
+                                    Text="{TemplateBinding Content}"
+                                    TextOptions.TextFormattingMode="Display"
+                                    TextOptions.TextRenderingMode="Aliased" />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="_Border" Property="Background" Value="#958831" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="_Border" Property="Background" Value="#282E22" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true" />
+                                    <Condition Property="Selector.IsSelectionActive" Value="false" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="_Border" Property="Background" Value="#282E22" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style TargetType="ListBox">
             <Setter Property="Background" Value="#3E4637" />
             <Setter Property="Template">
@@ -416,7 +459,7 @@
         <!--  TODO: add styling for scrollbars. Disabled scrollbars for the time being.  -->
         <ListBox
             x:Name="listBox"
-            Margin="9,38,10,40"
+            Margin="6,30,6,34"
             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
             ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <ListBoxItem
@@ -435,6 +478,11 @@
                 MouseDoubleClick="faceposer_DoubleClick"
                 Style="{StaticResource FaceposerItemStyle}" />
             <ListBoxItem
+                x:Name="workshop"
+                Content="Workshop Uploader"
+                MouseDoubleClick="workshop_DoubleClick"
+                Style="{StaticResource SDKItemStyle}" />
+            <ListBoxItem
                 x:Name="launchmod"
                 Content="Launch FIREFIGHT RELOADED"
                 MouseDoubleClick="launchmod_DoubleClick"
@@ -448,20 +496,10 @@
             Source="resize.png"
             Stretch="None" />
         <Button
-            x:Name="button"
-            Width="76"
-            Height="24"
-            Margin="0,0,16,11"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Click="close_Click"
-            Content="Close"
-            Style="{StaticResource BaseButtonStyle}" />
-        <Button
             x:Name="minmize"
             Width="18"
-            Height="17"
-            Margin="0,10,39,0"
+            Height="18"
+            Margin="0,9,26,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Click="minmize_Click"
@@ -470,8 +508,8 @@
         <Button
             x:Name="close"
             Width="18"
-            Height="17"
-            Margin="0,10,16,0"
+            Height="18"
+            Margin="0,9,6,0"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
             Click="close_Click"

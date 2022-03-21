@@ -149,6 +149,16 @@ namespace FR_SDK.App
             GlobalVars.CloseWindow(msgboxname);
         }
 
+        private void workshop_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+#if STEAM
+            WorkshopUploader workshopUploader = new WorkshopUploader();
+            workshopUploader.ShowDialog();
+#else
+            GlobalVars.CreateMessageBox("This application is not available in the open source version of the FIREFIGHT RELOADED SDK.");
+#endif
+        }
+
         private void launchmod_DoubleClick(object sender, RoutedEventArgs e)
         {
             string msgboxname = "gamebox";

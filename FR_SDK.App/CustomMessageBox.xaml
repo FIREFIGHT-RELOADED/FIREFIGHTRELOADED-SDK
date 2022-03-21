@@ -7,12 +7,14 @@
     xmlns:local="clr-namespace:FR_SDK.App"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="FIREFIGHT RELOADED SDK"
-    Width="373.345"
-    Height="161.811"
-    MinWidth="237"
-    MinHeight="154"
+    Width="Auto"
+    Height="Auto"
+    MaxWidth="600"
+    MinWidth="150"
+    MinHeight="50"
     Closing="window_closing"
     Initialized="Window_init"
+    SizeToContent="WidthAndHeight"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
@@ -82,6 +84,7 @@
             x:Key="WindowButtonStyle"
             BasedOn="{StaticResource BaseButtonStyle}"
             TargetType="Button">
+            <Setter Property="Foreground" Value="#889180" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -133,7 +136,38 @@
                                     Margin="0,9,0,0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
-                                    Source="icon.png"
+                                    Source="icon_normal.png"
+                                    Stretch="None" />
+                                <TextBlock
+                                    Margin="6,9,0,0"
+                                    FontFamily="Tahoma"
+                                    Text="{TemplateBinding Content}"
+                                    TextOptions.TextFormattingMode="Display"
+                                    TextOptions.TextRenderingMode="Aliased" />
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="titleTextInactive" TargetType="Label">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#889180" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Border
+                            Name="_Border"
+                            Margin="4,0,5,0"
+                            Padding="2"
+                            SnapsToDevicePixels="true">
+                            <StackPanel Orientation="Horizontal">
+                                <Image
+                                    Width="16"
+                                    Margin="0,9,0,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Top"
+                                    Source="icon_inactive.png"
                                     Stretch="None" />
                                 <TextBlock
                                     Margin="6,9,0,0"
@@ -169,34 +203,16 @@
             x:Name="button"
             Width="76"
             Height="24"
-            Margin="153,0,144,11"
+            Margin="83,0,83,16"
             Click="close_Click"
             Content="OK"
-            Style="{StaticResource BaseButtonStyle}" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
-        <Button
-            x:Name="minmize"
-            Width="18"
-            Height="17"
-            Margin="0,10,39,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Click="minmize_Click"
-            Content="0"
-            Style="{StaticResource WindowButtonStyle}" />
-        <Button
-            x:Name="close"
-            Width="18"
-            Height="17"
-            Margin="0,10,16,0"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Top"
-            Click="close_Click"
-            Content="r"
-            Style="{StaticResource WindowButtonStyle}" />
+            Style="{StaticResource BaseButtonStyle}" VerticalAlignment="Bottom" HorizontalAlignment="center" />
         <TextBlock
             x:Name="content"
-            Height="90"
+            Height="Auto"
+            Width="Auto"
             Margin="10,32,10,40"
-            Style="{StaticResource messageText}"/>
+            Padding="15"
+            Style="{StaticResource messageText}" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam lectus elit, commodo vel ullamcorper ut, pulvinar a enim. Integer vulputate lectus in laoreet feugiat. Integer in magna vel quam eleifend aliquet. Vivamus sit amet facilisis dolor, quis elementum augue. Morbi ullamcorper placerat metus, non congue mi aliquam eu. Vivamus malesuada dapibus fringilla. Maecenas quis porttitor tortor. Nunc ut lacus tempor, sagittis dolor ac, dapibus nibh. Quisque magna ex, mattis sed dignissim eu, aliquet at enim. Mauris vitae ex et nibh euismod scelerisque. Nunc efficitur blandit odio id egestas. Curabitur purus ante, molestie a leo non, facilisis interdum quam. Ut vel tincidunt sapien." HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
     </Grid>
 </Window>

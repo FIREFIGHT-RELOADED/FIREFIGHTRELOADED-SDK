@@ -11,30 +11,39 @@ namespace FR_SDK.App
     public partial class CustomMessageBox : Window
     {
         private string text = "";
+        private bool keepTempText = false;
 
         #region Window Logic
-        public CustomMessageBox(string name, string content)
+        public CustomMessageBox(string name, string content, bool bkeepTempText = false)
         {
-            Construct(name, content);
+            Construct(name, content, bkeepTempText);
         }
 
-        public CustomMessageBox(string content)
+        public CustomMessageBox(string content, bool bkeepTempText = false)
         {
-            Construct("MessageBox", content);
+            Construct("MessageBox", content, bkeepTempText);
         }
 
-        private void Construct(string name, string content)
+        public CustomMessageBox()
+        {
+            Construct("MessageBox", "", true);
+        }
+
+        private void Construct(string name, string content, bool bkeepTempText)
         {
             Name = name;
             text = content;
+            keepTempText = bkeepTempText;
             InitializeComponent();
-            SizeToContent = SizeToContent.Height;
             MouseDown += Window_MouseDown;
         }
 
         private void Window_init(object sender, EventArgs e)
         {
-            content.Text = text;
+            if (!keepTempText)
+            {
+                content.Text = text;
+            }
         }
 
         private void window_closing(object sender, CancelEventArgs e)
