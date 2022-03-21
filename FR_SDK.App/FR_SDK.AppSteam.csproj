@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{94F26801-F531-4282-928C-2F07EAEF1BA4}</ProjectGuid>
+    <ProjectGuid>{16219A92-8A1F-42CE-8F63-5BA8BCAF3DFD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>FR_SDK.App</RootNamespace>
-    <AssemblyName>FR_SDKLauncher_NoSteam</AssemblyName>
+    <AssemblyName>FR_SDKLauncher</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -43,7 +43,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'DebugSteam|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DebugSteam\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;STEAM</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <LangVersion>8.0</LangVersion>
@@ -51,8 +51,12 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseSteam|AnyCPU'">
     <OutputPath>bin\ReleaseSteam\</OutputPath>
+    <DefineConstants>STEAM</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Facepunch.Steamworks.Win32, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Facepunch.Steamworks.win32.2.3.3\lib\net46\Facepunch.Steamworks.Win32.dll</HintPath>
+    </Reference>
     <Reference Include="KVLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\KVLib.1.0.0.0\lib\net45\KVLib.dll</HintPath>
     </Reference>
@@ -80,6 +84,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="steam\SteamworksIntegration.cs" />
     <Page Include="CustomMessageBox.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

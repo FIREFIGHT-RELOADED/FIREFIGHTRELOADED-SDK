@@ -5,16 +5,28 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FR_SDK.App", "FR_SDK.App.csproj", "{94F26801-F531-4282-928C-2F07EAEF1BA4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FR_SDK.AppSteam", "FR_SDK.AppSteam.csproj", "{16219A92-8A1F-42CE-8F63-5BA8BCAF3DFD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		DebugSteam|Any CPU = DebugSteam|Any CPU
 		Release|Any CPU = Release|Any CPU
+		ReleaseSteam|Any CPU = ReleaseSteam|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{94F26801-F531-4282-928C-2F07EAEF1BA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{94F26801-F531-4282-928C-2F07EAEF1BA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94F26801-F531-4282-928C-2F07EAEF1BA4}.DebugSteam|Any CPU.ActiveCfg = DebugSteam|Any CPU
 		{94F26801-F531-4282-928C-2F07EAEF1BA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{94F26801-F531-4282-928C-2F07EAEF1BA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94F26801-F531-4282-928C-2F07EAEF1BA4}.ReleaseSteam|Any CPU.ActiveCfg = ReleaseSteam|Any CPU
+		{16219A92-8A1F-42CE-8F63-5BA8BCAF3DFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16219A92-8A1F-42CE-8F63-5BA8BCAF3DFD}.DebugSteam|Any CPU.ActiveCfg = DebugSteam|Any CPU
+		{16219A92-8A1F-42CE-8F63-5BA8BCAF3DFD}.DebugSteam|Any CPU.Build.0 = DebugSteam|Any CPU
+		{16219A92-8A1F-42CE-8F63-5BA8BCAF3DFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16219A92-8A1F-42CE-8F63-5BA8BCAF3DFD}.ReleaseSteam|Any CPU.ActiveCfg = ReleaseSteam|Any CPU
+		{16219A92-8A1F-42CE-8F63-5BA8BCAF3DFD}.ReleaseSteam|Any CPU.Build.0 = ReleaseSteam|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
