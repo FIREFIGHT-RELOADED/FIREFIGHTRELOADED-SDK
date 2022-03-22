@@ -22,6 +22,9 @@ namespace FR_SDK.App
         private void Window_init(object sender, EventArgs e)
         {
 #if STEAM
+            //workshop uploader
+            System.Windows.Forms.Application.EnableVisualStyles();
+            System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
             SteamworksIntegration.InitSteam(this);
 
             try
