@@ -44,6 +44,11 @@ namespace FR_SDK.App
         #endregion
         #region Other Values
         public static int DelayMiliseconds = 100;
+#if STEAM
+        public static int SteamRelaunchDelayMiliseconds = 500;
+        public static AppId sdkAppID = 494770;
+        public static AppId gameAppID = 397680;
+#endif
         #endregion
         #region Global Methods
 #if STEAM

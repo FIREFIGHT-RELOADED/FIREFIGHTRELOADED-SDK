@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -25,7 +26,7 @@ namespace FR_SDK.App
             //workshop uploader
             System.Windows.Forms.Application.EnableVisualStyles();
             System.Windows.Forms.Application.SetCompatibleTextRenderingDefault(false);
-            SteamworksIntegration.InitSteam(this);
+            SteamworksIntegration.InitSteam(GlobalVars.sdkAppID);
 
             try
             {
@@ -81,7 +82,7 @@ namespace FR_SDK.App
         private void window_closing(object sender, CancelEventArgs e)
         {
 #if STEAM
-            SteamworksIntegration.ShutdownSteam(this);
+            SteamworksIntegration.ShutdownSteam();
 #endif
         }
 
@@ -105,6 +106,7 @@ namespace FR_SDK.App
                 DragMove();
         }
         #endregion
+
         #region Launcher Logic
         private void close_Click(object sender, RoutedEventArgs e)
         {
@@ -152,26 +154,46 @@ namespace FR_SDK.App
             GlobalVars.CloseWindow(msgboxname);
         }
 
-        private void workshop_DoubleClick(object sender, MouseButtonEventArgs e)
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        private async void workshop_DoubleClick(object sender, MouseButtonEventArgs e)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
 #if STEAM
+            SteamworksIntegration.ShutdownSteam();
+            await Task.Delay(GlobalVars.SteamRelaunchDelayMiliseconds);
+
             WorkshopUploader workshopUploader = new WorkshopUploader();
-            workshopUploader.ShowDialog();
+            var dialogResult = workshopUploader.ShowDialog();
+
+            await Task.Delay(GlobalVars.SteamRelaunchDelayMiliseconds);
+            SteamworksIntegration.InitSteam(GlobalVars.sdkAppID);
 #else
-            GlobalVars.CreateMessageBox("This application is not available in the open source version of the FIREFIGHT RELOADED SDK.");
+            GlobalVars.CreateMessageBox("This application is not available in the non-steam version of the FIREFIGHT RELOADED SDK.");
 #endif
         }
 
-        private void launchmod_DoubleClick(object sender, RoutedEventArgs e)
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        private async void launchmod_DoubleClick(object sender, RoutedEventArgs e)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
             string msgboxname = "gamebox";
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Launching FIREFIGHT RELOADED...");
+#if STEAM
+            SteamworksIntegration.ShutdownSteam();
+            await Task.Delay(GlobalVars.SteamRelaunchDelayMiliseconds);
+            SteamworksIntegration.InitSteam(GlobalVars.gameAppID);
+#endif
             var proc = Process.Start(GlobalVars.gameexe, " -steam -game firefightreloaded");
             while (string.IsNullOrEmpty(proc.MainWindowTitle))
             {
                 GlobalVars.WaitForProcess(proc, GlobalVars.DelayMiliseconds);
             }
 
+#if STEAM
+            SteamworksIntegration.ShutdownSteam();
+            await Task.Delay(GlobalVars.SteamRelaunchDelayMiliseconds);
+            SteamworksIntegration.InitSteam(GlobalVars.sdkAppID);
+#endif
             GlobalVars.CloseWindow(msgboxname);
         }
         #endregion

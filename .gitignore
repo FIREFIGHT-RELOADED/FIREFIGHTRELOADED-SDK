@@ -358,7 +358,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-
-# steamworks only stuff we should ignore
-**/steam/
-**/steam
