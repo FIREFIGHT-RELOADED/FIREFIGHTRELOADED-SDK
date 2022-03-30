@@ -30,7 +30,7 @@ namespace FR_SDK.App
         public static string vrad = bindir + @"\vrad.exe";
         #endregion
         #region Important files
-        public static string fgd = sdkdir + @"\fgd\firefightreloaded.fgd";
+        public static string fgd = bindir + @"\firefightreloaded.fgd";
         public static string gameconfig = bindir + @"\GameConfig.txt";
         #endregion
         #region GameConfig Settings
