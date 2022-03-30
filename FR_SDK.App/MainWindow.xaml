@@ -482,11 +482,6 @@
                 Content="Workshop Uploader"
                 MouseDoubleClick="workshop_DoubleClick"
                 Style="{StaticResource SDKItemStyle}" />
-            <ListBoxItem
-                x:Name="launchmod"
-                Content="Launch FIREFIGHT RELOADED"
-                MouseDoubleClick="launchmod_DoubleClick"
-                Style="{StaticResource FRItemStyle}" />
         </ListBox>
         <Image
             x:Name="image"

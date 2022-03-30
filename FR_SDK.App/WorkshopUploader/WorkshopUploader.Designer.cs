@@ -1,5 +1,5 @@
 ﻿
-namespace FR_SDK.App
+namespace WorkshopUploader
 {
     partial class WorkshopUploader
     {

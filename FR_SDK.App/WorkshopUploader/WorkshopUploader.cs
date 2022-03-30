@@ -6,7 +6,7 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FR_SDK.App
+namespace WorkshopUploader
 {
     public partial class WorkshopUploader : Form
     {
@@ -27,7 +27,7 @@ namespace FR_SDK.App
         #region Window Events
         private void WorkshopUploader_Load(object sender, EventArgs e)
         {
-            SteamworksIntegration.InitSteam(GlobalVars.gameAppID, true);
+            SteamworksIntegration.InitSteam(SteamworksIntegration.gameAppID);
             Reset();
             Width = 357;
             CenterToScreen();
@@ -42,7 +42,8 @@ namespace FR_SDK.App
 
         void WorkshopUploader_FormClosed(object sender, FormClosedEventArgs e)
         {
-            SteamworksIntegration.ShutdownSteam(true);
+            SteamworksIntegration.ShutdownSteam();
+            SteamworksIntegration.InitSteam(SteamworksIntegration.sdkAppID);
         }
 
         private async void LoadItem_Click(object sender, EventArgs e)

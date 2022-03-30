@@ -1,6 +1,4 @@
-﻿#if STEAM
-using Steamworks;
-#endif
+﻿
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -13,7 +11,18 @@ namespace FR_SDK.App
     class GlobalVars
     {
         #region Basic Directories
-        public static string gamedir = Directory.GetParent(Environment.CurrentDirectory).ToString();
+        private static string SetCorrectDir()
+        {
+            string dir = Directory.GetParent(Environment.CurrentDirectory).ToString();
+            if (!dir.Contains(@"\FIREFIGHT RELOADED"))
+            {
+                dir = Directory.GetParent(Environment.CurrentDirectory).ToString() + @"\FIREFIGHT RELOADED";
+            }
+
+            return dir;
+        }
+
+        public static string gamedir = SetCorrectDir();
         public static string moddir = gamedir + @"\firefightreloaded";
         public static string sdkdir = gamedir + @"\sdk"; //LAZY AS FUCK.
         public static string bindir = gamedir + @"\bin";
@@ -28,6 +37,7 @@ namespace FR_SDK.App
         public static string vbsp = bindir + @"\vbsp.exe";
         public static string vvis = bindir + @"\vvis.exe";
         public static string vrad = bindir + @"\vrad.exe";
+        public static string workshop = sdkdir + @"\FR_WorkshopUploader.exe";
         #endregion
         #region Important files
         public static string fgd = bindir + @"\firefightreloaded.fgd";
@@ -44,40 +54,26 @@ namespace FR_SDK.App
         #endregion
         #region Other Values
         public static int DelayMiliseconds = 100;
-#if STEAM
-        public static int SteamRelaunchDelayMiliseconds = 500;
-        public static AppId sdkAppID = 494770;
-        public static AppId gameAppID = 397680;
-#endif
         #endregion
         #region Global Methods
-#if STEAM
-        public static void RefreshPathsForSteam()
+        public static Process LaunchApp(string exePath, string exeArgs)
         {
-            #region Refresh Basic Directories
-            gamedir = Directory.GetParent(Environment.CurrentDirectory).ToString() + @"\FIREFIGHT RELOADED";
-            moddir = gamedir + @"\firefightreloaded";
-            sdkdir = gamedir + @"\sdk"; //LAZY AS FUCK.
-            bindir = gamedir + @"\bin";
-            mapdir = moddir + @"\maps";
-            mapsrcdir = moddir + @"\mapsrc";
-            gameexe = gamedir + @"\fr.exe";
-            #endregion
-            #region Refresh SDK Tools
-            hlmv = bindir + @"\hlmv.exe";
-            hlfaceposer = bindir + @"\hlfaceposer.exe";
-            hammer = bindir + @"\hammer.exe";
-            vbsp = bindir + @"\vbsp.exe";
-            vvis = bindir + @"\vvis.exe";
-            vrad = bindir + @"\vrad.exe";
-            #endregion
-            #region Refresh Important files
-            fgd = sdkdir + @"\fgd\firefightreloaded.fgd";
-            gameconfig = bindir + @"\GameConfig.txt";
-            #endregion
-        }
+            try
+            {
+                Process pr = new Process();
+                pr.StartInfo.WorkingDirectory = bindir;
+                pr.StartInfo.FileName = exePath;
+                pr.StartInfo.Arguments = exeArgs;
+                pr.Start();
+                return pr;
+            }
+            catch(Exception ex)
+            {
+                CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
+            }
 
-#endif
+            return null;
+        }
 
         public static void CreateMessageBox(string text)
         {
