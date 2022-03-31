@@ -32,19 +32,10 @@ namespace WorkshopUploader
             Width = 357;
             CenterToScreen();
 
-            try
-            {
-                if (!SteamClient.IsLoggedOn)
-                {
-                    MessageBox.Show("The Workshop Uploader cannot load because Steam is offline. Please load Steam in Online Mode, relaunch the SDK, then try again.",
-                        "Workshop Uploader - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Close();
-                }
-            }
-            catch(Exception)
+            if (!SteamClient.IsLoggedOn)
             {
                 MessageBox.Show("The Workshop Uploader cannot load because Steam is offline. Please load Steam in Online Mode, relaunch the SDK, then try again.",
-                        "Workshop Uploader - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    "Workshop Uploader - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
         }
@@ -52,6 +43,7 @@ namespace WorkshopUploader
         void WorkshopUploader_FormClosed(object sender, FormClosedEventArgs e)
         {
             SteamworksIntegration.ShutdownSteam();
+            SteamworksIntegration.InitSteam(SteamworksIntegration.sdkAppID);
         }
 
         private async void LoadItem_Click(object sender, EventArgs e)
@@ -193,15 +185,15 @@ namespace WorkshopUploader
 
         public async Task<UGCItem> LoadWorkshopItemInfo(ulong id)
         {
+            if (!SteamClient.IsLoggedOn)
+            {
+                UGCItem item = new UGCItem();
+                item.ItemName = "OFFLINE" + id.ToString();
+                return item;
+            }
+
             try
             {
-                if (!SteamClient.IsLoggedOn)
-                {
-                    UGCItem item = new UGCItem();
-                    item.ItemName = "OFFLINE" + id.ToString();
-                    return item;
-                }
-
                 Steamworks.Ugc.Item itemInfo = (Steamworks.Ugc.Item)await SteamUGC.QueryFileAsync(id);
                 if (itemInfo.Owner.Id.Equals(SteamClient.SteamId))
                 {
@@ -235,20 +227,11 @@ namespace WorkshopUploader
 
         public async void PublishToWorkshop(UGCItem item, ulong id = 0)
         {
-            try
+            if (!SteamClient.IsLoggedOn)
             {
-                if (!SteamClient.IsLoggedOn)
-                {
-                    MessageBox.Show("The item cannot be loaded by the Workshop Uploader because Steam is offline. Please load Steam in Online Mode, relaunch the SDK, then try again.",
+                MessageBox.Show("The item cannot be loaded by the Workshop Uploader because Steam is offline. Please load Steam in Online Mode, relaunch the SDK, then try again.",
                     "Workshop Uploader - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("The Workshop Uploader cannot load because Steam is offline. Please load Steam in Online Mode, relaunch the SDK, then try again.",
-                        "Workshop Uploader - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
+                return;
             }
 
             Steamworks.Ugc.Editor file;
@@ -291,11 +274,8 @@ namespace WorkshopUploader
             }
             else
             {
-                if (!EditMode)
-                {
-                    ItemMissingError("the content path");
-                    return;
-                }
+                ItemMissingError("the content path");
+                return;
             }
 
             if (!string.IsNullOrWhiteSpace(item.ItemPreviewImage))

@@ -22,8 +22,6 @@ namespace FR_SDK.App
 
         private void Window_init(object sender, EventArgs e)
         {
-            SteamworksIntegration.InitSteam(SteamworksIntegration.sdkAppID);
-
             try
             {
                 //check if we're just launching it from the exe file.
@@ -46,7 +44,6 @@ namespace FR_SDK.App
 
         private void window_closing(object sender, CancelEventArgs e)
         {
-            SteamworksIntegration.ShutdownSteam();
         }
 
         private void GenerateGameConfig()
@@ -144,7 +141,7 @@ namespace FR_SDK.App
             }
         }
 
-        private async void workshop_DoubleClick(object sender, MouseButtonEventArgs e)
+        private void workshop_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             string msgboxname = "workbox";
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Workshop Uploader...");
@@ -163,11 +160,6 @@ namespace FR_SDK.App
                 GlobalVars.CloseWindow(msgboxname);
                 GlobalVars.CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
             }
-
-            proc.WaitForExit();
-
-            await Task.Delay(SteamworksIntegration.SteamRelaunchDelayMiliseconds);
-            SteamworksIntegration.InitSteam(SteamworksIntegration.sdkAppID);
         }
         #endregion
     }
