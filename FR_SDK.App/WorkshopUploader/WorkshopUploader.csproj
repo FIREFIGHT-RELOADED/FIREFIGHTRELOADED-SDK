@@ -53,9 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\steam\SteamworksIntegration.cs">
+      <Link>SteamworksIntegration.cs</Link>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SteamworksIntegration.cs" />
     <Compile Include="WorkshopUploader.cs">
       <SubType>Form</SubType>
     </Compile>
