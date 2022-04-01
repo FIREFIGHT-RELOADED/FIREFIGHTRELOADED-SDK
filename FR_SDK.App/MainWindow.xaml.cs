@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -12,11 +11,14 @@ namespace FR_SDK.App
     /// </summary>
     public partial class MainWindow : Window
     {
+        GlobalVars.ProcessControllerSteam processController;
+
         #region Window Logic
         public MainWindow()
         {
             InitializeComponent();
             MouseDown += Window_MouseDown;
+            processController = new GlobalVars.ProcessControllerSteam();
         }
 
         private void Window_init(object sender, EventArgs e)
@@ -45,6 +47,8 @@ namespace FR_SDK.App
 
         private void window_closing(object sender, CancelEventArgs e)
         {
+            processController.ShuttingDown = true;
+            processController.KillAllActiveProcesses();
             SteamworksIntegration.ShutdownSteam();
         }
 
@@ -84,7 +88,7 @@ namespace FR_SDK.App
         {
             string msgboxname = "hammerbox";
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Hammer...");
-            var proc = GlobalVars.LaunchApp(GlobalVars.hammer, " -game \"" + GlobalVars.moddir + "\"");
+            var proc = processController.LaunchApp(GlobalVars.hammer, " -game \"" + GlobalVars.moddir + "\"");
             proc.StartInfo.WorkingDirectory = GlobalVars.bindir;
             proc.Start();
             try
@@ -107,7 +111,7 @@ namespace FR_SDK.App
         {
             string msgboxname = "hlmvbox";
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Model Viewer...");
-            var proc = GlobalVars.LaunchApp(GlobalVars.hlmv, " -game \"" + GlobalVars.moddir + "\" -olddialogs");
+            var proc = processController.LaunchApp(GlobalVars.hlmv, " -game \"" + GlobalVars.moddir + "\" -olddialogs");
             proc.StartInfo.WorkingDirectory = GlobalVars.bindir;
             proc.Start();
             try
@@ -130,7 +134,7 @@ namespace FR_SDK.App
         {
             string msgboxname = "facebox";
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Face Poser...");
-            var proc = GlobalVars.LaunchApp(GlobalVars.hlfaceposer, " -game \"" + GlobalVars.moddir + "\"");
+            var proc = processController.LaunchApp(GlobalVars.hlfaceposer, " -game \"" + GlobalVars.moddir + "\"");
             proc.StartInfo.WorkingDirectory = GlobalVars.bindir;
             proc.Start();
             try
@@ -149,12 +153,12 @@ namespace FR_SDK.App
             }
         }
 
-        private async void workshop_DoubleClick(object sender, MouseButtonEventArgs e)
+        private void workshop_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             string msgboxname = "workbox";
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Workshop Uploader...");
-            var proc = GlobalVars.LaunchApp(GlobalVars.workshop, "");
-            proc.StartInfo.WorkingDirectory = GlobalVars.bindir;
+            var proc = processController.LaunchApp(GlobalVars.workshop, "");
+            processController.AppOverridesSteam = true;
             proc.Start();
             try
             {
@@ -170,11 +174,6 @@ namespace FR_SDK.App
                 GlobalVars.CloseWindow(msgboxname);
                 GlobalVars.CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
             }
-
-            proc.WaitForExit();
-
-            await Task.Delay(SteamworksIntegration.SteamRelaunchDelayMiliseconds);
-            SteamworksIntegration.InitSteam(SteamworksIntegration.sdkAppID);
         }
 
         private void mapcomp_DoubleClick(object sender, MouseButtonEventArgs e)

@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -56,31 +57,108 @@ namespace FR_SDK.App
         public static int DelayMiliseconds = 100;
         #endregion
         #region Global Methods
-        public static Process LaunchApp(string exePath, string exeArgs, bool form = false, string formAppName = "")
+        public class ProcessController
         {
-            try
-            {
-                Process pr = new Process();
-                pr.StartInfo.FileName = exePath;
-                pr.StartInfo.Arguments = exeArgs;
-                return pr;
-            }
-            catch(Exception ex)
-            {
-                if (form)
-                {
-                    string app = !string.IsNullOrWhiteSpace(formAppName) ? formAppName : "FIREFIGHT RELOADED SDK";
+            public static List<Process> ProcessList;
 
-                    System.Windows.Forms.MessageBox.Show("An error has occurred when launching the application: " + ex.Message,
-                        app + " - Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
-                }
-                else
-                {
-                    CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
-                }
+            public ProcessController()
+            {
+                ProcessList = new List<Process>();
             }
 
-            return null;
+            public Process LaunchApp(string exePath, string exeArgs, bool form = false, string formAppName = "")
+            {
+                try
+                {
+                    Process pr = new Process();
+                    pr.StartInfo.FileName = exePath;
+                    pr.StartInfo.Arguments = exeArgs;
+                    pr.Exited += ProcessExited;
+                    ProcessList.Add(pr);
+                    return pr;
+                }
+                catch (Exception ex)
+                {
+                    if (form)
+                    {
+                        string app = !string.IsNullOrWhiteSpace(formAppName) ? formAppName : "FIREFIGHT RELOADED SDK";
+
+                        System.Windows.Forms.MessageBox.Show("An error has occurred when launching the application: " + ex.Message,
+                            app + " - Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
+                    }
+                }
+
+                return null;
+            }
+
+            public virtual void ProcessExitedExt() {}
+
+            private void ProcessExited(object sender, EventArgs e)
+            {
+                try
+                {
+                    Process proc = (Process)sender;
+
+                    if (proc != null)
+                    {
+                        ProcessList.Remove(proc);
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
+
+                ProcessExitedExt();
+            }
+
+            public virtual void KillAllActiveProcesses()
+            {
+                foreach (Process proc in ProcessList)
+                {
+                    proc.Kill();
+
+                    if (proc != null)
+                    {
+                        ProcessList.Remove(proc);
+                    }
+                }
+            }
+        }
+
+        public class ProcessControllerSteam : ProcessController
+        {
+            public bool AppOverridesSteam = false;
+            public bool ShuttingDown = false;
+
+            public ProcessControllerSteam() : base()
+            {
+            }
+
+            public override void ProcessExitedExt()
+            {
+                FixSteam();
+            }
+
+            public override void KillAllActiveProcesses()
+            {
+                base.KillAllActiveProcesses();
+                FixSteam();
+            }
+
+            private async void FixSteam()
+            {
+                if (AppOverridesSteam && !ShuttingDown)
+                {
+                    await Task.Delay(SteamworksIntegration.SteamRelaunchDelayMiliseconds);
+                    SteamworksIntegration.InitSteam(SteamworksIntegration.sdkAppID);
+                    AppOverridesSteam = false;
+                }
+            }
         }
 
         public static void CreateMessageBox(string text)

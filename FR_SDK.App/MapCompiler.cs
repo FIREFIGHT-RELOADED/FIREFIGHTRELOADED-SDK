@@ -11,6 +11,7 @@ namespace FR_SDK.App
     public partial class MapCompiler : Form
     {
         DispatcherTimer oneShot = new DispatcherTimer();
+        GlobalVars.ProcessController processController;
         string VMFFile;
 
         public MapCompiler()
@@ -18,6 +19,7 @@ namespace FR_SDK.App
             InitializeComponent();
             oneShot.Interval = new TimeSpan(0, 0, 0, 0, GlobalVars.DelayMiliseconds);
             oneShot.Tick += new EventHandler(oneShot_Tick);
+            processController = new GlobalVars.ProcessController();
         }
 
         private void MapCompiler_Load(object sender, EventArgs e)
@@ -27,56 +29,13 @@ namespace FR_SDK.App
 
         void MapCompiler_FormClosed(object sender, FormClosedEventArgs e)
         {
-            foreach (var process in Process.GetProcessesByName("vbsp"))
-            {
-                process.Kill();
-            }
-
-            foreach (var process in Process.GetProcessesByName("vvis"))
-            {
-                process.Kill();
-            }
-
-            foreach (var process in Process.GetProcessesByName("vrad"))
-            {
-                process.Kill();
-            }
+            processController.KillAllActiveProcesses();
         }
 
         void oneShot_Tick(object sender, EventArgs e)
         {
             oneShot.Stop();
-
-            OpenFileDialog openFileDialog1 = new OpenFileDialog
-            {
-                Title = "Browse VMF File",
-                CheckFileExists = true,
-                CheckPathExists = true,
-                DefaultExt = "vmf",
-                Filter = "Valve Map Format file (*.vmf)|*.vmf",
-                FilterIndex = 1
-            };
-
-            if (openFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-                foreach (string file in openFileDialog1.FileNames)
-                {
-                    ConsoleWrite("Compiling map " + Path.GetFileName(file) + "...");
-                    VMFFile = file;
-
-                    BackgroundWorker bgWorker;
-                    bgWorker = new BackgroundWorker();
-                    bgWorker.DoWork += new DoWorkEventHandler(bgWorker_DoWork);
-                    bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
-                    bgWorker.RunWorkerAsync();
-                }
-
-                ConsoleWrite("Map compile for files finished.");
-            }
-            else
-            {
-                Close();
-            }
+            LoadMap();
         }
 
         async void bgWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -94,47 +53,79 @@ namespace FR_SDK.App
             {
                 ConsoleWrite("File " + VMFFile + " finished.");
             }
+
+            ConsoleWrite("Loading next map...");
+            ConsoleWrite("Exit the file explorer if you do not wish to compile any more maps.");
+            LoadMap();
         }
 
-        private async Task CompileMap(string VMFFile)
+        private void LoadMap()
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog
+            {
+                Title = "Browse VMF File",
+                CheckFileExists = true,
+                CheckPathExists = true,
+                DefaultExt = "vmf",
+                Filter = "Valve Map Format file (*.vmf)|*.vmf",
+                FilterIndex = 1
+            };
+
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                VMFFile = openFileDialog1.FileName;
+                ConsoleWrite("Compiling map " + Path.GetFileName(VMFFile) + "...");
+
+                BackgroundWorker bgWorker;
+                bgWorker = new BackgroundWorker();
+                bgWorker.DoWork += new DoWorkEventHandler(bgWorker_DoWork);
+                bgWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(bgWorker_RunWorkerCompleted);
+                bgWorker.RunWorkerAsync();
+            }
+            else
+            {
+                Close();
+            }
+        }
+
+        private Task CompileMap(string VMFFile)
         {
             ConsoleWrite(GlobalVars.moddir);
 
             ConsoleWrite("Loading VBSP...");
-            Process vbsp = GlobalVars.LaunchApp(GlobalVars.vbsp, "-game \"" + GlobalVars.moddir + "\" \"" + VMFFile + "\"");
-            int code1 = await BeginToolLoad(vbsp);
+            Process vbsp = processController.LaunchApp(GlobalVars.vbsp, "-game \"" + GlobalVars.moddir + "\" \"" + VMFFile + "\"");
+            int code1 = BeginToolLoad(vbsp);
             ConsoleWrite("VBSP ended with code: " + code1);
 
             ConsoleWrite("Loading VVIS...");
-            Process vvis = GlobalVars.LaunchApp(GlobalVars.vvis, "-game \"" + GlobalVars.moddir + "\" \"" + VMFFile + "\"");
-            int code2 = await BeginToolLoad(vvis);
+            Process vvis = processController.LaunchApp(GlobalVars.vvis, "-game \"" + GlobalVars.moddir + "\" \"" + VMFFile + "\"");
+            int code2 = BeginToolLoad(vvis);
             ConsoleWrite("VVIS ended with code: " + code2);
 
             ConsoleWrite("Loading VRAD...");
             string mapPath = Path.GetDirectoryName(VMFFile) + "\\" + Path.GetFileNameWithoutExtension(VMFFile) + ".bsp";
-            Process vrad = GlobalVars.LaunchApp(GlobalVars.vrad, "-game \"" + GlobalVars.moddir + "\" -both \"" + mapPath + "\"");
-            int code3 = await BeginToolLoad(vrad);
+            Process vrad = processController.LaunchApp(GlobalVars.vrad, "-game \"" + GlobalVars.moddir + "\" -both \"" + mapPath + "\"");
+            int code3 = BeginToolLoad(vrad);
             ConsoleWrite("VRAD ended with code: " + code3);
+
+            return Task.CompletedTask;
         }
 
-        private Task<int> BeginToolLoad(Process proc)
+        private int BeginToolLoad(Process proc)
         {
-            var tcs = new TaskCompletionSource<int>();
-
             proc.StartInfo.UseShellExecute = false;
             proc.StartInfo.RedirectStandardOutput = true;
             proc.StartInfo.RedirectStandardError = true;
             proc.StartInfo.CreateNoWindow = true;
             proc.ErrorDataReceived += (s, e) => ConsoleWrite(e.Data);
             proc.OutputDataReceived += (s, e) => ConsoleWrite(e.Data);
-            proc.Exited += (s, ea) => tcs.SetResult(proc.ExitCode);
             proc.EnableRaisingEvents = true;
             proc.Start();
             proc.BeginOutputReadLine();
             proc.BeginErrorReadLine();
             proc.WaitForExit();
 
-            return tcs.Task;
+            return proc.ExitCode;
         }
 
         void ConsoleWrite(string text)
