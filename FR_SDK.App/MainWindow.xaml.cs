@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
@@ -86,6 +85,8 @@ namespace FR_SDK.App
             string msgboxname = "hammerbox";
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Hammer...");
             var proc = GlobalVars.LaunchApp(GlobalVars.hammer, " -game \"" + GlobalVars.moddir + "\"");
+            proc.StartInfo.WorkingDirectory = GlobalVars.bindir;
+            proc.Start();
             try
             {
                 while (string.IsNullOrEmpty(proc.MainWindowTitle))
@@ -107,6 +108,8 @@ namespace FR_SDK.App
             string msgboxname = "hlmvbox";
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Model Viewer...");
             var proc = GlobalVars.LaunchApp(GlobalVars.hlmv, " -game \"" + GlobalVars.moddir + "\" -olddialogs");
+            proc.StartInfo.WorkingDirectory = GlobalVars.bindir;
+            proc.Start();
             try
             {
                 while (string.IsNullOrEmpty(proc.MainWindowTitle))
@@ -128,6 +131,8 @@ namespace FR_SDK.App
             string msgboxname = "facebox";
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Face Poser...");
             var proc = GlobalVars.LaunchApp(GlobalVars.hlfaceposer, " -game \"" + GlobalVars.moddir + "\"");
+            proc.StartInfo.WorkingDirectory = GlobalVars.bindir;
+            proc.Start();
             try
             {
                 while (string.IsNullOrEmpty(proc.MainWindowTitle))
@@ -149,6 +154,8 @@ namespace FR_SDK.App
             string msgboxname = "workbox";
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Workshop Uploader...");
             var proc = GlobalVars.LaunchApp(GlobalVars.workshop, "");
+            proc.StartInfo.WorkingDirectory = GlobalVars.bindir;
+            proc.Start();
             try
             {
                 while (string.IsNullOrEmpty(proc.MainWindowTitle))
@@ -168,6 +175,12 @@ namespace FR_SDK.App
 
             await Task.Delay(SteamworksIntegration.SteamRelaunchDelayMiliseconds);
             SteamworksIntegration.InitSteam(SteamworksIntegration.sdkAppID);
+        }
+
+        private void mapcomp_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var mapcomp = new MapCompiler();
+            mapcomp.ShowDialog();
         }
         #endregion
     }

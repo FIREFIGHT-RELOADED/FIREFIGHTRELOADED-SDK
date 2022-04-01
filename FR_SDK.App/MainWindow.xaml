@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="FIREFIGHT RELOADED SDK"
     Width="287"
-    Height="223"
+    Height="343.479"
     MinWidth="237"
     MinHeight="154"
     Initialized="Window_init"
@@ -481,6 +481,11 @@
                 x:Name="workshop"
                 Content="Workshop Uploader"
                 MouseDoubleClick="workshop_DoubleClick"
+                Style="{StaticResource SDKItemStyle}" />
+            <ListBoxItem
+                x:Name="mapcomp"
+                Content="Map Compiler"
+                MouseDoubleClick="mapcomp_DoubleClick"
                 Style="{StaticResource SDKItemStyle}" />
         </ListBox>
         <Image

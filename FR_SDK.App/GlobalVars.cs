@@ -56,20 +56,28 @@ namespace FR_SDK.App
         public static int DelayMiliseconds = 100;
         #endregion
         #region Global Methods
-        public static Process LaunchApp(string exePath, string exeArgs)
+        public static Process LaunchApp(string exePath, string exeArgs, bool form = false, string formAppName = "")
         {
             try
             {
                 Process pr = new Process();
-                pr.StartInfo.WorkingDirectory = bindir;
                 pr.StartInfo.FileName = exePath;
                 pr.StartInfo.Arguments = exeArgs;
-                pr.Start();
                 return pr;
             }
             catch(Exception ex)
             {
-                CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
+                if (form)
+                {
+                    string app = !string.IsNullOrWhiteSpace(formAppName) ? formAppName : "FIREFIGHT RELOADED SDK";
+
+                    System.Windows.Forms.MessageBox.Show("An error has occurred when launching the application: " + ex.Message,
+                        app + " - Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error);
+                }
+                else
+                {
+                    CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
+                }
             }
 
             return null;
