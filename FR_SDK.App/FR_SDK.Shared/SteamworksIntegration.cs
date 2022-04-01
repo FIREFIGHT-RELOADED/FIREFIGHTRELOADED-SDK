@@ -1,7 +1,6 @@
-﻿using Steamworks;
+﻿#if STEAM
+using Steamworks;
 using System;
-using System.Windows.Forms;
-
 public static class SteamworksIntegration
 {
     public static int SteamRelaunchDelayMiliseconds = 500;
@@ -38,3 +37,4 @@ public static class SteamworksIntegration
     }
     #endregion
 }
+#endif

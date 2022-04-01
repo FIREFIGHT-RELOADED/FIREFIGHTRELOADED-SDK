@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Threading;
 
-namespace FR_SDK.App
+namespace MapCompiler
 {
     public partial class MapCompiler : Form
     {

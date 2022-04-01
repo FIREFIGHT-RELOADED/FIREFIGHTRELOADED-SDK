@@ -7,7 +7,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FR_SDK.App", "FR_SDK.App.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkshopUploader", "WorkshopUploader\WorkshopUploader.csproj", "{34D182C5-59C9-48C7-8145-C78FFB6655EA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapCompiler", "MapCompiler\MapCompiler.csproj", "{93627BBF-0411-479C-BA4B-9EE4096C8748}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "FR_SDK.Shared", "FR_SDK.Shared\FR_SDK.Shared.shproj", "{DA667FCD-F089-4FE9-97A4-766EDD5603E9}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		FR_SDK.Shared\FR_SDK.Shared.projitems*{34d182c5-59c9-48c7-8145-c78ffb6655ea}*SharedItemsImports = 4
+		FR_SDK.Shared\FR_SDK.Shared.projitems*{93627bbf-0411-479c-ba4b-9ee4096c8748}*SharedItemsImports = 4
+		FR_SDK.Shared\FR_SDK.Shared.projitems*{94f26801-f531-4282-928c-2f07eaef1ba4}*SharedItemsImports = 4
+		FR_SDK.Shared\FR_SDK.Shared.projitems*{da667fcd-f089-4fe9-97a4-766edd5603e9}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -21,6 +31,10 @@ Global
 		{34D182C5-59C9-48C7-8145-C78FFB6655EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34D182C5-59C9-48C7-8145-C78FFB6655EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34D182C5-59C9-48C7-8145-C78FFB6655EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93627BBF-0411-479C-BA4B-9EE4096C8748}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93627BBF-0411-479C-BA4B-9EE4096C8748}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93627BBF-0411-479C-BA4B-9EE4096C8748}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93627BBF-0411-479C-BA4B-9EE4096C8748}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
