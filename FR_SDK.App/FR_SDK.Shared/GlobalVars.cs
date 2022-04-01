@@ -88,6 +88,8 @@ public static class GlobalVars
             {
 #if LAUNCHER
                 CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
+#elif CONSOLEAPP
+                Console.WriteLine("An error has occurred when launching the application: " + ex.Message);
 #else
                 string app = !string.IsNullOrWhiteSpace(formAppName) ? formAppName : "FIREFIGHT RELOADED SDK";
 
@@ -222,14 +224,9 @@ public static class GlobalVars
     }
 #endif
 
-    public static async void Delay(int miliseconds)
+    public static async void WaitForProcess(Process proc, int miliseconds)
     {
         await Task.Delay(miliseconds);
-    }
-
-    public static void WaitForProcess(Process proc, int miliseconds)
-    {
-        Delay(miliseconds);
         proc.Refresh();
     }
 #endregion
