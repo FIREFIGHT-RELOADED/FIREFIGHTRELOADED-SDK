@@ -185,11 +185,11 @@ public static class GlobalVars
             FixSteam();
         }
 
-        private async void FixSteam()
+        private void FixSteam()
         {
             if (AppOverridesSteam && !ShuttingDown)
             {
-                await Task.Delay(SteamworksIntegration.SteamRelaunchDelayMiliseconds);
+                Task.Delay(SteamworksIntegration.SteamRelaunchDelayMiliseconds);
                 SteamworksIntegration.InitSteam(SteamworksIntegration.sdkAppID);
                 AppOverridesSteam = false;
             }
@@ -224,9 +224,9 @@ public static class GlobalVars
     }
 #endif
 
-    public static async void WaitForProcess(Process proc, int miliseconds)
+    public static void WaitForProcess(Process proc, int miliseconds)
     {
-        await Task.Delay(miliseconds);
+        Task.Delay(miliseconds);
         proc.Refresh();
     }
 #endregion
