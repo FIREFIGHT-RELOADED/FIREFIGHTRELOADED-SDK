@@ -102,18 +102,18 @@ namespace MapCompiler
             Console.WriteLine("Mod: " + GlobalVars.moddir);
 
             Console.WriteLine("Loading VBSP...");
-            Process vbsp = processController.LaunchApp(GlobalVars.vbsp, "-game \"" + GlobalVars.moddir + "\" \"" + VMFFile + "\"");
+            Process vbsp = processController.LaunchApp(GlobalVars.vbsp, "-game \"" + GlobalVars.moddir + "\" -low \"" + VMFFile + "\"");
             int code1 = BeginToolLoad(vbsp);
             Console.WriteLine("VBSP ended with code: " + code1);
 
             Console.WriteLine("Loading VVIS...");
-            Process vvis = processController.LaunchApp(GlobalVars.vvis, "-game \"" + GlobalVars.moddir + "\" \"" + VMFFile + "\"");
+            Process vvis = processController.LaunchApp(GlobalVars.vvis, "-game \"" + GlobalVars.moddir + "\" -low -fast \"" + VMFFile + "\"");
             int code2 = BeginToolLoad(vvis);
             Console.WriteLine("VVIS ended with code: " + code2);
 
             Console.WriteLine("Loading VRAD...");
             string mapPath = Path.GetDirectoryName(VMFFile) + "\\" + Path.GetFileNameWithoutExtension(VMFFile) + ".bsp";
-            Process vrad = processController.LaunchApp(GlobalVars.vrad, "-game \"" + GlobalVars.moddir + "\" -both \"" + mapPath + "\"");
+            Process vrad = processController.LaunchApp(GlobalVars.vrad, "-game \"" + GlobalVars.moddir + "\" -low -both -final -StaticPropPolys \"" + mapPath + "\"");
             int code3 = BeginToolLoad(vrad);
             Console.WriteLine("VRAD ended with code: " + code3);
 
