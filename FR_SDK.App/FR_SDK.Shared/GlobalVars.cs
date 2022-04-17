@@ -52,7 +52,7 @@ public static class GlobalVars
     public static string DefaultPointEntity = "info_player_start";
     public static float DefaultTextureScale = 0.250000F;
     public static int DefaultLightmapScale = 16;
-    public static string CordonTexture = "BLACK";
+    public static string CordonTexture = "tools/toolsnodraw";
     public static int MaterialExcludeCount = 0;
     public static int SDKVersion = 5;
 #endregion
