@@ -94,6 +94,17 @@ namespace WorkshopUploader
             ItemNameBox.Text = itemOld.ItemName;
             ItemDescBox.Text = itemOld.ItemDesc;
 
+            foreach (string tag in itemOld.ItemTags)
+            {
+                for (int i = 0; i < tagsBox.Items.Count; i++)
+                {
+                    if (tagsBox.Items[i].ToString().Equals(tag, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        tagsBox.SetItemChecked(i, true);
+                    }
+                }
+            }
+
             var request = WebRequest.Create(itemOld.ItemPreviewImage);
 
             using (var response = request.GetResponse())
@@ -209,6 +220,7 @@ namespace WorkshopUploader
                     item.ItemName = itemInfo.Title;
                     item.ItemDesc = itemInfo.Description;
                     item.ItemPreviewImage = itemInfo.PreviewImageUrl;
+                    item.ItemTags = itemInfo.Tags;
 
                     return item;
                 }
@@ -329,6 +341,11 @@ namespace WorkshopUploader
                 }
             }
 
+            foreach (object itemChecked in tagsBox.CheckedItems)
+            {
+                file.WithTag(itemChecked.ToString());
+            }
+
             var result = await file.SubmitAsync(new UploadProgress(progressBar1));
 
             if (result.Success)
@@ -401,6 +418,7 @@ namespace WorkshopUploader
         public string ItemContentPath { get; set; }
         public string ItemPreviewImage { get; set; }
         public string ItemChanges { get; set; }
+        public string[] ItemTags { get; set; }
     }
     #endregion
 }

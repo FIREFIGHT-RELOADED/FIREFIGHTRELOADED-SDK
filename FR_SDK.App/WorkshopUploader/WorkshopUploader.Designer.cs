@@ -48,6 +48,7 @@ namespace WorkshopUploader
             this.UploadItem = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.ItemEditingBox = new System.Windows.Forms.CheckBox();
+            this.tagsBox = new System.Windows.Forms.CheckedListBox();
             ((System.ComponentModel.ISupportInitialize)(this.ItemImageBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,7 +118,7 @@ namespace WorkshopUploader
             // 
             // ItemPathBox
             // 
-            this.ItemPathBox.Location = new System.Drawing.Point(11, 191);
+            this.ItemPathBox.Location = new System.Drawing.Point(11, 319);
             this.ItemPathBox.Name = "ItemPathBox";
             this.ItemPathBox.ReadOnly = true;
             this.ItemPathBox.Size = new System.Drawing.Size(172, 20);
@@ -126,7 +127,7 @@ namespace WorkshopUploader
             // ItemPath
             // 
             this.ItemPath.AutoSize = true;
-            this.ItemPath.Location = new System.Drawing.Point(116, 175);
+            this.ItemPath.Location = new System.Drawing.Point(116, 303);
             this.ItemPath.Name = "ItemPath";
             this.ItemPath.Size = new System.Drawing.Size(99, 13);
             this.ItemPath.TabIndex = 8;
@@ -134,7 +135,7 @@ namespace WorkshopUploader
             // 
             // BrowseFolder
             // 
-            this.BrowseFolder.Location = new System.Drawing.Point(189, 190);
+            this.BrowseFolder.Location = new System.Drawing.Point(189, 318);
             this.BrowseFolder.Name = "BrowseFolder";
             this.BrowseFolder.Size = new System.Drawing.Size(144, 23);
             this.BrowseFolder.TabIndex = 9;
@@ -174,7 +175,7 @@ namespace WorkshopUploader
             this.ItemChangesBox.Location = new System.Drawing.Point(351, 62);
             this.ItemChangesBox.Multiline = true;
             this.ItemChangesBox.Name = "ItemChangesBox";
-            this.ItemChangesBox.Size = new System.Drawing.Size(322, 230);
+            this.ItemChangesBox.Size = new System.Drawing.Size(322, 358);
             this.ItemChangesBox.TabIndex = 15;
             this.ItemChangesBox.TextChanged += new System.EventHandler(this.ItemChangesBox_TextChanged);
             // 
@@ -190,7 +191,7 @@ namespace WorkshopUploader
             // UploadItem
             // 
             this.UploadItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UploadItem.Location = new System.Drawing.Point(11, 219);
+            this.UploadItem.Location = new System.Drawing.Point(11, 347);
             this.UploadItem.Name = "UploadItem";
             this.UploadItem.Size = new System.Drawing.Size(321, 44);
             this.UploadItem.TabIndex = 16;
@@ -200,7 +201,7 @@ namespace WorkshopUploader
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(11, 269);
+            this.progressBar1.Location = new System.Drawing.Point(11, 397);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(321, 23);
             this.progressBar1.TabIndex = 17;
@@ -216,12 +217,33 @@ namespace WorkshopUploader
             this.ItemEditingBox.UseVisualStyleBackColor = true;
             this.ItemEditingBox.CheckedChanged += new System.EventHandler(this.ItemEditingBox_CheckedChanged);
             // 
+            // tagsBox
+            // 
+            this.tagsBox.FormattingEnabled = true;
+            this.tagsBox.Items.AddRange(new object[] {
+            "Weapon",
+            "Works with Store Menu",
+            "Works with Reward System",
+            "Spawner Spawnlist",
+            "Skin",
+            "Sound",
+            "Player Voice",
+            "Overhaul",
+            "Gamemode",
+            "Character",
+            "Map"});
+            this.tagsBox.Location = new System.Drawing.Point(7, 174);
+            this.tagsBox.Name = "tagsBox";
+            this.tagsBox.Size = new System.Drawing.Size(325, 124);
+            this.tagsBox.TabIndex = 19;
+            // 
             // WorkshopUploader
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(695, 301);
+            this.ClientSize = new System.Drawing.Size(695, 432);
+            this.Controls.Add(this.tagsBox);
             this.Controls.Add(this.ItemEditingBox);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.UploadItem);
@@ -245,8 +267,8 @@ namespace WorkshopUploader
             this.MaximizeBox = false;
             this.Name = "WorkshopUploader";
             this.Text = "Workshop Uploader";
-            this.Load += new System.EventHandler(this.WorkshopUploader_Load);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WorkshopUploader_FormClosed);
+            this.Load += new System.EventHandler(this.WorkshopUploader_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ItemImageBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -273,5 +295,6 @@ namespace WorkshopUploader
         private System.Windows.Forms.Button UploadItem;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.CheckBox ItemEditingBox;
+        private System.Windows.Forms.CheckedListBox tagsBox;
     }
 }
