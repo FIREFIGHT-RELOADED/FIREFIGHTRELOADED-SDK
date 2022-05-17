@@ -1,4 +1,5 @@
-﻿
+﻿//#define PREENDGAME
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -42,9 +43,13 @@ public static class GlobalVars
     public static string vrad = bindir + @"\vrad.exe";
     public static string workshop = sdkdir + @"\FR_WorkshopUploader.exe";
     public static string mapcomp = sdkdir + @"\FR_MapCompiler.exe";
-#endregion
+    #endregion
 #region Important files
+#if PREENDGAME
+    public static string fgd = sdkdir + @"\fgd\firefightreloaded.fgd";
+#else
     public static string fgd = bindir + @"\firefightreloaded.fgd";
+#endif
     public static string gameconfig = bindir + @"\GameConfig.txt";
 #endregion
 #region GameConfig Settings
