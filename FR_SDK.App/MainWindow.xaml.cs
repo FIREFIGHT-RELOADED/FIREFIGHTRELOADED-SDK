@@ -1,4 +1,6 @@
-﻿using System;
+﻿using KVLib;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
@@ -54,6 +56,17 @@ namespace FR_SDK.App
 
         private void GenerateGameConfig()
         {
+            string[] args = Environment.GetCommandLineArgs();
+
+            foreach (string arg in args)
+            {
+                if (arg.Contains("preendgame"))
+                {
+                    GlobalVars.fgd = GlobalVars.sdkdir + @"\pre_endgame_fgd\firefightreloaded.fgd";
+                    break;
+                }
+            }
+
             if (!File.Exists(GlobalVars.gameconfig))
             {
                 File.Create(GlobalVars.gameconfig).Dispose();
@@ -61,8 +74,17 @@ namespace FR_SDK.App
             }
             else
             {
-                File.Delete(GlobalVars.gameconfig);
-                File.WriteAllText(GlobalVars.gameconfig, KeyValueCreators.GenerateGameConfig().ToString());
+                string gameConfigText = File.ReadAllText(GlobalVars.gameconfig);
+                KeyValue gameConfigValues = KVParser.ParseKeyValueText(gameConfigText);
+                KeyValue FGDPath = gameConfigValues["Games"]["FIREFIGHTRELOADED"]["Hammer"];
+                string FixedString = GlobalVars.fgd.Replace(" ", "");
+                string FGDFilePath = FGDPath["GameData0"].GetString();
+
+                if (!FGDFilePath.Equals(FixedString))
+                {
+                    File.Delete(GlobalVars.gameconfig);
+                    File.WriteAllText(GlobalVars.gameconfig, KeyValueCreators.GenerateGameConfig().ToString());
+                }
             }
         }
 

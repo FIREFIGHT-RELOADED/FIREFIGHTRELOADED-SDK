@@ -1,5 +1,4 @@
-﻿//#define PREENDGAME
-
+﻿
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -44,12 +43,8 @@ public static class GlobalVars
     public static string workshop = sdkdir + @"\FR_WorkshopUploader.exe";
     public static string mapcomp = sdkdir + @"\FR_MapCompiler.exe";
     #endregion
-#region Important files
-#if PREENDGAME
-    public static string fgd = sdkdir + @"\fgd\firefightreloaded.fgd";
-#else
+    #region Important files
     public static string fgd = bindir + @"\firefightreloaded.fgd";
-#endif
     public static string gameconfig = bindir + @"\GameConfig.txt";
 #endregion
 #region GameConfig Settings
@@ -63,6 +58,7 @@ public static class GlobalVars
 #endregion
 #region Other Values
     public static int DelayMiliseconds = 100;
+    public static bool isPreEndgame = false;
 #endregion
 #region Global Methods
     public class ProcessController

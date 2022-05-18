@@ -12,5 +12,5 @@ namespace FR_SDK.App
     /// </summary>
     public partial class App : Application
     {
-    }
+	}
 }

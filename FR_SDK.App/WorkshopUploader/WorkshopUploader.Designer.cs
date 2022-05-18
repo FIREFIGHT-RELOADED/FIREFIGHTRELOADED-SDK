@@ -34,7 +34,7 @@ namespace WorkshopUploader
             this.ItemNameBox = new System.Windows.Forms.TextBox();
             this.ItemImageBox = new System.Windows.Forms.PictureBox();
             this.ItemImage = new System.Windows.Forms.Label();
-            this.ItemDescBox = new System.Windows.Forms.TextBox();
+            this.ItemDescBox = new System.Windows.Forms.RichTextBox();
             this.ItemDesc = new System.Windows.Forms.Label();
             this.ItemImageBrowse = new System.Windows.Forms.Button();
             this.ItemPathBox = new System.Windows.Forms.TextBox();
@@ -43,7 +43,7 @@ namespace WorkshopUploader
             this.ItemID = new System.Windows.Forms.Label();
             this.ItemIDBox = new System.Windows.Forms.TextBox();
             this.LoadItem = new System.Windows.Forms.Button();
-            this.ItemChangesBox = new System.Windows.Forms.TextBox();
+            this.ItemChangesBox = new System.Windows.Forms.RichTextBox();
             this.ItemChanges = new System.Windows.Forms.Label();
             this.UploadItem = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
@@ -55,7 +55,7 @@ namespace WorkshopUploader
             // ItemName
             // 
             this.ItemName.AutoSize = true;
-            this.ItemName.Location = new System.Drawing.Point(69, 7);
+            this.ItemName.Location = new System.Drawing.Point(144, 4);
             this.ItemName.Name = "ItemName";
             this.ItemName.Size = new System.Drawing.Size(58, 13);
             this.ItemName.TabIndex = 0;
@@ -63,18 +63,18 @@ namespace WorkshopUploader
             // 
             // ItemNameBox
             // 
-            this.ItemNameBox.Location = new System.Drawing.Point(11, 23);
+            this.ItemNameBox.Location = new System.Drawing.Point(15, 22);
             this.ItemNameBox.Name = "ItemNameBox";
-            this.ItemNameBox.Size = new System.Drawing.Size(172, 20);
+            this.ItemNameBox.Size = new System.Drawing.Size(321, 20);
             this.ItemNameBox.TabIndex = 1;
             this.ItemNameBox.TextChanged += new System.EventHandler(this.ItemNameBox_TextChanged);
             // 
             // ItemImageBox
             // 
             this.ItemImageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ItemImageBox.Location = new System.Drawing.Point(205, 22);
+            this.ItemImageBox.Location = new System.Drawing.Point(11, 255);
             this.ItemImageBox.Name = "ItemImageBox";
-            this.ItemImageBox.Size = new System.Drawing.Size(120, 120);
+            this.ItemImageBox.Size = new System.Drawing.Size(143, 143);
             this.ItemImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ItemImageBox.TabIndex = 2;
             this.ItemImageBox.TabStop = false;
@@ -82,7 +82,7 @@ namespace WorkshopUploader
             // ItemImage
             // 
             this.ItemImage.AutoSize = true;
-            this.ItemImage.Location = new System.Drawing.Point(231, 6);
+            this.ItemImage.Location = new System.Drawing.Point(50, 235);
             this.ItemImage.Name = "ItemImage";
             this.ItemImage.Size = new System.Drawing.Size(68, 13);
             this.ItemImage.TabIndex = 3;
@@ -90,17 +90,18 @@ namespace WorkshopUploader
             // 
             // ItemDescBox
             // 
+            this.ItemDescBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ItemDescBox.Location = new System.Drawing.Point(11, 62);
-            this.ItemDescBox.Multiline = true;
             this.ItemDescBox.Name = "ItemDescBox";
-            this.ItemDescBox.Size = new System.Drawing.Size(172, 80);
+            this.ItemDescBox.Size = new System.Drawing.Size(325, 167);
             this.ItemDescBox.TabIndex = 5;
+            this.ItemDescBox.Text = "";
             this.ItemDescBox.TextChanged += new System.EventHandler(this.ItemDescBox_TextChanged);
             // 
             // ItemDesc
             // 
             this.ItemDesc.AutoSize = true;
-            this.ItemDesc.Location = new System.Drawing.Point(61, 46);
+            this.ItemDesc.Location = new System.Drawing.Point(131, 46);
             this.ItemDesc.Name = "ItemDesc";
             this.ItemDesc.Size = new System.Drawing.Size(83, 13);
             this.ItemDesc.TabIndex = 4;
@@ -108,9 +109,9 @@ namespace WorkshopUploader
             // 
             // ItemImageBrowse
             // 
-            this.ItemImageBrowse.Location = new System.Drawing.Point(205, 148);
+            this.ItemImageBrowse.Location = new System.Drawing.Point(11, 404);
             this.ItemImageBrowse.Name = "ItemImageBrowse";
-            this.ItemImageBrowse.Size = new System.Drawing.Size(120, 23);
+            this.ItemImageBrowse.Size = new System.Drawing.Size(143, 23);
             this.ItemImageBrowse.TabIndex = 6;
             this.ItemImageBrowse.Text = "Browse Image...";
             this.ItemImageBrowse.UseVisualStyleBackColor = true;
@@ -118,7 +119,7 @@ namespace WorkshopUploader
             // 
             // ItemPathBox
             // 
-            this.ItemPathBox.Location = new System.Drawing.Point(11, 319);
+            this.ItemPathBox.Location = new System.Drawing.Point(160, 378);
             this.ItemPathBox.Name = "ItemPathBox";
             this.ItemPathBox.ReadOnly = true;
             this.ItemPathBox.Size = new System.Drawing.Size(172, 20);
@@ -127,7 +128,7 @@ namespace WorkshopUploader
             // ItemPath
             // 
             this.ItemPath.AutoSize = true;
-            this.ItemPath.Location = new System.Drawing.Point(116, 303);
+            this.ItemPath.Location = new System.Drawing.Point(200, 362);
             this.ItemPath.Name = "ItemPath";
             this.ItemPath.Size = new System.Drawing.Size(99, 13);
             this.ItemPath.TabIndex = 8;
@@ -135,9 +136,9 @@ namespace WorkshopUploader
             // 
             // BrowseFolder
             // 
-            this.BrowseFolder.Location = new System.Drawing.Point(189, 318);
+            this.BrowseFolder.Location = new System.Drawing.Point(160, 404);
             this.BrowseFolder.Name = "BrowseFolder";
-            this.BrowseFolder.Size = new System.Drawing.Size(144, 23);
+            this.BrowseFolder.Size = new System.Drawing.Size(172, 23);
             this.BrowseFolder.TabIndex = 9;
             this.BrowseFolder.Text = "Browse Content Folder...";
             this.BrowseFolder.UseVisualStyleBackColor = true;
@@ -171,12 +172,13 @@ namespace WorkshopUploader
             // 
             // ItemChangesBox
             // 
+            this.ItemChangesBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.ItemChangesBox.Enabled = false;
             this.ItemChangesBox.Location = new System.Drawing.Point(351, 62);
-            this.ItemChangesBox.Multiline = true;
             this.ItemChangesBox.Name = "ItemChangesBox";
-            this.ItemChangesBox.Size = new System.Drawing.Size(322, 358);
+            this.ItemChangesBox.Size = new System.Drawing.Size(322, 444);
             this.ItemChangesBox.TabIndex = 15;
+            this.ItemChangesBox.Text = "";
             this.ItemChangesBox.TextChanged += new System.EventHandler(this.ItemChangesBox_TextChanged);
             // 
             // ItemChanges
@@ -191,7 +193,7 @@ namespace WorkshopUploader
             // UploadItem
             // 
             this.UploadItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UploadItem.Location = new System.Drawing.Point(11, 347);
+            this.UploadItem.Location = new System.Drawing.Point(11, 433);
             this.UploadItem.Name = "UploadItem";
             this.UploadItem.Size = new System.Drawing.Size(321, 44);
             this.UploadItem.TabIndex = 16;
@@ -201,7 +203,7 @@ namespace WorkshopUploader
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(11, 397);
+            this.progressBar1.Location = new System.Drawing.Point(11, 483);
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(321, 23);
             this.progressBar1.TabIndex = 17;
@@ -209,7 +211,7 @@ namespace WorkshopUploader
             // ItemEditingBox
             // 
             this.ItemEditingBox.AutoSize = true;
-            this.ItemEditingBox.Location = new System.Drawing.Point(64, 151);
+            this.ItemEditingBox.Location = new System.Drawing.Point(15, 3);
             this.ItemEditingBox.Name = "ItemEditingBox";
             this.ItemEditingBox.Size = new System.Drawing.Size(67, 17);
             this.ItemEditingBox.TabIndex = 18;
@@ -232,9 +234,9 @@ namespace WorkshopUploader
             "Gamemode",
             "Character",
             "Map"});
-            this.tagsBox.Location = new System.Drawing.Point(7, 174);
+            this.tagsBox.Location = new System.Drawing.Point(160, 235);
             this.tagsBox.Name = "tagsBox";
-            this.tagsBox.Size = new System.Drawing.Size(325, 124);
+            this.tagsBox.Size = new System.Drawing.Size(176, 124);
             this.tagsBox.TabIndex = 19;
             // 
             // WorkshopUploader
@@ -242,7 +244,7 @@ namespace WorkshopUploader
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(695, 432);
+            this.ClientSize = new System.Drawing.Size(695, 514);
             this.Controls.Add(this.tagsBox);
             this.Controls.Add(this.ItemEditingBox);
             this.Controls.Add(this.progressBar1);
@@ -281,7 +283,7 @@ namespace WorkshopUploader
         private System.Windows.Forms.TextBox ItemNameBox;
         private System.Windows.Forms.PictureBox ItemImageBox;
         private System.Windows.Forms.Label ItemImage;
-        private System.Windows.Forms.TextBox ItemDescBox;
+        private System.Windows.Forms.RichTextBox ItemDescBox;
         private System.Windows.Forms.Label ItemDesc;
         private System.Windows.Forms.Button ItemImageBrowse;
         private System.Windows.Forms.TextBox ItemPathBox;
@@ -290,7 +292,7 @@ namespace WorkshopUploader
         private System.Windows.Forms.Label ItemID;
         private System.Windows.Forms.TextBox ItemIDBox;
         private System.Windows.Forms.Button LoadItem;
-        private System.Windows.Forms.TextBox ItemChangesBox;
+        private System.Windows.Forms.RichTextBox ItemChangesBox;
         private System.Windows.Forms.Label ItemChanges;
         private System.Windows.Forms.Button UploadItem;
         private System.Windows.Forms.ProgressBar progressBar1;

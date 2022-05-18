@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -202,6 +203,25 @@ namespace WorkshopUploader
             item = new UGCItem();
         }
 
+        //facepunch didn't include WithLongDescription in QueryFileAsync for some reason. Built a new function
+        //that supports this.
+        public static async Task<Steamworks.Ugc.Item?> QueryFileWithLongDescAsync(Steamworks.Data.PublishedFileId fileId)
+        {
+            var result = await Steamworks.Ugc.Query.All
+                                    .WithFileId(fileId)
+                                    .WithLongDescription(true)
+                                    .GetPageAsync(1);
+
+            if (!result.HasValue || result.Value.ResultCount != 1)
+                return null;
+
+            var item = result.Value.Entries.First();
+
+            result.Value.Dispose();
+
+            return item;
+        }
+
         public async Task<UGCItem> LoadWorkshopItemInfo(ulong id)
         {
             try
@@ -213,7 +233,7 @@ namespace WorkshopUploader
                     return item;
                 }
 
-                Steamworks.Ugc.Item itemInfo = (Steamworks.Ugc.Item)await SteamUGC.QueryFileAsync(id);
+                Steamworks.Ugc.Item itemInfo = (Steamworks.Ugc.Item)await QueryFileWithLongDescAsync(id);
                 if (itemInfo.Owner.Id.Equals(SteamClient.SteamId))
                 {
                     UGCItem item = new UGCItem();
