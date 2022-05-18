@@ -59,12 +59,11 @@ namespace FR_SDK.App
                 File.Create(GlobalVars.gameconfig).Dispose();
                 File.WriteAllText(GlobalVars.gameconfig, KeyValueCreators.GenerateGameConfig().ToString());
             }
-            //why?
-            /*else
+            else
             {
                 File.Delete(GlobalVars.gameconfig);
                 File.WriteAllText(GlobalVars.gameconfig, KeyValueCreators.GenerateGameConfig().ToString());
-            }*/
+            }
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
