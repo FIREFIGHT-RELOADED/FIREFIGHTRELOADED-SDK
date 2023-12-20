@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("FIREFIGHT RELOADED SDK")]
 [assembly: AssemblyDescription("A launcher built to launch tools for FIREFIGHT RELOADED modding and development")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Bitl")]
+[assembly: AssemblyCompany("Bitl Development Studio")]
 [assembly: AssemblyProduct("FIREFIGHT RELOADED SDK")]
 [assembly: AssemblyCopyright("Copyright © Bitl 2020")]
 [assembly: AssemblyTrademark("")]
