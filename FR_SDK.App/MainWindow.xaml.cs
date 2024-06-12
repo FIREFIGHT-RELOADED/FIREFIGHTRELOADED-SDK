@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -204,20 +205,8 @@ namespace FR_SDK.App
             GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Map Compiler...");
             var proc = processController.LaunchApp(GlobalVars.mapcomp, "");
             proc.Start();
-            try
-            {
-                while (string.IsNullOrEmpty(proc.MainWindowTitle))
-                {
-                    GlobalVars.WaitForProcess(proc, GlobalVars.DelayMiliseconds);
-                }
-
-                GlobalVars.CloseWindow(msgboxname);
-            }
-            catch (Exception ex)
-            {
-                GlobalVars.CloseWindow(msgboxname);
-                GlobalVars.CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
-            }
+            Task.Delay(2500);
+            GlobalVars.CloseWindow(msgboxname);
         }
         #endregion
     }
