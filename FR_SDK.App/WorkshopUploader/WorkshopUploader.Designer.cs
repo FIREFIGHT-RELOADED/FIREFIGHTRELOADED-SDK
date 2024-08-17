@@ -233,7 +233,8 @@ namespace WorkshopUploader
             "Overhaul",
             "Gamemode",
             "Character",
-            "Map"});
+            "Map",
+            "Music"});
             this.tagsBox.Location = new System.Drawing.Point(160, 235);
             this.tagsBox.Name = "tagsBox";
             this.tagsBox.Size = new System.Drawing.Size(176, 124);
