@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;STEAM, LAUNCHER</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -32,7 +32,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;STEAM, LAUNCHER</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
@@ -104,7 +104,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="KeyValueHandlers.cs" />
     <Compile Include="CustomMessageBox.xaml.cs">
       <DependentUpon>CustomMessageBox.xaml</DependentUpon>
     </Compile>
@@ -139,30 +138,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="hammer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="fr.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="model.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="faceposer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="resize.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="icon.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="game.ico" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="icon_inactive.png" />
-    <Resource Include="icon_normal.png" />
+    <ProjectReference Include="..\FR_SDK.Core\FR_SDK.Core.csproj">
+      <Project>{c5b2a6f9-0b52-4e06-8c2e-0297ef39f443}</Project>
+      <Name>FR_SDK.Core</Name>
+    </ProjectReference>
   </ItemGroup>
-  <Import Project="FR_SDK.Shared\FR_SDK.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

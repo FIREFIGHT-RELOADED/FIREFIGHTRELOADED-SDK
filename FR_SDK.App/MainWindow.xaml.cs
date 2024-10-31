@@ -1,8 +1,10 @@
-﻿using KVLib;
+﻿using FR_SDK.Core;
+using KVLib;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -14,14 +16,13 @@ namespace FR_SDK.App
     /// </summary>
     public partial class MainWindow : Window
     {
-        GlobalVars.ProcessControllerSteam processController;
+        ProcessControllerSteam processController;
 
-        #region Window Logic
         public MainWindow()
         {
             InitializeComponent();
             MouseDown += Window_MouseDown;
-            processController = new GlobalVars.ProcessControllerSteam();
+            processController = new ProcessControllerSteam();
         }
 
         private void Window_init(object sender, EventArgs e)
@@ -42,7 +43,7 @@ namespace FR_SDK.App
                 catch (Exception ex)
                 {
                     Hide();
-                    GlobalVars.CreateMessageBox("An error has occurred when generating the game configuration: " + ex.Message);
+                    CreateMessageBox("An error has occurred when generating the game configuration: " + ex.Message);
                     Application.Current.Shutdown();
                 }
             }
@@ -94,9 +95,7 @@ namespace FR_SDK.App
             if (e.ChangedButton == MouseButton.Left)
                 DragMove();
         }
-        #endregion
 
-        #region Launcher Logic
         private void close_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -110,7 +109,7 @@ namespace FR_SDK.App
         private void hammer_DoubleClick(object sender, RoutedEventArgs e)
         {
             string msgboxname = "hammerbox";
-            GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Hammer...");
+            CreateMessageBoxAppLaunch(msgboxname, "Starting Hammer...");
             var proc = processController.LaunchApp(GlobalVars.hammer, " -game \"" + GlobalVars.moddir + "\"");
             proc.StartInfo.WorkingDirectory = GlobalVars.bindir;
             proc.Start();
@@ -121,19 +120,19 @@ namespace FR_SDK.App
                     GlobalVars.WaitForProcess(proc, GlobalVars.DelayMiliseconds);
                 }
 
-                GlobalVars.CloseWindow(msgboxname);
+                CloseWindow(msgboxname);
             }
             catch (Exception ex)
             {
-                GlobalVars.CloseWindow(msgboxname);
-                GlobalVars.CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
+                CloseWindow(msgboxname);
+                CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
             }
         }
 
         private void model_DoubleClick(object sender, RoutedEventArgs e)
         {
             string msgboxname = "hlmvbox";
-            GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Model Viewer...");
+            CreateMessageBoxAppLaunch(msgboxname, "Starting Model Viewer...");
             var proc = processController.LaunchApp(GlobalVars.hlmv, " -game \"" + GlobalVars.moddir + "\" -olddialogs");
             proc.StartInfo.WorkingDirectory = GlobalVars.bindir;
             proc.Start();
@@ -144,19 +143,19 @@ namespace FR_SDK.App
                     GlobalVars.WaitForProcess(proc, GlobalVars.DelayMiliseconds);
                 }
 
-                GlobalVars.CloseWindow(msgboxname);
+                CloseWindow(msgboxname);
             }
             catch (Exception ex)
             {
-                GlobalVars.CloseWindow(msgboxname);
-                GlobalVars.CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
+                CloseWindow(msgboxname);
+                CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
             }
         }
 
         private void faceposer_DoubleClick(object sender, RoutedEventArgs e)
         {
             string msgboxname = "facebox";
-            GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Face Poser...");
+            CreateMessageBoxAppLaunch(msgboxname, "Starting Face Poser...");
             var proc = processController.LaunchApp(GlobalVars.hlfaceposer, " -game \"" + GlobalVars.moddir + "\"");
             proc.StartInfo.WorkingDirectory = GlobalVars.bindir;
             proc.Start();
@@ -167,19 +166,19 @@ namespace FR_SDK.App
                     GlobalVars.WaitForProcess(proc, GlobalVars.DelayMiliseconds);
                 }
 
-                GlobalVars.CloseWindow(msgboxname);
+                CloseWindow(msgboxname);
             }
             catch (Exception ex)
             {
-                GlobalVars.CloseWindow(msgboxname);
-                GlobalVars.CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
+                CloseWindow(msgboxname);
+                CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
             }
         }
 
         private void workshop_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             string msgboxname = "workbox";
-            GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Workshop Uploader...");
+            CreateMessageBoxAppLaunch(msgboxname, "Starting Workshop Uploader...");
             var proc = processController.LaunchApp(GlobalVars.workshop, "");
             processController.AppOverridesSteam = true;
             proc.Start();
@@ -190,24 +189,48 @@ namespace FR_SDK.App
                     GlobalVars.WaitForProcess(proc, GlobalVars.DelayMiliseconds);
                 }
 
-                GlobalVars.CloseWindow(msgboxname);
+                CloseWindow(msgboxname);
             }
             catch (Exception ex)
             {
-                GlobalVars.CloseWindow(msgboxname);
-                GlobalVars.CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
+                CloseWindow(msgboxname);
+                CreateMessageBox("An error has occurred when launching the application: " + ex.Message);
             }
         }
 
         private void mapcomp_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             string msgboxname = "mapbox";
-            GlobalVars.CreateMessageBoxAppLaunch(msgboxname, "Starting Map Compiler...");
+            CreateMessageBoxAppLaunch(msgboxname, "Starting Map Compiler...");
             var proc = processController.LaunchApp(GlobalVars.mapcomp, "");
             proc.Start();
             Task.Delay(2500);
-            GlobalVars.CloseWindow(msgboxname);
+            CloseWindow(msgboxname);
         }
-        #endregion
+
+        public static void CreateMessageBox(string text)
+        {
+            CustomMessageBox box = new CustomMessageBox(text);
+            box.ShowDialog();
+        }
+
+        public static void CreateMessageBoxAppLaunch(string name, string text)
+        {
+            CustomMessageBox box = new CustomMessageBox(name, text);
+            box.Show();
+        }
+
+        public static void CreateTestMessageBox()
+        {
+            CustomMessageBox box = new CustomMessageBox();
+            box.ShowDialog();
+        }
+
+        //credits to https://stackoverflow.com/questions/5363015/close-a-wpf-window-separately
+        public static void CloseWindow(string name)
+        {
+            Window win = Application.Current.Windows.OfType<Window>().SingleOrDefault(w => w.Name == name);
+            win.Close();
+        }
     }
 }

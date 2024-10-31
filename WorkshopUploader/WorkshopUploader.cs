@@ -1,4 +1,5 @@
-﻿using Steamworks;
+﻿using FR_SDK.Core;
+using Steamworks;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -11,21 +12,16 @@ namespace WorkshopUploader
 {
     public partial class WorkshopUploader : Form
     {
-        #region Private Variables
         private UGCItem item;
         private int uploadAttempts = 0;
         private int maxUploadAttempts = 5;
         private bool EditMode = false;
-        #endregion
 
-        #region Constructor
         public WorkshopUploader()
         {
             InitializeComponent();
         }
-        #endregion
 
-        #region Window Events
         private void WorkshopUploader_Load(object sender, EventArgs e)
         {
             SteamworksIntegration.InitSteam(SteamworksIntegration.gameAppID);
@@ -42,7 +38,7 @@ namespace WorkshopUploader
                     Close();
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 MessageBox.Show("The Workshop Uploader cannot load because Steam is offline. Please load Steam in Online Mode, relaunch the SDK, then try again.",
                         "Workshop Uploader - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -68,14 +64,14 @@ namespace WorkshopUploader
 
             if (item.ItemName.Equals("OFFLINE" + ItemIDBox.Text))
             {
-                MessageBox.Show("The item cannot be loaded by the Workshop Uploader because Steam is offline. Please load Steam in Online Mode, relaunch the SDK, then try again.", 
+                MessageBox.Show("The item cannot be loaded by the Workshop Uploader because Steam is offline. Please load Steam in Online Mode, relaunch the SDK, then try again.",
                     "Workshop Uploader - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
-            if (item.ItemName.Equals("ERROR" + ItemIDBox.Text) )
+            if (item.ItemName.Equals("ERROR" + ItemIDBox.Text))
             {
-                MessageBox.Show("The item cannot be loaded by the Workshop Uploader because it doesn't exist.", 
+                MessageBox.Show("The item cannot be loaded by the Workshop Uploader because it doesn't exist.",
                     "Workshop Uploader - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Reset();
                 return;
@@ -83,7 +79,7 @@ namespace WorkshopUploader
 
             if (item.ItemName.Equals("NOTOWNER" + ItemIDBox.Text))
             {
-                MessageBox.Show("The item cannot be loaded by the Workshop Uploader because you do not own it. Please input the item ID of an item you own.", 
+                MessageBox.Show("The item cannot be loaded by the Workshop Uploader because you do not own it. Please input the item ID of an item you own.",
                     "Workshop Uploader - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Reset();
                 return;
@@ -189,9 +185,7 @@ namespace WorkshopUploader
                 Width = 357;
             }
         }
-        #endregion
 
-        #region Functions
         public void Reset()
         {
             ItemIDBox.Text = "";
@@ -370,8 +364,8 @@ namespace WorkshopUploader
 
             if (result.Success)
             {
-                MessageBox.Show("'" + item.ItemName + "' has been successfuly uploaded!" + 
-                    (!EditMode ? " Your item has been set to \"Hidden\" so you can make any further edits before you publish. " : " ") + 
+                MessageBox.Show("'" + item.ItemName + "' has been successfuly uploaded!" +
+                    (!EditMode ? " Your item has been set to \"Hidden\" so you can make any further edits before you publish. " : " ") +
                     "Your item will now open up in an external web browser.",
                     "Workshop Uploader - Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=" + result.FileId.Value);
@@ -405,10 +399,8 @@ namespace WorkshopUploader
             progressBar1.Value = 0;
             uploadAttempts = 0;
         }
-    #endregion
     }
 
-    #region UploadProgress
     class UploadProgress : IProgress<float>
     {
         float Value = 0;
@@ -428,9 +420,7 @@ namespace WorkshopUploader
             bar.Value = ActualValue;
         }
     }
-    #endregion
 
-    #region UGCItem
     public class UGCItem
     {
         public string ItemName { get; set; }
@@ -440,5 +430,4 @@ namespace WorkshopUploader
         public string ItemChanges { get; set; }
         public string[] ItemTags { get; set; }
     }
-    #endregion
 }

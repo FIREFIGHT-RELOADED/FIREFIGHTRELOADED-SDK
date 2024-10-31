@@ -13,7 +13,6 @@ namespace FR_SDK.App
         private string text = "";
         private bool keepTempText = false;
 
-        #region Window Logic
         public CustomMessageBox(string name, string content, bool bkeepTempText = false)
         {
             Construct(name, content, bkeepTempText);
@@ -55,8 +54,7 @@ namespace FR_SDK.App
             if (e.ChangedButton == MouseButton.Left)
                 DragMove();
         }
-        #endregion
-        #region Launcher Logic
+
         private void close_Click(object sender, RoutedEventArgs e)
         {
             Close();
@@ -66,6 +64,5 @@ namespace FR_SDK.App
         {
             WindowState = WindowState.Minimized;
         }
-        #endregion
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FR_SDK.Core;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -6,14 +7,12 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Threading;
 
 namespace MapCompiler
 {
     class Program
     {
-        static DispatcherTimer oneShot = new DispatcherTimer();
-        static GlobalVars.ProcessController processController;
+        static ProcessController processController;
         static string VMFFile;
         static bool appOn = true;
         static bool isMapCompiling = false;
@@ -26,7 +25,7 @@ namespace MapCompiler
         static void Main(string[] args)
         {
             Console.Title = "Map Compiler";
-            processController = new GlobalVars.ProcessController();
+            processController = new ProcessController();
             AppDomain.CurrentDomain.ProcessExit += new EventHandler(CurrentDomain_ProcessExit);
             while (appOn)
             {

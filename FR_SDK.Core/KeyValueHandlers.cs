@@ -1,6 +1,6 @@
 ﻿using KVLib;
 
-namespace FR_SDK.App
+namespace FR_SDK.Core
 {
     //These helper methods are used to quickly add child keys to parent keys.
     class KeyValueHelpers
@@ -28,7 +28,7 @@ namespace FR_SDK.App
     }
 
     //These are generator functions used for creating new KeyValues.
-    class KeyValueCreators
+    public class KeyValueCreators
     {
         public static KeyValue GenerateGameConfig()
         {
