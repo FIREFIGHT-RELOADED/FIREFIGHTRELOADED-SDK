@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -51,6 +52,7 @@ namespace WorkshopUploader
             SteamworksIntegration.ShutdownSteam();
         }
 
+        [SupportedOSPlatform("windows")]
         private async void LoadItem_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(ItemIDBox.Text))
@@ -102,6 +104,7 @@ namespace WorkshopUploader
                 }
             }
 
+#pragma warning disable SYSLIB0014
             var request = WebRequest.Create(itemOld.ItemPreviewImage);
 
             using (var response = request.GetResponse())
@@ -109,6 +112,7 @@ namespace WorkshopUploader
             {
                 ItemImageBox.Image = Image.FromStream(stream);
             }
+#pragma warning restore SYSLIB0014
 
             ItemChangesBox.Enabled = true;
         }
@@ -123,6 +127,7 @@ namespace WorkshopUploader
             item.ItemDesc = ItemDescBox.Text;
         }
 
+        [SupportedOSPlatform("windows")]
         private void ItemImageBrowse_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net462</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
     <AssemblyName>FR_SDKLauncher</AssemblyName>
     <Deterministic>false</Deterministic>
@@ -26,14 +26,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FR_SDK.Core\FR_SDK.Core.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Facepunch.Steamworks.win32" />
-    <PackageReference Include="KVLib" />
-    <PackageReference Include="Microsoft.CSharp" />
-    <PackageReference Include="Sprache" />
-    <PackageReference Include="System.Data.DataSetExtensions" />
-    <PackageReference Include="System.Management" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Fabricator\obj\Release\.NETFramework,Version=v4.5.1.AssemblyAttributes.cs" />

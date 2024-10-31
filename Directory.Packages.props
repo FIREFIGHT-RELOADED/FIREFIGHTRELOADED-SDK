@@ -6,10 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Facepunch.Steamworks.win32" Version="2.3.3" />
-    <PackageVersion Include="KVLib" Version="1.0.0.0" />
-    <PackageVersion Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageVersion Include="Sprache" Version="1.10.0.35" />
-    <PackageVersion Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageVersion Include="KVLib" Version="1.0.0" />
     <PackageVersion Include="System.Management" Version="8.0.0" />
   </ItemGroup>
 </Project>

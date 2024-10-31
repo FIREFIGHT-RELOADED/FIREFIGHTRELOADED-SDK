@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
@@ -49,6 +50,7 @@ namespace FR_SDK.App
             }
         }
 
+        [SupportedOSPlatform("windows")]
         private void window_closing(object sender, CancelEventArgs e)
         {
             processController.ShuttingDown = true;

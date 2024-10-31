@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Management;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -57,6 +58,7 @@ namespace FR_SDK.Core
             ProcessExitedExt();
         }
 
+        [SupportedOSPlatform("windows")]
         //https://stackoverflow.com/questions/30249873/process-kill-doesnt-seem-to-kill-the-process
         private static void KillProcessAndChildrens(int pid)
         {
@@ -85,6 +87,7 @@ namespace FR_SDK.Core
             }
         }
 
+        [SupportedOSPlatform("windows")]
         public virtual void KillAllActiveProcesses()
         {
             foreach (Process proc in ProcessList)

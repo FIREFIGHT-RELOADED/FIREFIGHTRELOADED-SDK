@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Runtime.Versioning;
+using System.Threading.Tasks;
 
 namespace FR_SDK.Core
 {
@@ -16,6 +17,7 @@ namespace FR_SDK.Core
             FixSteam();
         }
 
+        [SupportedOSPlatform("windows")]
         public override void KillAllActiveProcesses()
         {
             base.KillAllActiveProcesses();

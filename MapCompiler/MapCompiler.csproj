@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net462</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>Exe</OutputType>
     <AssemblyName>FR_MapCompiler</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
@@ -18,10 +18,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FR_SDK.Core\FR_SDK.Core.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CSharp" />
-    <PackageReference Include="System.Data.DataSetExtensions" />
-    <PackageReference Include="System.Management" />
   </ItemGroup>
 </Project>
