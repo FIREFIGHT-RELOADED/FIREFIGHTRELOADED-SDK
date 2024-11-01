@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FR_SDK.App": {
+      "commandName": "Project",
+      "workingDirectory": "D:\\SteamLibrary\\steamapps\\common\\FIREFIGHT RELOADED\\sdk"
+    }
+  }
+}

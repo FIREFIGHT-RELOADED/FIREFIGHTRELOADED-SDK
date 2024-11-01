@@ -30,252 +30,259 @@ namespace WorkshopUploader
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WorkshopUploader));
-            this.ItemName = new System.Windows.Forms.Label();
-            this.ItemNameBox = new System.Windows.Forms.TextBox();
-            this.ItemImageBox = new System.Windows.Forms.PictureBox();
-            this.ItemImage = new System.Windows.Forms.Label();
-            this.ItemDescBox = new System.Windows.Forms.RichTextBox();
-            this.ItemDesc = new System.Windows.Forms.Label();
-            this.ItemImageBrowse = new System.Windows.Forms.Button();
-            this.ItemPathBox = new System.Windows.Forms.TextBox();
-            this.ItemPath = new System.Windows.Forms.Label();
-            this.BrowseFolder = new System.Windows.Forms.Button();
-            this.ItemID = new System.Windows.Forms.Label();
-            this.ItemIDBox = new System.Windows.Forms.TextBox();
-            this.LoadItem = new System.Windows.Forms.Button();
-            this.ItemChangesBox = new System.Windows.Forms.RichTextBox();
-            this.ItemChanges = new System.Windows.Forms.Label();
-            this.UploadItem = new System.Windows.Forms.Button();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.ItemEditingBox = new System.Windows.Forms.CheckBox();
-            this.tagsBox = new System.Windows.Forms.CheckedListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.ItemImageBox)).BeginInit();
-            this.SuspendLayout();
+            ItemName = new System.Windows.Forms.Label();
+            ItemNameBox = new System.Windows.Forms.TextBox();
+            ItemImageBox = new System.Windows.Forms.PictureBox();
+            ItemImage = new System.Windows.Forms.Label();
+            ItemDescBox = new System.Windows.Forms.RichTextBox();
+            ItemDesc = new System.Windows.Forms.Label();
+            ItemImageBrowse = new System.Windows.Forms.Button();
+            ItemPathBox = new System.Windows.Forms.TextBox();
+            ItemPath = new System.Windows.Forms.Label();
+            BrowseFolder = new System.Windows.Forms.Button();
+            ItemID = new System.Windows.Forms.Label();
+            ItemIDBox = new System.Windows.Forms.TextBox();
+            LoadItem = new System.Windows.Forms.Button();
+            ItemChangesBox = new System.Windows.Forms.RichTextBox();
+            ItemChanges = new System.Windows.Forms.Label();
+            UploadItem = new System.Windows.Forms.Button();
+            progressBar1 = new System.Windows.Forms.ProgressBar();
+            ItemEditingBox = new System.Windows.Forms.CheckBox();
+            tagsBox = new System.Windows.Forms.CheckedListBox();
+            ((System.ComponentModel.ISupportInitialize)ItemImageBox).BeginInit();
+            SuspendLayout();
             // 
             // ItemName
             // 
-            this.ItemName.AutoSize = true;
-            this.ItemName.Location = new System.Drawing.Point(144, 4);
-            this.ItemName.Name = "ItemName";
-            this.ItemName.Size = new System.Drawing.Size(58, 13);
-            this.ItemName.TabIndex = 0;
-            this.ItemName.Text = "Item Name";
+            ItemName.AutoSize = true;
+            ItemName.Location = new System.Drawing.Point(168, 5);
+            ItemName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ItemName.Name = "ItemName";
+            ItemName.Size = new System.Drawing.Size(66, 15);
+            ItemName.TabIndex = 0;
+            ItemName.Text = "Item Name";
             // 
             // ItemNameBox
             // 
-            this.ItemNameBox.Location = new System.Drawing.Point(15, 22);
-            this.ItemNameBox.Name = "ItemNameBox";
-            this.ItemNameBox.Size = new System.Drawing.Size(321, 20);
-            this.ItemNameBox.TabIndex = 1;
-            this.ItemNameBox.TextChanged += new System.EventHandler(this.ItemNameBox_TextChanged);
+            ItemNameBox.Location = new System.Drawing.Point(18, 25);
+            ItemNameBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ItemNameBox.Name = "ItemNameBox";
+            ItemNameBox.Size = new System.Drawing.Size(374, 23);
+            ItemNameBox.TabIndex = 1;
+            ItemNameBox.TextChanged += ItemNameBox_TextChanged;
             // 
             // ItemImageBox
             // 
-            this.ItemImageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ItemImageBox.Location = new System.Drawing.Point(11, 255);
-            this.ItemImageBox.Name = "ItemImageBox";
-            this.ItemImageBox.Size = new System.Drawing.Size(143, 143);
-            this.ItemImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.ItemImageBox.TabIndex = 2;
-            this.ItemImageBox.TabStop = false;
+            ItemImageBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            ItemImageBox.Location = new System.Drawing.Point(13, 294);
+            ItemImageBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ItemImageBox.Name = "ItemImageBox";
+            ItemImageBox.Size = new System.Drawing.Size(166, 165);
+            ItemImageBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            ItemImageBox.TabIndex = 2;
+            ItemImageBox.TabStop = false;
             // 
             // ItemImage
             // 
-            this.ItemImage.AutoSize = true;
-            this.ItemImage.Location = new System.Drawing.Point(50, 235);
-            this.ItemImage.Name = "ItemImage";
-            this.ItemImage.Size = new System.Drawing.Size(68, 13);
-            this.ItemImage.TabIndex = 3;
-            this.ItemImage.Text = "Item Preview";
+            ItemImage.AutoSize = true;
+            ItemImage.Location = new System.Drawing.Point(58, 271);
+            ItemImage.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ItemImage.Name = "ItemImage";
+            ItemImage.Size = new System.Drawing.Size(75, 15);
+            ItemImage.TabIndex = 3;
+            ItemImage.Text = "Item Preview";
             // 
             // ItemDescBox
             // 
-            this.ItemDescBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ItemDescBox.Location = new System.Drawing.Point(11, 62);
-            this.ItemDescBox.Name = "ItemDescBox";
-            this.ItemDescBox.Size = new System.Drawing.Size(325, 167);
-            this.ItemDescBox.TabIndex = 5;
-            this.ItemDescBox.Text = "";
-            this.ItemDescBox.TextChanged += new System.EventHandler(this.ItemDescBox_TextChanged);
+            ItemDescBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            ItemDescBox.Location = new System.Drawing.Point(13, 72);
+            ItemDescBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ItemDescBox.Name = "ItemDescBox";
+            ItemDescBox.Size = new System.Drawing.Size(378, 192);
+            ItemDescBox.TabIndex = 5;
+            ItemDescBox.Text = "";
+            ItemDescBox.TextChanged += ItemDescBox_TextChanged;
             // 
             // ItemDesc
             // 
-            this.ItemDesc.AutoSize = true;
-            this.ItemDesc.Location = new System.Drawing.Point(131, 46);
-            this.ItemDesc.Name = "ItemDesc";
-            this.ItemDesc.Size = new System.Drawing.Size(83, 13);
-            this.ItemDesc.TabIndex = 4;
-            this.ItemDesc.Text = "Item Description";
+            ItemDesc.AutoSize = true;
+            ItemDesc.Location = new System.Drawing.Point(153, 53);
+            ItemDesc.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ItemDesc.Name = "ItemDesc";
+            ItemDesc.Size = new System.Drawing.Size(94, 15);
+            ItemDesc.TabIndex = 4;
+            ItemDesc.Text = "Item Description";
             // 
             // ItemImageBrowse
             // 
-            this.ItemImageBrowse.Location = new System.Drawing.Point(11, 404);
-            this.ItemImageBrowse.Name = "ItemImageBrowse";
-            this.ItemImageBrowse.Size = new System.Drawing.Size(143, 23);
-            this.ItemImageBrowse.TabIndex = 6;
-            this.ItemImageBrowse.Text = "Browse Image...";
-            this.ItemImageBrowse.UseVisualStyleBackColor = true;
-            this.ItemImageBrowse.Click += new System.EventHandler(this.ItemImageBrowse_Click);
+            ItemImageBrowse.Location = new System.Drawing.Point(13, 466);
+            ItemImageBrowse.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ItemImageBrowse.Name = "ItemImageBrowse";
+            ItemImageBrowse.Size = new System.Drawing.Size(167, 27);
+            ItemImageBrowse.TabIndex = 6;
+            ItemImageBrowse.Text = "Browse Image...";
+            ItemImageBrowse.UseVisualStyleBackColor = true;
+            ItemImageBrowse.Click += ItemImageBrowse_Click;
             // 
             // ItemPathBox
             // 
-            this.ItemPathBox.Location = new System.Drawing.Point(160, 378);
-            this.ItemPathBox.Name = "ItemPathBox";
-            this.ItemPathBox.ReadOnly = true;
-            this.ItemPathBox.Size = new System.Drawing.Size(172, 20);
-            this.ItemPathBox.TabIndex = 7;
+            ItemPathBox.Location = new System.Drawing.Point(187, 436);
+            ItemPathBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ItemPathBox.Name = "ItemPathBox";
+            ItemPathBox.ReadOnly = true;
+            ItemPathBox.Size = new System.Drawing.Size(200, 23);
+            ItemPathBox.TabIndex = 7;
             // 
             // ItemPath
             // 
-            this.ItemPath.AutoSize = true;
-            this.ItemPath.Location = new System.Drawing.Point(200, 362);
-            this.ItemPath.Name = "ItemPath";
-            this.ItemPath.Size = new System.Drawing.Size(99, 13);
-            this.ItemPath.TabIndex = 8;
-            this.ItemPath.Text = "Item Content Folder";
+            ItemPath.AutoSize = true;
+            ItemPath.Location = new System.Drawing.Point(233, 418);
+            ItemPath.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ItemPath.Name = "ItemPath";
+            ItemPath.Size = new System.Drawing.Size(113, 15);
+            ItemPath.TabIndex = 8;
+            ItemPath.Text = "Item Content Folder";
             // 
             // BrowseFolder
             // 
-            this.BrowseFolder.Location = new System.Drawing.Point(160, 404);
-            this.BrowseFolder.Name = "BrowseFolder";
-            this.BrowseFolder.Size = new System.Drawing.Size(172, 23);
-            this.BrowseFolder.TabIndex = 9;
-            this.BrowseFolder.Text = "Browse Content Folder...";
-            this.BrowseFolder.UseVisualStyleBackColor = true;
-            this.BrowseFolder.Click += new System.EventHandler(this.BrowseFolder_Click);
+            BrowseFolder.Location = new System.Drawing.Point(187, 466);
+            BrowseFolder.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            BrowseFolder.Name = "BrowseFolder";
+            BrowseFolder.Size = new System.Drawing.Size(201, 27);
+            BrowseFolder.TabIndex = 9;
+            BrowseFolder.Text = "Browse Content Folder...";
+            BrowseFolder.UseVisualStyleBackColor = true;
+            BrowseFolder.Click += BrowseFolder_Click;
             // 
             // ItemID
             // 
-            this.ItemID.AutoSize = true;
-            this.ItemID.Location = new System.Drawing.Point(460, 4);
-            this.ItemID.Name = "ItemID";
-            this.ItemID.Size = new System.Drawing.Size(102, 13);
-            this.ItemID.TabIndex = 11;
-            this.ItemID.Text = "ID of the item to edit";
+            ItemID.AutoSize = true;
+            ItemID.Location = new System.Drawing.Point(537, 5);
+            ItemID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ItemID.Name = "ItemID";
+            ItemID.Size = new System.Drawing.Size(116, 15);
+            ItemID.TabIndex = 11;
+            ItemID.Text = "ID of the item to edit";
             // 
             // ItemIDBox
             // 
-            this.ItemIDBox.Location = new System.Drawing.Point(419, 22);
-            this.ItemIDBox.Name = "ItemIDBox";
-            this.ItemIDBox.Size = new System.Drawing.Size(116, 20);
-            this.ItemIDBox.TabIndex = 12;
+            ItemIDBox.Location = new System.Drawing.Point(489, 25);
+            ItemIDBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ItemIDBox.Name = "ItemIDBox";
+            ItemIDBox.Size = new System.Drawing.Size(135, 23);
+            ItemIDBox.TabIndex = 12;
             // 
             // LoadItem
             // 
-            this.LoadItem.Location = new System.Drawing.Point(541, 20);
-            this.LoadItem.Name = "LoadItem";
-            this.LoadItem.Size = new System.Drawing.Size(73, 23);
-            this.LoadItem.TabIndex = 13;
-            this.LoadItem.Text = "Load Item";
-            this.LoadItem.UseVisualStyleBackColor = true;
-            this.LoadItem.Click += new System.EventHandler(this.LoadItem_Click);
+            LoadItem.Location = new System.Drawing.Point(631, 23);
+            LoadItem.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            LoadItem.Name = "LoadItem";
+            LoadItem.Size = new System.Drawing.Size(85, 27);
+            LoadItem.TabIndex = 13;
+            LoadItem.Text = "Load Item";
+            LoadItem.UseVisualStyleBackColor = true;
+            LoadItem.Click += LoadItem_Click;
             // 
             // ItemChangesBox
             // 
-            this.ItemChangesBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.ItemChangesBox.Enabled = false;
-            this.ItemChangesBox.Location = new System.Drawing.Point(351, 62);
-            this.ItemChangesBox.Name = "ItemChangesBox";
-            this.ItemChangesBox.Size = new System.Drawing.Size(322, 444);
-            this.ItemChangesBox.TabIndex = 15;
-            this.ItemChangesBox.Text = "";
-            this.ItemChangesBox.TextChanged += new System.EventHandler(this.ItemChangesBox_TextChanged);
+            ItemChangesBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            ItemChangesBox.Enabled = false;
+            ItemChangesBox.Location = new System.Drawing.Point(410, 72);
+            ItemChangesBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ItemChangesBox.Name = "ItemChangesBox";
+            ItemChangesBox.Size = new System.Drawing.Size(375, 512);
+            ItemChangesBox.TabIndex = 15;
+            ItemChangesBox.Text = "";
+            ItemChangesBox.TextChanged += ItemChangesBox_TextChanged;
             // 
             // ItemChanges
             // 
-            this.ItemChanges.AutoSize = true;
-            this.ItemChanges.Location = new System.Drawing.Point(472, 46);
-            this.ItemChanges.Name = "ItemChanges";
-            this.ItemChanges.Size = new System.Drawing.Size(72, 13);
-            this.ItemChanges.TabIndex = 14;
-            this.ItemChanges.Text = "Item Changes";
+            ItemChanges.AutoSize = true;
+            ItemChanges.Location = new System.Drawing.Point(551, 53);
+            ItemChanges.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            ItemChanges.Name = "ItemChanges";
+            ItemChanges.Size = new System.Drawing.Size(80, 15);
+            ItemChanges.TabIndex = 14;
+            ItemChanges.Text = "Item Changes";
             // 
             // UploadItem
             // 
-            this.UploadItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UploadItem.Location = new System.Drawing.Point(11, 433);
-            this.UploadItem.Name = "UploadItem";
-            this.UploadItem.Size = new System.Drawing.Size(321, 44);
-            this.UploadItem.TabIndex = 16;
-            this.UploadItem.Text = "UPLOAD ITEM";
-            this.UploadItem.UseVisualStyleBackColor = true;
-            this.UploadItem.Click += new System.EventHandler(this.UploadItem_Click);
+            UploadItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            UploadItem.Location = new System.Drawing.Point(13, 500);
+            UploadItem.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            UploadItem.Name = "UploadItem";
+            UploadItem.Size = new System.Drawing.Size(374, 51);
+            UploadItem.TabIndex = 16;
+            UploadItem.Text = "UPLOAD ITEM";
+            UploadItem.UseVisualStyleBackColor = true;
+            UploadItem.Click += UploadItem_Click;
             // 
             // progressBar1
             // 
-            this.progressBar1.Location = new System.Drawing.Point(11, 483);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(321, 23);
-            this.progressBar1.TabIndex = 17;
+            progressBar1.Location = new System.Drawing.Point(13, 557);
+            progressBar1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            progressBar1.Name = "progressBar1";
+            progressBar1.Size = new System.Drawing.Size(374, 27);
+            progressBar1.TabIndex = 17;
             // 
             // ItemEditingBox
             // 
-            this.ItemEditingBox.AutoSize = true;
-            this.ItemEditingBox.Location = new System.Drawing.Point(15, 3);
-            this.ItemEditingBox.Name = "ItemEditingBox";
-            this.ItemEditingBox.Size = new System.Drawing.Size(67, 17);
-            this.ItemEditingBox.TabIndex = 18;
-            this.ItemEditingBox.Text = "Edit Item";
-            this.ItemEditingBox.UseVisualStyleBackColor = true;
-            this.ItemEditingBox.CheckedChanged += new System.EventHandler(this.ItemEditingBox_CheckedChanged);
+            ItemEditingBox.AutoSize = true;
+            ItemEditingBox.Location = new System.Drawing.Point(18, 3);
+            ItemEditingBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            ItemEditingBox.Name = "ItemEditingBox";
+            ItemEditingBox.Size = new System.Drawing.Size(73, 19);
+            ItemEditingBox.TabIndex = 18;
+            ItemEditingBox.Text = "Edit Item";
+            ItemEditingBox.UseVisualStyleBackColor = true;
+            ItemEditingBox.CheckedChanged += ItemEditingBox_CheckedChanged;
             // 
             // tagsBox
             // 
-            this.tagsBox.FormattingEnabled = true;
-            this.tagsBox.Items.AddRange(new object[] {
-            "Weapon",
-            "Works with Store Menu",
-            "Works with Reward System",
-            "Spawner Spawnlist",
-            "Skin",
-            "Sound",
-            "Player Voice",
-            "Overhaul",
-            "Gamemode",
-            "Character",
-            "Map",
-            "Music"});
-            this.tagsBox.Location = new System.Drawing.Point(160, 235);
-            this.tagsBox.Name = "tagsBox";
-            this.tagsBox.Size = new System.Drawing.Size(176, 124);
-            this.tagsBox.TabIndex = 19;
+            tagsBox.FormattingEnabled = true;
+            tagsBox.Items.AddRange(new object[] { "Weapon", "Works with Store Menu", "Works with Reward System", "Spawner Spawnlist", "Skin", "Sound", "Player Voice", "Overhaul", "Gamemode", "Character", "Map", "Music" });
+            tagsBox.Location = new System.Drawing.Point(187, 271);
+            tagsBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            tagsBox.Name = "tagsBox";
+            tagsBox.Size = new System.Drawing.Size(205, 130);
+            tagsBox.TabIndex = 19;
             // 
             // WorkshopUploader
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ClientSize = new System.Drawing.Size(695, 514);
-            this.Controls.Add(this.tagsBox);
-            this.Controls.Add(this.ItemEditingBox);
-            this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.UploadItem);
-            this.Controls.Add(this.ItemChangesBox);
-            this.Controls.Add(this.ItemChanges);
-            this.Controls.Add(this.LoadItem);
-            this.Controls.Add(this.ItemIDBox);
-            this.Controls.Add(this.ItemID);
-            this.Controls.Add(this.BrowseFolder);
-            this.Controls.Add(this.ItemPath);
-            this.Controls.Add(this.ItemPathBox);
-            this.Controls.Add(this.ItemImageBrowse);
-            this.Controls.Add(this.ItemDescBox);
-            this.Controls.Add(this.ItemDesc);
-            this.Controls.Add(this.ItemImage);
-            this.Controls.Add(this.ItemImageBox);
-            this.Controls.Add(this.ItemNameBox);
-            this.Controls.Add(this.ItemName);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.Name = "WorkshopUploader";
-            this.Text = "Workshop Uploader";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.WorkshopUploader_FormClosed);
-            this.Load += new System.EventHandler(this.WorkshopUploader_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.ItemImageBox)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.SystemColors.ControlLightLight;
+            ClientSize = new System.Drawing.Size(811, 593);
+            Controls.Add(tagsBox);
+            Controls.Add(ItemEditingBox);
+            Controls.Add(progressBar1);
+            Controls.Add(UploadItem);
+            Controls.Add(ItemChangesBox);
+            Controls.Add(ItemChanges);
+            Controls.Add(LoadItem);
+            Controls.Add(ItemIDBox);
+            Controls.Add(ItemID);
+            Controls.Add(BrowseFolder);
+            Controls.Add(ItemPath);
+            Controls.Add(ItemPathBox);
+            Controls.Add(ItemImageBrowse);
+            Controls.Add(ItemDescBox);
+            Controls.Add(ItemDesc);
+            Controls.Add(ItemImage);
+            Controls.Add(ItemImageBox);
+            Controls.Add(ItemNameBox);
+            Controls.Add(ItemName);
+            FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
+            Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            MaximizeBox = false;
+            Name = "WorkshopUploader";
+            Text = "Workshop Uploader";
+            FormClosed += WorkshopUploader_FormClosed;
+            Load += WorkshopUploader_Load;
+            ((System.ComponentModel.ISupportInitialize)ItemImageBox).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

@@ -136,7 +136,7 @@
                                     Margin="0,9,0,0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
-                                    Source="icon_normal.png"
+                                    Source="graphics/icon_normal.png"
                                     Stretch="None" />
                                 <TextBlock
                                     Margin="6,9,0,0"
@@ -167,7 +167,7 @@
                                     Margin="0,9,0,0"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Top"
-                                    Source="icon_inactive.png"
+                                    Source="graphics/icon_inactive.png"
                                     Stretch="None" />
                                 <TextBlock
                                     Margin="6,9,0,0"

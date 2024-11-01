@@ -23,6 +23,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Resource Include="game.ico" />
+    <Resource Include="graphics\faceposer.png" />
+    <Resource Include="graphics\fr.png" />
+    <Resource Include="graphics\hammer.png" />
+    <Resource Include="graphics\icon.png" />
+    <Resource Include="graphics\icon_inactive.png" />
+    <Resource Include="graphics\icon_inactive_src.png" />
+    <Resource Include="graphics\icon_normal.png" />
+    <Resource Include="graphics\icon_normal_src.png" />
+    <Resource Include="graphics\model.png" />
+    <Resource Include="graphics\resize.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FR_SDK.Core\FR_SDK.Core.csproj" />
@@ -30,5 +40,17 @@
   <ItemGroup>
     <Compile Remove="Fabricator\obj\Release\.NETFramework,Version=v4.5.1.AssemblyAttributes.cs" />
     <Compile Remove="Fabricator\obj\Release\.NETFramework,Version=v4.6.2.AssemblyAttributes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="graphics\faceposer.png" />
+    <None Remove="graphics\fr.png" />
+    <None Remove="graphics\hammer.png" />
+    <None Remove="graphics\icon.png" />
+    <None Remove="graphics\icon_inactive.png" />
+    <None Remove="graphics\icon_inactive_src.png" />
+    <None Remove="graphics\icon_normal.png" />
+    <None Remove="graphics\icon_normal_src.png" />
+    <None Remove="graphics\model.png" />
+    <None Remove="graphics\resize.png" />
   </ItemGroup>
 </Project>

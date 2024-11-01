@@ -27,7 +27,7 @@ namespace WorkshopUploader
         {
             SteamworksIntegration.InitSteam(SteamworksIntegration.gameAppID);
             Reset();
-            Width = 357;
+            Width = 415;
             CenterToScreen();
 
             try
@@ -183,11 +183,11 @@ namespace WorkshopUploader
 
             if (EditMode)
             {
-                Width = 711;
+                Width = 827;
             }
             else
             {
-                Width = 357;
+                Width = 415;
             }
         }
 
