@@ -6,7 +6,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Facepunch.Steamworks.win32" Version="2.3.3" />
+    <PackageVersion Include="Gameloop.Vdf" Version="0.6.2" />
+    <PackageVersion Include="Gameloop.Vdf.JsonConverter" Version="0.2.1" />
     <PackageVersion Include="KVLib" Version="1.0.0" />
     <PackageVersion Include="System.Management" Version="8.0.0" />
+    <PackageVersion Include="ValveKeyValue" Version="0.12.0.391" />
+    <PackageVersion Include="VdfConverter" Version="1.0.3" />
   </ItemGroup>
 </Project>
