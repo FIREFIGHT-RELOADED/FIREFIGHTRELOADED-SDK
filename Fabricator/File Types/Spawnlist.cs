@@ -21,19 +21,26 @@ namespace Fabricator
             }
         }
 
+        public enum BoolInt
+        {
+            Invalid = -1,
+            False,
+            True
+        }
+
         public class Node
         {
             public string classname { get; set; } = "";
             public int preset { get; set; } = -2;
             public int minLevel { get; set; } = -1;
-            public int rare { get; set; } = -1;
+            public BoolInt rare { get; set; } = BoolInt.Invalid;
             public int exp { get; set; } = -1;
             public int wildcard { get; set; } = -2;
             public List<string> mapspawn { get; set; } = null;
             public float weight { get; set; } = -1;
             public GrenadeEntry? grenades { get; set; } = null;
             public int kash { get; set; } = -1;
-            public int subsitute { get; set; } = -1;
+            public BoolInt subsitute { get; set; } = BoolInt.Invalid;
             public Dictionary<string, float>? equipment { get; set; } = null;
         }
 
@@ -107,9 +114,9 @@ namespace Fabricator
                 entryStats.Add(new KVObject("min_level", node.minLevel));
             }
 
-            if (node.rare != -1)
+            if (node.rare != BoolInt.Invalid)
             {
-                entryStats.Add(new KVObject("rare", node.rare));
+                entryStats.Add(new KVObject("rare", (int)node.rare));
             }
 
             if (node.exp != -1)
@@ -137,9 +144,9 @@ namespace Fabricator
                 entryStats.Add(new KVObject("kash", node.kash));
             }
 
-            if (node.subsitute != -1)
+            if (node.subsitute != BoolInt.Invalid)
             {
-                entryStats.Add(new KVObject("subsitute", node.subsitute));
+                entryStats.Add(new KVObject("subsitute", (int)node.subsitute));
             }
 
             if (mapspawn)
