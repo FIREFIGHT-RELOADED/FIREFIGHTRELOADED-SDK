@@ -53,15 +53,33 @@ namespace Fabricator
                 preset = 7,
                 minLevel = 5,
                 wildcard = 1,
-                equipment = new Dictionary<string, int>
+                grenades = new Spawnlist.GrenadeEntry(0,3),
+                mapspawn = new List<string>
+                {
+                    "gm_flatgrass",
+                    "dm_gayclub"
+                },
+                equipment = new Dictionary<string, float>
                 {
                     {"weapon_shotgun", 4},
-                    {"weapon_test", 8},
+                    {"weapon_test", 8}
                 }
             };
 
             spawnlist.AddEntry(node);
+
+            Spawnlist.Node editednode = new Spawnlist.Node
+            {
+                classname = "npc_hgrunt",
+                minLevel = 4,
+                rare = 1,
+                exp = 35
+            };
+
+            spawnlist.EditEntry(8, editednode);
+
             spawnlist.EditSetting("spawntime", "1");
+            spawnlist.RemoveSetting("spawntime_steamdeck");
             spawnlist.AddSetting("test", "5");
 
             spawnlist.Save("C:\\Users\\Bitl\\Desktop\\test.txt");
@@ -82,6 +100,7 @@ namespace Fabricator
             };
 
             catalog.AddEntry(shopnode);
+            catalog.EditEntry(4, shopnode);
 
             catalog.Save("C:\\Users\\Bitl\\Desktop\\test2.txt");
         }

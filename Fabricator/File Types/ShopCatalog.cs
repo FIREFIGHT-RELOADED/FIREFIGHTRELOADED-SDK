@@ -47,7 +47,7 @@ namespace Fabricator
             }
         }
 
-        public void AddEntry(Node node)
+        public KVObject NodetoKVObject(Node node, int index = -1)
         {
             List<KVObject> entryStats = new List<KVObject>();
 
@@ -71,9 +71,35 @@ namespace Fabricator
                 entryStats.Add(new KVObject("command", node.command.ToString()));
             }
 
-            var kv = new KVObject((entries.Count + 1).ToString(), entryStats);
+            if (index == -1)
+            {
+                index = entries.Count + 1;
+            }
 
-            entries.Add(kv);
+            KVObject kv = new KVObject(index.ToString(), entryStats);
+
+            return kv;
+        }
+
+        public void AddEntry(Node node)
+        {
+            entries.Add(NodetoKVObject(node));
+        }
+
+        public void RemoveEntry(int index)
+        {
+            int actualIndex = index - 1;
+            entries.RemoveAt(actualIndex);
+        }
+
+        public void EditEntry(int index, Node nodeEdited)
+        {
+            int actualIndex = index - 1;
+
+            if (entries[actualIndex] != null)
+            {
+                entries[actualIndex] = NodetoKVObject(nodeEdited, index);
+            }
         }
 
         public KVObject ToKVObject()

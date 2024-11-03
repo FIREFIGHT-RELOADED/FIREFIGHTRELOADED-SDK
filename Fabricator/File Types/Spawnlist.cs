@@ -1,9 +1,26 @@
-﻿using ValveKeyValue;
+﻿using System.Collections.Generic;
+using ValveKeyValue;
 
 namespace Fabricator
 {
     public class Spawnlist
     {
+        public class GrenadeEntry
+        {
+            private int minGrenades {  get; set; }
+            private int maxGrenades { get; set; }
+            public GrenadeEntry(int min, int max)
+            {
+                minGrenades = min;
+                maxGrenades = max;
+            }
+
+            public override string ToString()
+            {
+                return $"{minGrenades}-{maxGrenades}";
+            }
+        }
+
         public class Node
         {
             public string classname { get; set; } = "";
@@ -11,11 +28,16 @@ namespace Fabricator
             public int minLevel { get; set; } = -1;
             public int rare { get; set; } = -1;
             public int exp { get; set; } = -1;
-            public int wildcard { get; set; } = -1;
-            public Dictionary<string, int>? equipment { get; set; } = null;
+            public int wildcard { get; set; } = -2;
+            public List<string> mapspawn { get; set; } = null;
+            public float weight { get; set; } = -1;
+            public GrenadeEntry? grenades { get; set; } = null;
+            public int kash { get; set; } = -1;
+            public int subsitute { get; set; } = -1;
+            public Dictionary<string, float>? equipment { get; set; } = null;
         }
 
-        KVObject settings {  get; set; }
+        List<KVObject> settings {  get; set; }
         List<KVObject> entries { get; set; }
 
         public Spawnlist(string filePath)
@@ -30,7 +52,7 @@ namespace Fabricator
                 {
                     if (item.Name == "settings")
                     {
-                        settings = item;
+                        settings = item.Children.ToList();
                         continue;
                     }
 
@@ -39,11 +61,12 @@ namespace Fabricator
             }
         }
 
-        public void AddEntry(Node node)
+        public KVObject NodetoKVObject(Node node, int index = -1)
         {
-            bool equipment = false;
             List<KVObject> equipmentEntries = new List<KVObject>();
-            if (node.equipment.Count > 0)
+
+            bool equipment = false;
+            if (node.equipment != null && node.equipment.Count > 0)
             {
                 foreach (var item in node.equipment)
                 {
@@ -53,9 +76,23 @@ namespace Fabricator
                 equipment = true;
             }
 
+            List<KVObject> mapEntries = new List<KVObject>();
+
+            bool mapspawn = false;
+            if (node.mapspawn != null && node.mapspawn.Count > 0)
+            {
+                foreach (var item in node.mapspawn)
+                {
+                    //the value won't be read but whatever, it works.
+                    mapEntries.Add(new KVObject(item, 1));
+                }
+
+                mapspawn = true;
+            }
+
             List<KVObject> entryStats = new List<KVObject>();
 
-            if(!string.IsNullOrWhiteSpace(node.classname))
+            if (!string.IsNullOrWhiteSpace(node.classname))
             {
                 entryStats.Add(new KVObject("classname", node.classname));
             }
@@ -80,9 +117,34 @@ namespace Fabricator
                 entryStats.Add(new KVObject("exp", node.exp));
             }
 
-            if (node.wildcard != -1)
+            if (node.wildcard != -2)
             {
                 entryStats.Add(new KVObject("wildcard", node.wildcard));
+            }
+
+            if (node.weight != -1)
+            {
+                entryStats.Add(new KVObject("weight", node.weight));
+            }
+
+            if (node.grenades != null)
+            {
+                entryStats.Add(new KVObject("grenades", node.grenades.ToString()));
+            }
+
+            if (node.kash != -1)
+            {
+                entryStats.Add(new KVObject("kash", node.kash));
+            }
+
+            if (node.subsitute != -1)
+            {
+                entryStats.Add(new KVObject("subsitute", node.subsitute));
+            }
+
+            if (mapspawn)
+            {
+                entryStats.Add(new KVObject("mapspawn", mapEntries));
             }
 
             if (equipment)
@@ -90,9 +152,35 @@ namespace Fabricator
                 entryStats.Add(new KVObject("equipment", equipmentEntries));
             }
 
-            var kv = new KVObject((entries.Count + 1).ToString(), entryStats);
+            if (index == -1)
+            {
+                index = entries.Count + 1;
+            }
 
-            entries.Add(kv);
+            KVObject kv = new KVObject(index.ToString(), entryStats);
+
+            return kv;
+        }
+
+        public void AddEntry(Node node)
+        {
+            entries.Add(NodetoKVObject(node));
+        }
+
+        public void RemoveEntry(int index)
+        {
+            int actualIndex = index - 1;
+            entries.RemoveAt(actualIndex);
+        }
+
+        public void EditEntry(int index, Node nodeEdited)
+        {
+            int actualIndex = index - 1;
+
+            if (entries[actualIndex] != null)
+            {
+                entries[actualIndex] = NodetoKVObject(nodeEdited, index);
+            }
         }
 
         public void AddSetting(string settingName, string settingValue)
@@ -102,13 +190,28 @@ namespace Fabricator
 
         public void EditSetting(string settingName, string settingValue)
         {
-            settings[settingName] = settingValue;
+            var index = settings.FindIndex(x => x.Name == settingName);
+            if (settings[index] != null)
+            {
+                settings[index] = new KVObject(settingName, settingValue);
+            }
+        }
+
+        public void RemoveSetting(string settingName)
+        {
+            KVObject? query = settings.Find(x => x.Name == settingName);
+
+            if (query != null)
+            {
+                settings.Remove(query);
+            }
         }
 
         public KVObject ToKVObject(string label)
         {
             List<KVObject> list = new List<KVObject>();
-            list.Add(settings);
+            KVObject set = new KVObject("settings", settings);
+            list.Add(set);
             list.AddRange(entries);
 
             KVObject finalFile = new KVObject(Path.GetFileNameWithoutExtension(label), list);

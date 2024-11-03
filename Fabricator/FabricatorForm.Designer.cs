@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FabricatorForm));
             Menu = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             newToolStripMenuItem = new ToolStripMenuItem();
@@ -113,6 +114,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(722, 388);
             Controls.Add(Menu);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = Menu;
             Name = "FabricatorForm";
             Text = "Fabricator";

@@ -7,7 +7,12 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>635px-HLA_Resin.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="635px-HLA_Resin.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="ValveKeyValue" />
