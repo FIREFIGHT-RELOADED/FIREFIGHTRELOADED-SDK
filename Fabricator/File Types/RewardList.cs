@@ -7,7 +7,7 @@ using ValveKeyValue;
 
 namespace Fabricator
 {
-    public class RewardList
+    public class RewardList : FileBase
     {
         //Item Types
         //FR_HEALTHKIT = 1
@@ -52,13 +52,6 @@ namespace Fabricator
             FIREFIGHT_PERK_HEALTHREGENERATION
         }
 
-        public enum BoolInt
-        {
-            Invalid = -1,
-            False,
-            True
-        }
-
         public class Node
         {
             public string name { get; set; } = "";
@@ -70,21 +63,10 @@ namespace Fabricator
             public string command { get; set; } = "";
         }
 
-        List<KVObject> entries { get; set; }
+        public override string Label { get; set; } = "Rewards";
 
-        public RewardList(string filePath)
+        public RewardList(string filePath) : base(filePath)
         {
-            entries = new List<KVObject>();
-
-            using (var stream = File.OpenRead(filePath))
-            {
-                KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
-                KVObject data = kv.Deserialize(stream);
-                foreach (KVObject item in data)
-                {
-                    entries.Add(item);
-                }
-            }
         }
 
         public KVObject NodetoKVObject(Node node, int index = -1)
@@ -154,25 +136,6 @@ namespace Fabricator
             if (entries[actualIndex] != null)
             {
                 entries[actualIndex] = NodetoKVObject(nodeEdited, index);
-            }
-        }
-
-        public KVObject ToKVObject()
-        {
-            List<KVObject> list = new List<KVObject>();
-            list.AddRange(entries);
-
-            KVObject finalFile = new KVObject("Rewards", list);
-            return finalFile;
-        }
-
-        public void Save(string filePath)
-        {
-            KVObject finalFile = ToKVObject();
-            KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
-            using (FileStream stream = File.OpenWrite(filePath))
-            {
-                kv.Serialize(stream, finalFile);
             }
         }
     }

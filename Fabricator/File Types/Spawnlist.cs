@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using ValveKeyValue;
 
 namespace Fabricator
 {
-    public class Spawnlist
+    public class Spawnlist : FileBase
     {
         public class GrenadeEntry
         {
@@ -45,12 +46,9 @@ namespace Fabricator
         }
 
         List<KVObject> settings {  get; set; }
-        List<KVObject> entries { get; set; }
 
-        public Spawnlist(string filePath)
+        public Spawnlist(string filePath) : base()
         {
-            entries = new List<KVObject>();
-
             using (var stream = File.OpenRead(filePath))
             {
                 KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
@@ -214,25 +212,21 @@ namespace Fabricator
             }
         }
 
-        public KVObject ToKVObject(string label)
+        public override KVObject ToKVObject()
         {
             List<KVObject> list = new List<KVObject>();
             KVObject set = new KVObject("settings", settings);
             list.Add(set);
             list.AddRange(entries);
 
-            KVObject finalFile = new KVObject(Path.GetFileNameWithoutExtension(label), list);
+            KVObject finalFile = new KVObject(Label, list);
             return finalFile;
         }
 
-        public void Save(string filePath)
+        public override void Save(string filePath)
         {
-            KVObject finalFile = ToKVObject(filePath);
-            KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
-            using (FileStream stream = File.OpenWrite(filePath))
-            {
-                kv.Serialize(stream, finalFile);
-            }
+            Label = Path.GetFileNameWithoutExtension(filePath);
+            base.Save(filePath);
         }
     }
 }

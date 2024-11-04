@@ -3,7 +3,6 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using ValveKeyValue;
-using static Fabricator.ShopCatalog;
 
 namespace Fabricator
 {
@@ -72,7 +71,7 @@ namespace Fabricator
             {
                 classname = "npc_hgrunt",
                 minLevel = 4,
-                rare = 1,
+                rare = Spawnlist.BoolInt.True,
                 exp = 35
             };
 
@@ -103,6 +102,19 @@ namespace Fabricator
             catalog.EditEntry(4, shopnode);
 
             catalog.Save("C:\\Users\\Bitl\\Desktop\\test2.txt");
+
+            RewardList reward = new RewardList("D:\\SteamLibrary\\steamapps\\common\\FIREFIGHT RELOADED\\firefightreloaded\\scripts\\rewards_weapons.txt");
+            RewardList.Node rewardNode = new RewardList.Node
+            {
+                name = "TestReward",
+                itemType = RewardList.RewardItemTypes.FR_CLIENTCMD,
+                command = "sv_cheats 1;noclip"
+            };
+
+            reward.AddEntry(rewardNode);
+            reward.EditEntry(4, rewardNode);
+
+            reward.Save("C:\\Users\\Bitl\\Desktop\\test3.txt");
         }
     }
 }

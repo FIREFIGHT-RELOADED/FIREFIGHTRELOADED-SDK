@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ValveKeyValue;
-using static Fabricator.Spawnlist;
 
 namespace Fabricator
 {
-    public class ShopCatalog
+    public class ShopCatalog : FileBase
     {
         public class Command
         {
@@ -30,21 +29,10 @@ namespace Fabricator
             public Command? command { get; set; } = null;
         }
 
-        List<KVObject> entries { get; set; }
+        public override string Label { get; set; } = "ShopCatalog";
 
-        public ShopCatalog(string filePath)
+        public ShopCatalog(string filePath) : base(filePath)
         {
-            entries = new List<KVObject>();
-
-            using (var stream = File.OpenRead(filePath))
-            {
-                KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
-                KVObject data = kv.Deserialize(stream);
-                foreach (KVObject item in data)
-                {
-                    entries.Add(item);
-                }
-            }
         }
 
         public KVObject NodetoKVObject(Node node, int index = -1)
@@ -99,25 +87,6 @@ namespace Fabricator
             if (entries[actualIndex] != null)
             {
                 entries[actualIndex] = NodetoKVObject(nodeEdited, index);
-            }
-        }
-
-        public KVObject ToKVObject()
-        {
-            List<KVObject> list = new List<KVObject>();
-            list.AddRange(entries);
-
-            KVObject finalFile = new KVObject("ShopCatalog", list);
-            return finalFile;
-        }
-
-        public void Save(string filePath)
-        {
-            KVObject finalFile = ToKVObject();
-            KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
-            using (FileStream stream = File.OpenWrite(filePath))
-            {
-                kv.Serialize(stream, finalFile);
             }
         }
     }
