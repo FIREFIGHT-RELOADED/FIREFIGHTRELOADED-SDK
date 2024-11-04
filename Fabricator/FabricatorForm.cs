@@ -46,7 +46,7 @@ namespace Fabricator
             //spawnlist test
             Spawnlist spawnlist = new Spawnlist("D:\\SteamLibrary\\steamapps\\common\\FIREFIGHT RELOADED\\firefightreloaded\\scripts\\spawnlists\\default.txt");
 
-            Spawnlist.Node node = new Spawnlist.Node
+            Spawnlist.SpawnlistNode node = new Spawnlist.SpawnlistNode
             {
                 classname = "npc_TEST",
                 preset = 7,
@@ -67,7 +67,7 @@ namespace Fabricator
 
             spawnlist.AddEntry(node);
 
-            Spawnlist.Node editednode = new Spawnlist.Node
+            Spawnlist.SpawnlistNode editednode = new Spawnlist.SpawnlistNode
             {
                 classname = "npc_hgrunt",
                 minLevel = 4,
@@ -85,7 +85,7 @@ namespace Fabricator
 
             ShopCatalog catalog = new ShopCatalog("D:\\SteamLibrary\\steamapps\\common\\FIREFIGHT RELOADED\\firefightreloaded\\scripts\\shopcatalog_items.txt");
 
-            ShopCatalog.Node shopnode = new ShopCatalog.Node
+            ShopCatalog.CatalogNode shopnode = new ShopCatalog.CatalogNode
             {
                 name = "test",
                 price = -1,
@@ -104,7 +104,7 @@ namespace Fabricator
             catalog.Save("C:\\Users\\Bitl\\Desktop\\test2.txt");
 
             RewardList reward = new RewardList("D:\\SteamLibrary\\steamapps\\common\\FIREFIGHT RELOADED\\firefightreloaded\\scripts\\rewards_weapons.txt");
-            RewardList.Node rewardNode = new RewardList.Node
+            RewardList.RewardNode rewardNode = new RewardList.RewardNode
             {
                 name = "TestReward",
                 itemType = RewardList.RewardItemTypes.FR_CLIENTCMD,
@@ -113,6 +113,7 @@ namespace Fabricator
 
             reward.AddEntry(rewardNode);
             reward.EditEntry(4, rewardNode);
+            reward.RemoveEntry(1);
 
             reward.Save("C:\\Users\\Bitl\\Desktop\\test3.txt");
         }

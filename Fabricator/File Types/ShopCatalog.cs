@@ -21,7 +21,7 @@ namespace Fabricator
             }
         }
 
-        public class Node
+        public class CatalogNode : BaseNode
         {
             public string name { get; set; } = "";
             public int price { get; set; } = -1;
@@ -35,59 +35,34 @@ namespace Fabricator
         {
         }
 
-        public KVObject NodetoKVObject(Node node, int index = -1)
+        public override KVObject NodetoKVObject(BaseNode node, int index = -1)
         {
-            List<KVObject> entryStats = new List<KVObject>();
+            CatalogNode classNode = node as CatalogNode;
 
-            if (!string.IsNullOrWhiteSpace(node.name))
+            if (classNode != null)
             {
-                entryStats.Add(new KVObject("name", node.name));
+                if (!string.IsNullOrWhiteSpace(classNode.name))
+                {
+                    entryStats.Add(new KVObject("name", classNode.name));
+                }
+
+                if (classNode.price != -1)
+                {
+                    entryStats.Add(new KVObject("price", classNode.price));
+                }
+
+                if (classNode.limit != -1)
+                {
+                    entryStats.Add(new KVObject("limit", classNode.limit));
+                }
+
+                if (classNode.command != null)
+                {
+                    entryStats.Add(new KVObject("command", classNode.command.ToString()));
+                }
             }
 
-            if (node.price != -1)
-            {
-                entryStats.Add(new KVObject("price", node.price));
-            }
-
-            if (node.limit != -1)
-            {
-                entryStats.Add(new KVObject("limit", node.limit));
-            }
-
-            if (node.command != null)
-            {
-                entryStats.Add(new KVObject("command", node.command.ToString()));
-            }
-
-            if (index == -1)
-            {
-                index = entries.Count + 1;
-            }
-
-            KVObject kv = new KVObject(index.ToString(), entryStats);
-
-            return kv;
-        }
-
-        public void AddEntry(Node node)
-        {
-            entries.Add(NodetoKVObject(node));
-        }
-
-        public void RemoveEntry(int index)
-        {
-            int actualIndex = index - 1;
-            entries.RemoveAt(actualIndex);
-        }
-
-        public void EditEntry(int index, Node nodeEdited)
-        {
-            int actualIndex = index - 1;
-
-            if (entries[actualIndex] != null)
-            {
-                entries[actualIndex] = NodetoKVObject(nodeEdited, index);
-            }
+            return base.NodetoKVObject(node, index);
         }
     }
 }

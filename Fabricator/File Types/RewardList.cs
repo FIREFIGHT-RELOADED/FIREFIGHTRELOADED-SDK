@@ -52,7 +52,7 @@ namespace Fabricator
             FIREFIGHT_PERK_HEALTHREGENERATION
         }
 
-        public class Node
+        public class RewardNode : BaseNode
         {
             public string name { get; set; } = "";
             public RewardItemTypes itemType { get; set; } = RewardItemTypes.FR_REWARD_INVALID;
@@ -69,74 +69,49 @@ namespace Fabricator
         {
         }
 
-        public KVObject NodetoKVObject(Node node, int index = -1)
+        public override KVObject NodetoKVObject(BaseNode node, int index = -1)
         {
-            List<KVObject> entryStats = new List<KVObject>();
+            RewardNode classNode = node as RewardNode;
 
-            if (!string.IsNullOrWhiteSpace(node.name))
+            if (classNode != null)
             {
-                entryStats.Add(new KVObject("name", node.name));
+                if (!string.IsNullOrWhiteSpace(classNode.name))
+                {
+                    entryStats.Add(new KVObject("name", classNode.name));
+                }
+
+                if (classNode.itemType != RewardItemTypes.FR_REWARD_INVALID)
+                {
+                    entryStats.Add(new KVObject("item_type", (int)classNode.itemType));
+                }
+
+                if (!string.IsNullOrWhiteSpace(classNode.weaponClassName))
+                {
+                    entryStats.Add(new KVObject("weapon_classname", classNode.weaponClassName));
+                }
+
+                if (classNode.ammoIsPrimary != BoolInt.Invalid)
+                {
+                    entryStats.Add(new KVObject("ammo_isprimary", (int)classNode.ammoIsPrimary));
+                }
+
+                if (classNode.ammoNum != -1)
+                {
+                    entryStats.Add(new KVObject("ammo_num", classNode.ammoNum));
+                }
+
+                if (classNode.perkID != RewardPerkTypes.FIREFIGHT_PERK_INVALID)
+                {
+                    entryStats.Add(new KVObject("perk_id", (int)classNode.perkID));
+                }
+
+                if (!string.IsNullOrWhiteSpace(classNode.command))
+                {
+                    entryStats.Add(new KVObject("command", classNode.command));
+                }
             }
 
-            if (node.itemType != RewardItemTypes.FR_REWARD_INVALID)
-            {
-                entryStats.Add(new KVObject("item_type", (int)node.itemType));
-            }
-
-            if (!string.IsNullOrWhiteSpace(node.weaponClassName))
-            {
-                entryStats.Add(new KVObject("weapon_classname", node.weaponClassName));
-            }
-
-            if (node.ammoIsPrimary != BoolInt.Invalid)
-            {
-                entryStats.Add(new KVObject("ammo_isprimary", (int)node.ammoIsPrimary));
-            }
-
-            if (node.ammoNum != -1)
-            {
-                entryStats.Add(new KVObject("ammo_num", node.ammoNum));
-            }
-
-            if (node.perkID != RewardPerkTypes.FIREFIGHT_PERK_INVALID)
-            {
-                entryStats.Add(new KVObject("perk_id", (int)node.perkID));
-            }
-
-            if (!string.IsNullOrWhiteSpace(node.command))
-            {
-                entryStats.Add(new KVObject("command", node.command));
-            }
-
-            if (index == -1)
-            {
-                index = entries.Count + 1;
-            }
-
-            KVObject kv = new KVObject(index.ToString(), entryStats);
-
-            return kv;
-        }
-
-        public void AddEntry(Node node)
-        {
-            entries.Add(NodetoKVObject(node));
-        }
-
-        public void RemoveEntry(int index)
-        {
-            int actualIndex = index - 1;
-            entries.RemoveAt(actualIndex);
-        }
-
-        public void EditEntry(int index, Node nodeEdited)
-        {
-            int actualIndex = index - 1;
-
-            if (entries[actualIndex] != null)
-            {
-                entries[actualIndex] = NodetoKVObject(nodeEdited, index);
-            }
+            return base.NodetoKVObject(node, index);
         }
     }
 }

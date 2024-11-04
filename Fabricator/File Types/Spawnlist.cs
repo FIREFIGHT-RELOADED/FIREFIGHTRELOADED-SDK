@@ -22,14 +22,7 @@ namespace Fabricator
             }
         }
 
-        public enum BoolInt
-        {
-            Invalid = -1,
-            False,
-            True
-        }
-
-        public class Node
+        public class SpawnlistNode : BaseNode
         {
             public string classname { get; set; } = "";
             public int preset { get; set; } = -2;
@@ -47,7 +40,11 @@ namespace Fabricator
 
         List<KVObject> settings {  get; set; }
 
-        public Spawnlist(string filePath) : base()
+        public Spawnlist(string filePath) : base(filePath)
+        {
+        }
+
+        public override void LoadFile(string filePath)
         {
             using (var stream = File.OpenRead(filePath))
             {
@@ -66,126 +63,101 @@ namespace Fabricator
             }
         }
 
-        public KVObject NodetoKVObject(Node node, int index = -1)
+        public override KVObject NodetoKVObject(BaseNode node, int index = -1)
         {
-            List<KVObject> equipmentEntries = new List<KVObject>();
+            SpawnlistNode classNode = node as SpawnlistNode;
 
-            bool equipment = false;
-            if (node.equipment != null && node.equipment.Count > 0)
+            if (classNode != null)
             {
-                foreach (var item in node.equipment)
+                List<KVObject> equipmentEntries = new List<KVObject>();
+
+                bool equipment = false;
+                if (classNode.equipment != null && classNode.equipment.Count > 0)
                 {
-                    equipmentEntries.Add(new KVObject(item.Key, item.Value));
+                    foreach (var item in classNode.equipment)
+                    {
+                        equipmentEntries.Add(new KVObject(item.Key, item.Value));
+                    }
+
+                    equipment = true;
                 }
 
-                equipment = true;
-            }
+                List<KVObject> mapEntries = new List<KVObject>();
 
-            List<KVObject> mapEntries = new List<KVObject>();
-
-            bool mapspawn = false;
-            if (node.mapspawn != null && node.mapspawn.Count > 0)
-            {
-                foreach (var item in node.mapspawn)
+                bool mapspawn = false;
+                if (classNode.mapspawn != null && classNode.mapspawn.Count > 0)
                 {
-                    //the value won't be read but whatever, it works.
-                    mapEntries.Add(new KVObject(item, 1));
+                    foreach (var item in classNode.mapspawn)
+                    {
+                        //the value won't be read but whatever, it works.
+                        mapEntries.Add(new KVObject(item, 1));
+                    }
+
+                    mapspawn = true;
                 }
 
-                mapspawn = true;
+                if (!string.IsNullOrWhiteSpace(classNode.classname))
+                {
+                    entryStats.Add(new KVObject("classname", classNode.classname));
+                }
+
+                if (classNode.preset != -2)
+                {
+                    entryStats.Add(new KVObject("preset", classNode.preset));
+                }
+
+                if (classNode.minLevel != -1)
+                {
+                    entryStats.Add(new KVObject("min_level", classNode.minLevel));
+                }
+
+                if (classNode.rare != BoolInt.Invalid)
+                {
+                    entryStats.Add(new KVObject("rare", (int)classNode.rare));
+                }
+
+                if (classNode.exp != -1)
+                {
+                    entryStats.Add(new KVObject("exp", classNode.exp));
+                }
+
+                if (classNode.wildcard != -2)
+                {
+                    entryStats.Add(new KVObject("wildcard", classNode.wildcard));
+                }
+
+                if (classNode.weight != -1)
+                {
+                    entryStats.Add(new KVObject("weight", classNode.weight));
+                }
+
+                if (classNode.grenades != null)
+                {
+                    entryStats.Add(new KVObject("grenades", classNode.grenades.ToString()));
+                }
+
+                if (classNode.kash != -1)
+                {
+                    entryStats.Add(new KVObject("kash", classNode.kash));
+                }
+
+                if (classNode.subsitute != BoolInt.Invalid)
+                {
+                    entryStats.Add(new KVObject("subsitute", (int)classNode.subsitute));
+                }
+
+                if (mapspawn)
+                {
+                    entryStats.Add(new KVObject("mapspawn", mapEntries));
+                }
+
+                if (equipment)
+                {
+                    entryStats.Add(new KVObject("equipment", equipmentEntries));
+                }
             }
 
-            List<KVObject> entryStats = new List<KVObject>();
-
-            if (!string.IsNullOrWhiteSpace(node.classname))
-            {
-                entryStats.Add(new KVObject("classname", node.classname));
-            }
-
-            if (node.preset != -2)
-            {
-                entryStats.Add(new KVObject("preset", node.preset));
-            }
-
-            if (node.minLevel != -1)
-            {
-                entryStats.Add(new KVObject("min_level", node.minLevel));
-            }
-
-            if (node.rare != BoolInt.Invalid)
-            {
-                entryStats.Add(new KVObject("rare", (int)node.rare));
-            }
-
-            if (node.exp != -1)
-            {
-                entryStats.Add(new KVObject("exp", node.exp));
-            }
-
-            if (node.wildcard != -2)
-            {
-                entryStats.Add(new KVObject("wildcard", node.wildcard));
-            }
-
-            if (node.weight != -1)
-            {
-                entryStats.Add(new KVObject("weight", node.weight));
-            }
-
-            if (node.grenades != null)
-            {
-                entryStats.Add(new KVObject("grenades", node.grenades.ToString()));
-            }
-
-            if (node.kash != -1)
-            {
-                entryStats.Add(new KVObject("kash", node.kash));
-            }
-
-            if (node.subsitute != BoolInt.Invalid)
-            {
-                entryStats.Add(new KVObject("subsitute", (int)node.subsitute));
-            }
-
-            if (mapspawn)
-            {
-                entryStats.Add(new KVObject("mapspawn", mapEntries));
-            }
-
-            if (equipment)
-            {
-                entryStats.Add(new KVObject("equipment", equipmentEntries));
-            }
-
-            if (index == -1)
-            {
-                index = entries.Count + 1;
-            }
-
-            KVObject kv = new KVObject(index.ToString(), entryStats);
-
-            return kv;
-        }
-
-        public void AddEntry(Node node)
-        {
-            entries.Add(NodetoKVObject(node));
-        }
-
-        public void RemoveEntry(int index)
-        {
-            int actualIndex = index - 1;
-            entries.RemoveAt(actualIndex);
-        }
-
-        public void EditEntry(int index, Node nodeEdited)
-        {
-            int actualIndex = index - 1;
-
-            if (entries[actualIndex] != null)
-            {
-                entries[actualIndex] = NodetoKVObject(nodeEdited, index);
-            }
+            return base.NodetoKVObject(node, index);
         }
 
         public void AddSetting(string settingName, string settingValue)
