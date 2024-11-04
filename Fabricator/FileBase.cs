@@ -158,9 +158,9 @@ namespace Fabricator
         {
             List<KVObject> newEntries = new List<KVObject>();
 
-            for (int i = 1; i < entries.Count; i++)
+            for (int i = 0; i < entries.Count; i++)
             {
-                newEntries.Add(new KVObject(i.ToString(), entries[i].Value));
+                newEntries.Add(new KVObject((i + 1).ToString(), entries[i].Value));
             }
 
             entries = newEntries;
@@ -172,11 +172,9 @@ namespace Fabricator
         /// <param name="filePath"></param>
         public virtual void EditEntry(int index, BaseNode nodeEdited)
         {
-            int actualIndex = index - 1;
-
-            if (entries[actualIndex] != null)
+            if (entries[index] != null)
             {
-                entries[actualIndex] = NodeToKVObject(nodeEdited, index);
+                entries[index] = NodeToKVObject(nodeEdited, index);
             }
 
             //This is unnessessary as it doesn't change indexes, but better safe than sorry.
@@ -188,6 +186,14 @@ namespace Fabricator
         /// </summary>
         public virtual void Save(string filePath)
         {
+            //For some strange reason, the data will save DIRECTLY into a file if it exists.
+            //So, we should remove it so the file can actually work.
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+
+            // Make our file a KVObject, then save using a FileStream.
             KVObject finalFile = ToKVObject();
             KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
             using (FileStream stream = File.OpenWrite(filePath))
