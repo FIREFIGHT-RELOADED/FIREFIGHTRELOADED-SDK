@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ValveKeyValue;
+﻿using ValveKeyValue;
 
 namespace Fabricator
 {
@@ -35,7 +30,7 @@ namespace Fabricator
         {
         }
 
-        public override KVObject NodetoKVObject(BaseNode node, int index = -1)
+        public override KVObject NodeToKVObject(BaseNode node, int index = -1)
         {
             CatalogNode classNode = node as CatalogNode;
 
@@ -62,7 +57,7 @@ namespace Fabricator
                 }
             }
 
-            return base.NodetoKVObject(node, index);
+            return base.NodeToKVObject(node, index);
         }
     }
 }

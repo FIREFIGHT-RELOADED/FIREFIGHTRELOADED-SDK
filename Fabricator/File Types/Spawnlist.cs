@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using ValveKeyValue;
+﻿using ValveKeyValue;
 
 namespace Fabricator
 {
@@ -63,7 +61,7 @@ namespace Fabricator
             }
         }
 
-        public override KVObject NodetoKVObject(BaseNode node, int index = -1)
+        public override KVObject NodeToKVObject(BaseNode node, int index = -1)
         {
             SpawnlistNode classNode = node as SpawnlistNode;
 
@@ -157,7 +155,7 @@ namespace Fabricator
                 }
             }
 
-            return base.NodetoKVObject(node, index);
+            return base.NodeToKVObject(node, index);
         }
 
         public void AddSetting(string settingName, string settingValue)

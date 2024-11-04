@@ -114,6 +114,7 @@ namespace Fabricator
             reward.AddEntry(rewardNode);
             reward.EditEntry(4, rewardNode);
             reward.RemoveEntry(1);
+            reward.AddEntry(rewardNode);
 
             reward.Save("C:\\Users\\Bitl\\Desktop\\test3.txt");
         }
