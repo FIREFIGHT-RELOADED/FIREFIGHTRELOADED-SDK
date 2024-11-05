@@ -21,7 +21,6 @@ namespace Fabricator
         public class BaseNode
         {
         }
-
         
         /// <summary>
         /// The list of file entries loaded from the file.
@@ -41,7 +40,24 @@ namespace Fabricator
         /// </summary>
         public virtual string Label { get; set; } = "Base";
 
-        
+
+        /// <summary>
+        /// Sets the label to the file name upon saving.
+        /// This means that Label is overriden with the file name.
+        /// </summary>
+        public virtual bool SetLabelToFileName { get; set; } = false;
+
+
+        /// <summary>
+        /// A List that handles settings if the file has any.
+        /// </summary>
+        public List<KVObject> settings { get; set; }
+
+        /// <summary>
+        /// Does the file we need have a special "settings" section?
+        /// </summary>
+        public virtual bool FileUsesSettings { get; set; } = false;
+
         /// <summary>
         /// Constructor. Sets up the list objects and loads the file.
         /// </summary>
@@ -65,6 +81,12 @@ namespace Fabricator
                 KVObject data = kv.Deserialize(stream);
                 foreach (KVObject item in data)
                 {
+                    if (FileUsesSettings && item.Name == "settings")
+                    {
+                        settings = item.Children.ToList();
+                        continue;
+                    }
+
                     entries.Add(item);
                 }
             }
@@ -78,22 +100,11 @@ namespace Fabricator
         {
             entries = new List<KVObject>();
             entryStats = new List<KVObject>();
+            if (FileUsesSettings)
+            {
+                settings = new List<KVObject>();
+            }
         }
-
-
-        /// <summary>
-        /// Converts the file object into a KVObject.
-        /// </summary>
-        /// <returns></returns>
-        public virtual KVObject ToKVObject()
-        {
-            List<KVObject> list = new List<KVObject>();
-            list.AddRange(entries);
-
-            KVObject finalFile = new KVObject(Label, list);
-            return finalFile;
-        }
-
 
         /// <summary>
         /// Converts a single BaseNode to a KVObject.
@@ -107,7 +118,7 @@ namespace Fabricator
             //This is so we don't directly assume that the list has entries in it.
             if (entries.Count <= 0)
             {
-                entryStats.Add(new KVObject("HEY", "YOU FORGOT TO ADD SOMETHING"));
+                AddKVObjectEntryStat("HEY", "YOU FORGOT TO ADD SOMETHING");
             }
 
             //if we have an invalid index, give it a proper one by
@@ -125,6 +136,17 @@ namespace Fabricator
             return kv;
         }
 
+
+        /// <summary>
+        /// Convert a KVObject to a BaseNode.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public virtual BaseNode EntryToNode(int index)
+        {
+            return new BaseNode();
+        }
+
         /// <summary>
         /// Adds a BaseNode to the entries list.
         /// </summary>
@@ -136,6 +158,100 @@ namespace Fabricator
             RefreshEntries();
         }
 
+
+        /// <summary>
+        /// Adds a KVObject to the entryStats list.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public virtual void AddKVObjectEntryStat(string key, string value)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+            {
+                entryStats.Add(new KVObject(key, value));
+            }
+        }
+
+        /// <summary>
+        /// Adds a KVObject to the entryStats list.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public virtual void AddKVObjectEntryStat(string key, BoolInt value)
+        {
+            if (value != BoolInt.Invalid)
+            {
+                entryStats.Add(new KVObject(key, (int)value));
+            }
+        }
+
+        /// <summary>
+        /// Adds a KVObject to the entryStats list.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="useBoolInt"></param>
+        public virtual void AddKVObjectEntryStat(string key, bool value, bool useBoolInt = false)
+        {
+            if (useBoolInt)
+            {
+                //Convert the bool to an int, then to a BoolInt.
+                //NOTE: this will always mean true or false. There is no "invalid" value for booleans.
+                //That's the game's problem now.
+                BoolInt boolInt = (BoolInt)Convert.ToInt32(value);
+
+                //pass it to the override that handles BoolInts, then end the method here.
+                AddKVObjectEntryStat(key, boolInt);
+                return;
+            }
+            else
+            {
+                //No invalid check needed for the bool value sice there's no "invalid" value.
+                //That's the game's problem now.
+                entryStats.Add(new KVObject(key, value));
+            }
+        }
+
+        /// <summary>
+        /// Adds a KVObject to the entryStats list.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="min"></param>
+        public virtual void AddKVObjectEntryStat(string key, int value, int min = -1)
+        {
+            if (value != min)
+            {
+                entryStats.Add(new KVObject(key, value));
+            }
+        }
+
+        /// <summary>
+        /// Adds a KVObject to the entryStats list.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <param name="min"></param>
+        public virtual void AddKVObjectEntryStat(string key, float value, float min = -1)
+        {
+            if (value != min)
+            {
+                entryStats.Add(new KVObject(key, value));
+            }
+        }
+
+        /// <summary>
+        /// Adds a KVObject to the entryStats list.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        public virtual void AddKVObjectEntryStat(string key, object value)
+        {
+            if (value != null)
+            {
+                entryStats.Add(new KVObject(key, value.ToString()));
+            }
+        }
 
         /// <summary>
         /// Removes an entry from the entries list.
@@ -172,9 +288,11 @@ namespace Fabricator
         /// <param name="filePath"></param>
         public virtual void EditEntry(int index, BaseNode nodeEdited)
         {
-            if (entries[index] != null)
+            int actualIndex = index - 1;
+
+            if (entries[actualIndex] != null)
             {
-                entries[index] = NodeToKVObject(nodeEdited, index);
+                entries[actualIndex] = NodeToKVObject(nodeEdited, index);
             }
 
             //This is unnessessary as it doesn't change indexes, but better safe than sorry.
@@ -182,10 +300,73 @@ namespace Fabricator
         }
 
         /// <summary>
+        /// Adds a setting to the settings list.
+        /// </summary>
+        /// <param name="settingName"></param>
+        /// <param name="settingValue"></param>
+        public void AddSetting(string settingName, string settingValue)
+        {
+            settings.Add(new KVObject(settingName, settingValue));
+        }
+
+        /// <summary>
+        /// Edits a setting in the settings list.
+        /// </summary>
+        /// <param name="settingName"></param>
+        /// <param name="settingValue"></param>
+        public void EditSetting(string settingName, string settingValue)
+        {
+            var index = settings.FindIndex(x => x.Name == settingName);
+            if (settings[index] != null)
+            {
+                settings[index] = new KVObject(settingName, settingValue);
+            }
+        }
+
+        /// <summary>
+        /// Removes a setting from the settings list.
+        /// </summary>
+        /// <param name="settingName"></param>
+        public void RemoveSetting(string settingName)
+        {
+            KVObject? query = settings.Find(x => x.Name == settingName);
+
+            if (query != null)
+            {
+                settings.Remove(query);
+            }
+        }
+
+        /// <summary>
+        /// Converts the file object into a KVObject.
+        /// </summary>
+        /// <returns></returns>
+        public virtual KVObject ToKVObject()
+        {
+            List<KVObject> list = new List<KVObject>();
+
+            if (FileUsesSettings)
+            {
+                KVObject set = new KVObject("settings", settings);
+                list.Add(set);
+            }
+
+            list.AddRange(entries);
+
+            KVObject finalFile = new KVObject(Label, list);
+            return finalFile;
+        }
+
+        /// <summary>
         /// Saves the object to a file.
         /// </summary>
         public virtual void Save(string filePath)
         {
+            if (SetLabelToFileName)
+            {
+                Label = Path.GetFileNameWithoutExtension(filePath);
+            }
+
             //For some strange reason, the data will save DIRECTLY into a file if it exists.
             //So, we should remove it so the file can actually work.
             if (File.Exists(filePath))

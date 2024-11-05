@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using ValveKeyValue;
+using System.Reflection;
 
 namespace Fabricator
 {
@@ -72,14 +73,27 @@ namespace Fabricator
                 classname = "npc_hgrunt",
                 minLevel = 4,
                 rare = Spawnlist.BoolInt.True,
-                exp = 35
+                exp = 35,
+                equipment = new Dictionary<string, float>
+                {
+                    {"weapon_shotgun", 4},
+                    {"weapon_test", 8}
+                }
             };
 
             spawnlist.EditEntry(8, editednode);
 
+            Spawnlist.SpawnlistNode editednode1 = spawnlist.EntryToNode(8);
+            editednode1.equipment.Add("weapon_dubstepgun", 10);
+            spawnlist.EditEntry(8, editednode1);
+
             spawnlist.EditSetting("spawntime", "1");
             spawnlist.RemoveSetting("spawntime_steamdeck");
             spawnlist.AddSetting("test", "5");
+
+            Spawnlist.SpawnlistNode editednode2 = spawnlist.EntryToNode(1);
+            editednode2.classname = "npc_combine_s";
+            spawnlist.EditEntry(1, editednode2);
 
             spawnlist.Save("C:\\Users\\Bitl\\Desktop\\test.txt");
 
@@ -101,6 +115,10 @@ namespace Fabricator
             catalog.AddEntry(shopnode);
             catalog.EditEntry(4, shopnode);
 
+            ShopCatalog.CatalogNode shopnode2 = catalog.EntryToNode(5);
+            shopnode2.name = "TESTY";
+            catalog.EditEntry(5, shopnode2);
+
             catalog.Save("C:\\Users\\Bitl\\Desktop\\test2.txt");
 
             RewardList reward = new RewardList("D:\\SteamLibrary\\steamapps\\common\\FIREFIGHT RELOADED\\firefightreloaded\\scripts\\rewards_weapons.txt");
@@ -117,6 +135,13 @@ namespace Fabricator
             reward.AddEntry(rewardNode);
 
             reward.Save("C:\\Users\\Bitl\\Desktop\\test3.txt");
+
+            Loadout loadout = new Loadout("D:\\SteamLibrary\\steamapps\\common\\FIREFIGHT RELOADED\\firefightreloaded\\scripts\\loadouts\\snipers.txt");
+            Loadout.LoadoutNode nodeLoadout = loadout.EntryToNode(2);
+            nodeLoadout.health = 1000;
+            loadout.AddEntry(nodeLoadout);
+
+            loadout.Save("C:\\Users\\Bitl\\Desktop\\test4.txt");
         }
     }
 }

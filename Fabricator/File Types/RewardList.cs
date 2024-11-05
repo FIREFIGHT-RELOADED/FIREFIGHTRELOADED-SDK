@@ -1,4 +1,5 @@
-﻿using ValveKeyValue;
+﻿using System.Globalization;
+using ValveKeyValue;
 
 namespace Fabricator
 {
@@ -70,43 +71,70 @@ namespace Fabricator
 
             if (classNode != null)
             {
-                if (!string.IsNullOrWhiteSpace(classNode.name))
-                {
-                    entryStats.Add(new KVObject("name", classNode.name));
-                }
+                AddKVObjectEntryStat("name", classNode.name);
 
                 if (classNode.itemType != RewardItemTypes.FR_REWARD_INVALID)
                 {
-                    entryStats.Add(new KVObject("item_type", (int)classNode.itemType));
+                    AddKVObjectEntryStat("item_type", (int)classNode.itemType);
                 }
 
-                if (!string.IsNullOrWhiteSpace(classNode.weaponClassName))
-                {
-                    entryStats.Add(new KVObject("weapon_classname", classNode.weaponClassName));
-                }
-
-                if (classNode.ammoIsPrimary != BoolInt.Invalid)
-                {
-                    entryStats.Add(new KVObject("ammo_isprimary", (int)classNode.ammoIsPrimary));
-                }
-
-                if (classNode.ammoNum != -1)
-                {
-                    entryStats.Add(new KVObject("ammo_num", classNode.ammoNum));
-                }
+                AddKVObjectEntryStat("weapon_classname", classNode.weaponClassName);
+                AddKVObjectEntryStat("ammo_isprimary", classNode.ammoIsPrimary);
+                AddKVObjectEntryStat("ammo_num", classNode.ammoNum);
 
                 if (classNode.perkID != RewardPerkTypes.FIREFIGHT_PERK_INVALID)
                 {
-                    entryStats.Add(new KVObject("perk_id", (int)classNode.perkID));
+                    AddKVObjectEntryStat("perk_id", (int)classNode.perkID);
                 }
 
-                if (!string.IsNullOrWhiteSpace(classNode.command))
-                {
-                    entryStats.Add(new KVObject("command", classNode.command));
-                }
+                AddKVObjectEntryStat("command", classNode.command);
             }
 
             return base.NodeToKVObject(node, index);
+        }
+
+        public override RewardNode EntryToNode(int index)
+        {
+            int actualIndex = index - 1;
+
+            RewardNode classNode = new RewardNode();
+
+            if (entries[actualIndex] != null)
+            {
+                KVObject obj = entries[actualIndex];
+
+                foreach (KVObject child in obj.Children)
+                {
+                    switch (child.Name)
+                    {
+                        case "name":
+                            classNode.name = child.Value.ToString(CultureInfo.CurrentCulture);
+                            break;
+                        case "item_type":
+                            classNode.itemType = (RewardItemTypes)child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "weapon_classname":
+                            classNode.weaponClassName = child.Value.ToString(CultureInfo.CurrentCulture);
+                            break;
+                        case "ammo_isprimary":
+                            classNode.ammoIsPrimary = (BoolInt)child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "ammo_num":
+                            classNode.ammoNum = child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "perk_id":
+                            classNode.perkID = (RewardPerkTypes)child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "command":
+                            classNode.command = child.Value.ToString(CultureInfo.CurrentCulture);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+
+            return classNode;
         }
     }
 }

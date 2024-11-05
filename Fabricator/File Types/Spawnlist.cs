@@ -1,4 +1,6 @@
-﻿using ValveKeyValue;
+﻿using System.Globalization;
+using ValveKeyValue;
+using static Fabricator.ShopCatalog;
 
 namespace Fabricator
 {
@@ -8,6 +10,14 @@ namespace Fabricator
         {
             private int minGrenades {  get; set; }
             private int maxGrenades { get; set; }
+
+            public GrenadeEntry(string grenadeString)
+            {
+                string[] sections = grenadeString.Split('-');
+                minGrenades = Convert.ToInt32(sections[0]);
+                maxGrenades = Convert.ToInt32(sections[1]);
+            }
+
             public GrenadeEntry(int min, int max)
             {
                 minGrenades = min;
@@ -28,7 +38,7 @@ namespace Fabricator
             public BoolInt rare { get; set; } = BoolInt.Invalid;
             public int exp { get; set; } = -1;
             public int wildcard { get; set; } = -2;
-            public List<string> mapspawn { get; set; } = null;
+            public List<string>? mapspawn { get; set; } = null;
             public float weight { get; set; } = -1;
             public GrenadeEntry? grenades { get; set; } = null;
             public int kash { get; set; } = -1;
@@ -36,29 +46,12 @@ namespace Fabricator
             public Dictionary<string, float>? equipment { get; set; } = null;
         }
 
-        List<KVObject> settings {  get; set; }
+        
+        public override bool SetLabelToFileName { get; set; } = true;
+        public override bool FileUsesSettings { get; set; } = true;
 
         public Spawnlist(string filePath) : base(filePath)
         {
-        }
-
-        public override void LoadFile(string filePath)
-        {
-            using (var stream = File.OpenRead(filePath))
-            {
-                KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
-                KVObject data = kv.Deserialize(stream);
-                foreach (KVObject item in data)
-                {
-                    if (item.Name == "settings")
-                    {
-                        settings = item.Children.ToList();
-                        continue;
-                    }
-
-                    entries.Add(item);
-                }
-            }
         }
 
         public override KVObject NodeToKVObject(BaseNode node, int index = -1)
@@ -94,55 +87,16 @@ namespace Fabricator
                     mapspawn = true;
                 }
 
-                if (!string.IsNullOrWhiteSpace(classNode.classname))
-                {
-                    entryStats.Add(new KVObject("classname", classNode.classname));
-                }
-
-                if (classNode.preset != -2)
-                {
-                    entryStats.Add(new KVObject("preset", classNode.preset));
-                }
-
-                if (classNode.minLevel != -1)
-                {
-                    entryStats.Add(new KVObject("min_level", classNode.minLevel));
-                }
-
-                if (classNode.rare != BoolInt.Invalid)
-                {
-                    entryStats.Add(new KVObject("rare", (int)classNode.rare));
-                }
-
-                if (classNode.exp != -1)
-                {
-                    entryStats.Add(new KVObject("exp", classNode.exp));
-                }
-
-                if (classNode.wildcard != -2)
-                {
-                    entryStats.Add(new KVObject("wildcard", classNode.wildcard));
-                }
-
-                if (classNode.weight != -1)
-                {
-                    entryStats.Add(new KVObject("weight", classNode.weight));
-                }
-
-                if (classNode.grenades != null)
-                {
-                    entryStats.Add(new KVObject("grenades", classNode.grenades.ToString()));
-                }
-
-                if (classNode.kash != -1)
-                {
-                    entryStats.Add(new KVObject("kash", classNode.kash));
-                }
-
-                if (classNode.subsitute != BoolInt.Invalid)
-                {
-                    entryStats.Add(new KVObject("subsitute", (int)classNode.subsitute));
-                }
+                AddKVObjectEntryStat("classname", classNode.classname);
+                AddKVObjectEntryStat("preset", classNode.preset, -2);
+                AddKVObjectEntryStat("min_level", classNode.minLevel);
+                AddKVObjectEntryStat("rare", classNode.rare);
+                AddKVObjectEntryStat("exp", classNode.exp);
+                AddKVObjectEntryStat("wildcard", classNode.wildcard, -2);
+                AddKVObjectEntryStat("weight", classNode.weight);
+                AddKVObjectEntryStat("grenades", classNode.grenades);
+                AddKVObjectEntryStat("subsitute", classNode.subsitute);
+                AddKVObjectEntryStat("kash", classNode.kash);
 
                 if (mapspawn)
                 {
@@ -158,28 +112,84 @@ namespace Fabricator
             return base.NodeToKVObject(node, index);
         }
 
-        public void AddSetting(string settingName, string settingValue)
+        public override SpawnlistNode EntryToNode(int index)
         {
-            settings.Add(new KVObject(settingName, settingValue));
-        }
+            int actualIndex = index - 1;
 
-        public void EditSetting(string settingName, string settingValue)
-        {
-            var index = settings.FindIndex(x => x.Name == settingName);
-            if (settings[index] != null)
+            SpawnlistNode classNode = new SpawnlistNode();
+
+            if (entries[actualIndex] != null)
             {
-                settings[index] = new KVObject(settingName, settingValue);
-            }
-        }
+                KVObject obj = entries[actualIndex];
 
-        public void RemoveSetting(string settingName)
-        {
-            KVObject? query = settings.Find(x => x.Name == settingName);
+                foreach (KVObject child in obj.Children)
+                {
+                    switch (child.Name)
+                    {
+                        case "classname":
+                            classNode.classname = child.Value.ToString(CultureInfo.CurrentCulture);
+                            break;
+                        case "preset":
+                            classNode.preset = child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "min_level":
+                            classNode.minLevel = child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "rare":
+                            classNode.rare = (BoolInt)child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "exp":
+                            classNode.exp = child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "wildcard":
+                            classNode.wildcard = child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "weight":
+                            classNode.weight = child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "subsitute":
+                            classNode.subsitute = (BoolInt)child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "kash":
+                            classNode.kash = child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "grenades":
+                            {
+                                string grenadeString = child.Value.ToString(CultureInfo.CurrentCulture);
+                                classNode.grenades = new GrenadeEntry(grenadeString);
+                            }
+                            break;
+                        case "mapspawn":
+                            {
+                                List<string> maps = new List<string>();
 
-            if (query != null)
-            {
-                settings.Remove(query);
+                                foreach (KVObject map in child.Children)
+                                {
+                                    maps.Add(map.Name);
+                                }
+
+                                classNode.mapspawn = maps;
+                            }
+                            break;
+                        case "equipment":
+                            {
+                                Dictionary<string, float> weapons = new Dictionary<string, float>();
+
+                                foreach (KVObject weapon in child.Children)
+                                {
+                                    weapons.Add(weapon.Name, weapon.Value.ToSingle(CultureInfo.CurrentCulture));
+                                }
+
+                                classNode.equipment = weapons;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
             }
+
+            return classNode;
         }
 
         public override KVObject ToKVObject()
@@ -191,12 +201,6 @@ namespace Fabricator
 
             KVObject finalFile = new KVObject(Label, list);
             return finalFile;
-        }
-
-        public override void Save(string filePath)
-        {
-            Label = Path.GetFileNameWithoutExtension(filePath);
-            base.Save(filePath);
         }
     }
 }
