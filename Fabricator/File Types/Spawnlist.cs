@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using ValveKeyValue;
-using static Fabricator.ShopCatalog;
 
 namespace Fabricator
 {
@@ -190,17 +189,6 @@ namespace Fabricator
             }
 
             return classNode;
-        }
-
-        public override KVObject ToKVObject()
-        {
-            List<KVObject> list = new List<KVObject>();
-            KVObject set = new KVObject("settings", settings);
-            list.Add(set);
-            list.AddRange(entries);
-
-            KVObject finalFile = new KVObject(Label, list);
-            return finalFile;
         }
     }
 }
