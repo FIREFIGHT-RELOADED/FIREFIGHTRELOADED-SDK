@@ -3,7 +3,7 @@ using ValveKeyValue;
 
 namespace Fabricator
 {
-    public class Playlist : FileBase
+    public class Playlist : FileCreatorBase
     {
         public class PlaylistNode : BaseNode
         {

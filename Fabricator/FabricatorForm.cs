@@ -87,9 +87,9 @@ namespace Fabricator
             editednode1.equipment.Add("weapon_dubstepgun", 10);
             spawnlist.EditEntry(8, editednode1);
 
-            spawnlist.EditSetting("spawntime", "1");
+            spawnlist.EditSetting(new KVObject("spawntime", "1"));
             spawnlist.RemoveSetting("spawntime_steamdeck");
-            spawnlist.AddSetting("test", 5);
+            spawnlist.AddSetting(new KVObject("test", 5));
 
             Spawnlist.SpawnlistNode editednode2 = spawnlist.EntryToNode(1);
             editednode2.classname = "npc_combine_s";
@@ -149,9 +149,9 @@ namespace Fabricator
             nodePlaylist.artist = "My Chemical Romance";
             playlist.AddEntry(nodePlaylist);
 
-            playlist.AddSetting("shuffle", 3);
+            playlist.AddSetting(new KVObject("shuffle", 3));
             playlist.ToggleSettings();
-            playlist.AddSetting("shuffle", "1");
+            playlist.AddSetting(new KVObject("shuffle", "1"));
 
             playlist.Save("C:\\Users\\Bitl\\Desktop\\test5.txt");
         }

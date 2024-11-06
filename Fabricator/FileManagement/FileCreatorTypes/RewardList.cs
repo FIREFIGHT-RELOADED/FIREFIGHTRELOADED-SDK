@@ -3,7 +3,7 @@ using ValveKeyValue;
 
 namespace Fabricator
 {
-    public class RewardList : FileBase
+    public class RewardList : FileCreatorBase
     {
         //Item Types
         //FR_HEALTHKIT = 1

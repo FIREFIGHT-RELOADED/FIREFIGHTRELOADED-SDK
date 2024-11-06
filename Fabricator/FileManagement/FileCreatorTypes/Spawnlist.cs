@@ -3,7 +3,7 @@ using ValveKeyValue;
 
 namespace Fabricator
 {
-    public class Spawnlist : FileBase
+    public class Spawnlist : FileCreatorBase
     {
         public class GrenadeEntry
         {

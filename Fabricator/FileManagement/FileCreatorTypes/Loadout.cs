@@ -3,7 +3,7 @@ using ValveKeyValue;
 
 namespace Fabricator
 {
-    public class Loadout : FileBase
+    public class Loadout : FileCreatorBase
     {
         public class LoadoutNode : BaseNode
         {

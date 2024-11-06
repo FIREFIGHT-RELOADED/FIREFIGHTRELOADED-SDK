@@ -3,7 +3,7 @@ using ValveKeyValue;
 
 namespace Fabricator
 {
-    public class ShopCatalog : FileBase
+    public class ShopCatalog : FileCreatorBase
     {
         public class Command
         {

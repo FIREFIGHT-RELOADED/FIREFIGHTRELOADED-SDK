@@ -1,10 +1,11 @@
 ﻿using System;
+using System.CodeDom;
 using System.Windows.Forms;
 using ValveKeyValue;
 
 namespace Fabricator
 {
-    public class FileBase
+    public class FileCreatorBase
     {
         /// <summary>
         /// A special enum class used for "null booleans".
@@ -64,7 +65,7 @@ namespace Fabricator
         /// Constructor. Sets up the list objects and loads the file.
         /// </summary>
         /// <param name="filePath"></param>
-        public FileBase(string filePath)
+        public FileCreatorBase(string filePath)
         {
             SetupLists();
             LoadFile(filePath);
@@ -100,7 +101,7 @@ namespace Fabricator
             }
 
             // if we can't find the settings, completely disable it for this file.
-            if (!settingsAvailable)
+            if (FileUsesSettings && !settingsAvailable)
             {
                 ToggleSettings();
             }
@@ -196,13 +197,22 @@ namespace Fabricator
         /// <summary>
         /// Adds a KVObject to the entryStats list.
         /// </summary>
+        /// <param name="kv"></param>
+        public virtual void AddKVObjectEntryStat(KVObject kv)
+        {
+            entryStats.Add(kv);
+        }
+
+        /// <summary>
+        /// Adds a KVObject to the entryStats list.
+        /// </summary>
         /// <param name="key"></param>
         /// <param name="value"></param>
         public virtual void AddKVObjectEntryStat(string key, string value)
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
-                entryStats.Add(new KVObject(key, value));
+                AddKVObjectEntryStat(new KVObject(key, value));
             }
         }
 
@@ -215,34 +225,7 @@ namespace Fabricator
         {
             if (value != BoolInt.Invalid)
             {
-                entryStats.Add(new KVObject(key, (int)value));
-            }
-        }
-
-        /// <summary>
-        /// Adds a KVObject to the entryStats list.
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        /// <param name="useBoolInt"></param>
-        public virtual void AddKVObjectEntryStat(string key, bool value, bool useBoolInt = false)
-        {
-            if (useBoolInt)
-            {
-                //Convert the bool to an int, then to a BoolInt.
-                //NOTE: this will always mean true or false. There is no "invalid" value for booleans.
-                //That's the game's problem now.
-                BoolInt boolInt = (BoolInt)Convert.ToInt32(value);
-
-                //pass it to the override that handles BoolInts, then end the method here.
-                AddKVObjectEntryStat(key, boolInt);
-                return;
-            }
-            else
-            {
-                //No invalid check needed for the bool value sice there's no "invalid" value.
-                //That's the game's problem now.
-                entryStats.Add(new KVObject(key, value));
+                AddKVObjectEntryStat(new KVObject(key, (int)value));
             }
         }
 
@@ -256,7 +239,7 @@ namespace Fabricator
         {
             if (value != min)
             {
-                entryStats.Add(new KVObject(key, value));
+                AddKVObjectEntryStat(new KVObject(key, value));
             }
         }
 
@@ -270,7 +253,7 @@ namespace Fabricator
         {
             if (value != min)
             {
-                entryStats.Add(new KVObject(key, value));
+                AddKVObjectEntryStat(new KVObject(key, value));
             }
         }
 
@@ -283,7 +266,7 @@ namespace Fabricator
         {
             if (value != null)
             {
-                entryStats.Add(new KVObject(key, value.ToString()));
+                AddKVObjectEntryStat(new KVObject(key, value.ToString()));
             }
         }
 
@@ -298,7 +281,21 @@ namespace Fabricator
             RefreshEntries();
         }
 
-        
+        /// <summary>
+        /// Removes an entry from the entries list.
+        /// </summary>
+        /// <param name="settingName"></param>
+        public virtual void RemoveEntry(string entryName)
+        {
+            KVObject? query = entries.Find(x => x.Name == entryName);
+
+            if (query != null)
+            {
+                entries.Remove(query);
+                RefreshEntries();
+            }
+        }
+
         /// <summary>
         /// Refreshes all entries in the list.
         /// This is used for updating the index of each entry in the list,
@@ -337,15 +334,14 @@ namespace Fabricator
         /// <summary>
         /// Edits an entry in the list using a KVObject.
         /// </summary>
-        /// <param name="index"></param>
         /// <param name="kv"></param>
-        public virtual void EditEntry(int index, KVObject kv)
+        public virtual void EditEntry(KVObject kv)
         {
-            int actualIndex = index - 1;
+            var index = entries.FindIndex(x => x.Name == kv.Name);
 
-            if (entries[actualIndex] != null)
+            if (entries[index] != null)
             {
-                entries[actualIndex] = kv;
+                entries[index] = kv;
             }
 
             //This is unnessessary as it doesn't change indexes, but better safe than sorry.
@@ -355,183 +351,27 @@ namespace Fabricator
         /// <summary>
         /// Adds a setting to the settings list.
         /// </summary>
-        /// <param name="settingName"></param>
-        /// <param name="settingValue"></param>
-        public void AddSetting(string settingName, string settingValue)
+        /// <param name="kv"></param>
+        public virtual void AddSetting(KVObject kv)
         {
             if (FileUsesSettings)
             {
-                settings.Add(new KVObject(settingName, settingValue));
-            }
-        }
-
-        /// <summary>
-        /// Adds a setting to the settings list.
-        /// </summary>
-        /// <param name="settingName"></param>
-        /// <param name="settingValue"></param>
-        public void AddSetting(string settingName, int settingValue)
-        {
-            if (FileUsesSettings)
-            {
-                settings.Add(new KVObject(settingName, settingValue));
-            }
-        }
-
-        /// <summary>
-        /// Adds a setting to the settings list.
-        /// </summary>
-        /// <param name="settingName"></param>
-        /// <param name="settingValue"></param>
-        public void AddSetting(string settingName, float settingValue)
-        {
-            if (FileUsesSettings)
-            {
-                settings.Add(new KVObject(settingName, settingValue));
-            }
-        }
-
-        /// <summary>
-        /// Adds a setting to the settings list.
-        /// </summary>
-        /// <param name="settingName"></param>
-        /// <param name="settingValue"></param>
-        public void AddSetting(string settingName, BoolInt settingValue)
-        {
-            if (FileUsesSettings)
-            {
-                settings.Add(new KVObject(settingName, (int)settingValue));
-            }
-        }
-
-        /// <summary>
-        /// Adds a setting to the settings list.
-        /// </summary>
-        /// <param name="settingName"></param>
-        /// <param name="settingValue"></param>
-        /// <param name="useBoolInt"></param>
-        public void AddSetting(string settingName, bool settingValue, bool useBoolInt = false)
-        {
-            if (FileUsesSettings)
-            {
-                if (useBoolInt)
-                {
-                    //Convert the bool to an int, then to a BoolInt.
-                    //NOTE: this will always mean true or false. There is no "invalid" value for booleans.
-                    //That's the game's problem now.
-                    BoolInt boolInt = (BoolInt)Convert.ToInt32(settingValue);
-
-                    //pass it to the override that handles BoolInts, then end the method here.
-                    AddSetting(settingName, boolInt);
-                    return;
-                }
-                else
-                {
-                    //No invalid check needed for the bool value sice there's no "invalid" value.
-                    //That's the game's problem now.
-                    settings.Add(new KVObject(settingName, settingValue));
-                }
+                settings.Add(kv);
             }
         }
 
         /// <summary>
         /// Edits a setting in the settings list.
         /// </summary>
-        /// <param name="settingName"></param>
-        /// <param name="settingValue"></param>
-        public void EditSetting(string settingName, string settingValue)
+        /// <param name="kv"></param>
+        public virtual void EditSetting(KVObject kv)
         {
             if (FileUsesSettings)
             {
-                var index = settings.FindIndex(x => x.Name == settingName);
+                var index = settings.FindIndex(x => x.Name == kv.Name);
                 if (settings[index] != null)
                 {
-                    settings[index] = new KVObject(settingName, settingValue);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Edits a setting in the settings list.
-        /// </summary>
-        /// <param name="settingName"></param>
-        /// <param name="settingValue"></param>
-        public void EditSetting(string settingName, int settingValue)
-        {
-            if (FileUsesSettings)
-            {
-                var index = settings.FindIndex(x => x.Name == settingName);
-                if (settings[index] != null)
-                {
-                    settings[index] = new KVObject(settingName, settingValue);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Edits a setting in the settings list.
-        /// </summary>
-        /// <param name="settingName"></param>
-        /// <param name="settingValue"></param>
-        public void EditSetting(string settingName, float settingValue)
-        {
-            if (FileUsesSettings)
-            {
-                var index = settings.FindIndex(x => x.Name == settingName);
-                if (settings[index] != null)
-                {
-                    settings[index] = new KVObject(settingName, settingValue);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Edits a setting in the settings list.
-        /// </summary>
-        /// <param name="settingName"></param>
-        /// <param name="settingValue"></param>
-        public void EditSetting(string settingName, BoolInt settingValue)
-        {
-            if (FileUsesSettings)
-            {
-                var index = settings.FindIndex(x => x.Name == settingName);
-                if (settings[index] != null)
-                {
-                    settings[index] = new KVObject(settingName, (int)settingValue);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Edits a setting in the settings list.
-        /// </summary>
-        /// <param name="settingName"></param>
-        /// <param name="settingValue"></param>
-        /// <param name="useBoolInt"></param>
-        public void EditSetting(string settingName, bool settingValue, bool useBoolInt = false)
-        {
-            if (FileUsesSettings)
-            {
-                if (useBoolInt)
-                {
-                    //Convert the bool to an int, then to a BoolInt.
-                    //NOTE: this will always mean true or false. There is no "invalid" value for booleans.
-                    //That's the game's problem now.
-                    BoolInt boolInt = (BoolInt)Convert.ToInt32(settingValue);
-
-                    //pass it to the override that handles BoolInts, then end the method here.
-                    EditSetting(settingName, boolInt);
-                    return;
-                }
-                else
-                {
-                    //No invalid check needed for the bool value sice there's no "invalid" value.
-                    //That's the game's problem now.
-                    var index = settings.FindIndex(x => x.Name == settingName);
-                    if (settings[index] != null)
-                    {
-                        settings[index] = new KVObject(settingName, settingValue);
-                    }
+                    settings[index] = kv;
                 }
             }
         }
@@ -540,7 +380,7 @@ namespace Fabricator
         /// Removes a setting from the settings list.
         /// </summary>
         /// <param name="settingName"></param>
-        public void RemoveSetting(string settingName)
+        public virtual void RemoveSetting(string settingName)
         {
             if (FileUsesSettings)
             {
