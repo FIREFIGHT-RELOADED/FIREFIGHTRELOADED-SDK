@@ -174,7 +174,7 @@ namespace Fabricator
         /// <summary>
         /// Adds a BaseNode to the entries list.
         /// </summary>
-        /// <param name="filePath"></param>
+        /// <param name="node"></param>
         public virtual void AddEntry(BaseNode node)
         {
             entries.Add(NodeToKVObject(node));
@@ -182,6 +182,16 @@ namespace Fabricator
             RefreshEntries();
         }
 
+        /// <summary>
+        /// Adds a KVObject to the entries list.
+        /// </summary>
+        /// <param name="kv"></param>
+        public virtual void AddEntry(KVObject kv)
+        {
+            entries.Add(kv);
+            //This is unnessessary as it doesn't change indexes, but better safe than sorry.
+            RefreshEntries();
+        }
 
         /// <summary>
         /// Adds a KVObject to the entryStats list.
@@ -309,7 +319,8 @@ namespace Fabricator
         /// <summary>
         /// Edits an entry in the list using a BaseNode.
         /// </summary>
-        /// <param name="filePath"></param>
+        /// <param name="index"></param>
+        /// <param name="nodeEdited"></param>
         public virtual void EditEntry(int index, BaseNode nodeEdited)
         {
             int actualIndex = index - 1;
@@ -317,6 +328,24 @@ namespace Fabricator
             if (entries[actualIndex] != null)
             {
                 entries[actualIndex] = NodeToKVObject(nodeEdited, index);
+            }
+
+            //This is unnessessary as it doesn't change indexes, but better safe than sorry.
+            RefreshEntries();
+        }
+
+        /// <summary>
+        /// Edits an entry in the list using a KVObject.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="kv"></param>
+        public virtual void EditEntry(int index, KVObject kv)
+        {
+            int actualIndex = index - 1;
+
+            if (entries[actualIndex] != null)
+            {
+                entries[actualIndex] = kv;
             }
 
             //This is unnessessary as it doesn't change indexes, but better safe than sorry.
