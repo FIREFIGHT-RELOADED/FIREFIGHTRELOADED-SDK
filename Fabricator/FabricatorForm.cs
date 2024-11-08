@@ -102,6 +102,7 @@ namespace Fabricator
             ShopCatalog.CatalogNode shopnode = new ShopCatalog.CatalogNode
             {
                 name = "test",
+                preset = 6,
                 price = -1,
                 limit = -1,
                 command = new ShopCatalog.Command
