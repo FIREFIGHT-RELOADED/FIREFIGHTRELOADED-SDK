@@ -62,6 +62,11 @@ namespace Fabricator
         public virtual bool FileUsesSettings { get; set; } = false;
 
         /// <summary>
+        /// Don't change the names of nodes upon entry refresh.
+        /// </summary>
+        public virtual bool PreserveNodeNamesOnRefresh { get; set; } = false;
+
+        /// <summary>
         /// Constructor. Sets up the list objects and loads the file.
         /// </summary>
         /// <param name="filePath"></param>
@@ -307,7 +312,15 @@ namespace Fabricator
 
             for (int i = 0; i < entries.Count; i++)
             {
-                newEntries.Add(new KVObject((i + 1).ToString(), entries[i].Value));
+                string entryName = entries[i].Name;
+
+                //bad code alert
+                if (!PreserveNodeNamesOnRefresh)
+                {
+                    entryName = (i + 1).ToString();
+                }
+
+                newEntries.Add(new KVObject(entryName, entries[i].Value));
             }
 
             entries = newEntries;

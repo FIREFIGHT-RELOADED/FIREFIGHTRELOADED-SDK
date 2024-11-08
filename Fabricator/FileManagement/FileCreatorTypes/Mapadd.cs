@@ -27,7 +27,7 @@ namespace Fabricator
         }
 
         public override string Label { get; set; } = "MapAdd";
-        public Dictionary<int, KVObject> labelEntries { get; set; }
+        public override bool PreserveNodeNamesOnRefresh { get; set; } = true;
 
         public MapAdd(string filePath) : base(filePath)
         {

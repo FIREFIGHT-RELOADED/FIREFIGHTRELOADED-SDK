@@ -18,8 +18,4 @@
     <PackageReference Include="ValveKeyValue" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="FileManagement\FIleSerializationTypes\" />
-  </ItemGroup>
-
 </Project>
