@@ -8,7 +8,8 @@ namespace Fabricator
     {
         public class MapAddLabel : BaseNode
         {
-            public List<MapAddLabelNode> labelNodes { get; set; }
+            public string labelName { get; set; } = "";
+            public List<MapAddLabelNode>? labelNodes { get; set; } = null;
         }
 
         public class MapAddLabelNode : BaseNode
@@ -22,7 +23,7 @@ namespace Fabricator
             public float roll { get; set; } = 0;
             public float yaw { get; set; } = 0;
             public float pitch { get; set; } = 0;
-            public KVObject keyValues { get; set; }
+            public KVObject? keyValues { get; set; } = null;
         }
 
         public override string Label { get; set; } = "MapAdd";
@@ -36,60 +37,89 @@ namespace Fabricator
         {
             MapAddLabel classNode = node as MapAddLabel;
 
+            string nodename = "";
+
             if (classNode != null)
             {
+                nodename = classNode.labelName;
+
                 foreach (MapAddLabelNode labelNode in classNode.labelNodes)
                 {
-                    AddKVObjectEntryStat(new KVObject(
-                        labelNode.entityName, 
+                    KVObject obj = new KVObject(
+                        labelNode.entityName,
                         [
-                             new KVObject("x", labelNode.x),
-                             new KVObject("y", labelNode.y),
-                             new KVObject("z", labelNode.z),
-                             new KVObject("roll", labelNode.roll),
-                             new KVObject("yaw", labelNode.yaw),
-                             new KVObject("pitch", labelNode.pitch),
+                             //WHY CAN'T IT JUST LOAD A DOUBLE?
+                             new KVObject("x", labelNode.x.ToString()),
+                             new KVObject("y", labelNode.y.ToString()),
+                             new KVObject("z", labelNode.z.ToString()),
+                             new KVObject("roll", labelNode.roll.ToString()),
+                             new KVObject("yaw", labelNode.yaw.ToString()),
+                             new KVObject("pitch", labelNode.pitch.ToString()),
                              labelNode.keyValues
-                        ]));
+                        ]);
+
+                    AddKVObjectEntryStat(obj);
                 }
             }
 
-            return base.NodeToKVObject(node, index);
+            //Creates a KVObject, clears the entryStats List, and returns the object.
+            KVObject kv = new KVObject(nodename, entryStats);
+
+            entryStats.Clear();
+
+            return kv;
         }
 
-        //TODO
-        public override CatalogNode EntryToNode(int index)
+
+        public override MapAddLabel EntryToNode(int index)
         {
             int actualIndex = index - 1;
 
-            CatalogNode classNode = new CatalogNode();
+            MapAddLabel classNode = new MapAddLabel();
 
             if (entries[actualIndex] != null)
             {
                 KVObject obj = entries[actualIndex];
 
+                classNode.labelName = obj.Name;
+                classNode.labelNodes = new List<MapAddLabelNode>();
+
                 foreach (KVObject child in obj.Children)
                 {
-                    switch (child.Name)
+                    MapAddLabelNode labelNode = new MapAddLabelNode();
+                    labelNode.entityName = child.Name;
+
+                    foreach ( KVObject nodechild in child.Children)
                     {
-                        case "name":
-                            classNode.name = child.Value.ToString(CultureInfo.CurrentCulture);
-                            break;
-                        case "price":
-                            classNode.price = child.Value.ToInt32(CultureInfo.CurrentCulture);
-                            break;
-                        case "limit":
-                            classNode.limit = child.Value.ToInt32(CultureInfo.CurrentCulture);
-                            break;
-                        case "command":
-                            {
-                                string basecommandString = child.Value.ToString(CultureInfo.CurrentCulture);
-                                classNode.command = new Command(basecommandString);
-                            }
-                            break;
-                        default:
-                            break;
+                        switch (nodechild.Name)
+                        {
+                            case "x":
+                                labelNode.x = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
+                                break;
+                            case "y":
+                                labelNode.y = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
+                                break;
+                            case "z":
+                                labelNode.z = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
+                                break;
+                            case "roll":
+                                labelNode.roll = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
+                                break;
+                            case "yaw":
+                                labelNode.yaw = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
+                                break;
+                            case "pitch":
+                                labelNode.pitch = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
+                                break;
+                            case "KeyValues":
+                                labelNode.keyValues = nodechild;
+                                break;
+                            default:
+                                break;
+                        }
                     }
+
+                    classNode.labelNodes.Add(labelNode);
                 }
             }
 

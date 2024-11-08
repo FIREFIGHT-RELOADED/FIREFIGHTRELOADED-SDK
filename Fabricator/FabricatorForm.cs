@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using ValveKeyValue;
 using System.Reflection;
+using static Fabricator.FileCreatorBase;
+using static Fabricator.MapAdd;
 
 namespace Fabricator
 {
@@ -154,6 +156,14 @@ namespace Fabricator
             playlist.AddSetting(new KVObject("shuffle", "1"));
 
             playlist.Save("C:\\Users\\Bitl\\Desktop\\test5.txt");
+
+            MapAdd mapaddtest = new MapAdd("D:\\SteamLibrary\\steamapps\\common\\FIREFIGHT RELOADED\\firefightreloaded\\scripts\\mapadd\\dm_halls3.txt");
+            MapAdd.MapAddLabel label = mapaddtest.EntryToNode(1);
+            label.labelNodes[0].keyValues["targetname"] = "test";
+            label.labelNodes[0].roll = 45;
+            mapaddtest.EditEntry(1, label);
+
+            mapaddtest.Save("C:\\Users\\Bitl\\Desktop\\test6.txt");
         }
     }
 }
