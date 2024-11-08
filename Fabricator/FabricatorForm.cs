@@ -4,8 +4,6 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using ValveKeyValue;
 using System.Reflection;
-using static Fabricator.FileCreatorBase;
-using static Fabricator.MapAdd;
 
 namespace Fabricator
 {
