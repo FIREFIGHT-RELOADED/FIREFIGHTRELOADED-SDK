@@ -76,6 +76,25 @@ namespace Fabricator
             LoadFile(filePath);
         }
 
+        /// <summary>
+        /// Loads a KeyValues file into a KVObject.
+        /// This doesn't load any file data into FileCreatorBase.
+        /// LoadFile does that purpose.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public static KVObject? LoadKeyValuesFile(string filePath)
+        {
+            KVObject? data = null;
+
+            using (var stream = File.OpenRead(filePath))
+            {
+                KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
+                data = kv.Deserialize(stream);
+            }
+
+            return data;
+        }
 
         /// <summary>
         /// Loads a file and adds entries from it.
@@ -85,10 +104,10 @@ namespace Fabricator
         {
             bool settingsAvailable = false;
 
-            using (var stream = File.OpenRead(filePath))
+            KVObject? data = LoadKeyValuesFile(filePath);
+
+            if (data != null)
             {
-                KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
-                KVObject data = kv.Deserialize(stream);
                 foreach (KVObject item in data)
                 {
                     if (FileUsesSettings)

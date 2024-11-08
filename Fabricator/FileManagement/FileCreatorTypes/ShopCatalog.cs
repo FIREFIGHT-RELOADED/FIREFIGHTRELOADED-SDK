@@ -61,6 +61,7 @@ namespace Fabricator
         public class CatalogNode : BaseNode
         {
             public string name { get; set; } = "";
+            public int preset { get; set; } = -1;
             public int price { get; set; } = -1;
             public int limit { get; set; } = -1;
             public Command? command { get; set; } = null;
@@ -79,6 +80,7 @@ namespace Fabricator
             if (classNode != null)
             {
                 AddKVObjectEntryStat("name", classNode.name);
+                AddKVObjectEntryStat("preset", classNode.preset);
                 AddKVObjectEntryStat("price", classNode.price);
                 AddKVObjectEntryStat("limit", classNode.limit);
                 AddKVObjectEntryStat("command", classNode.command);
@@ -103,6 +105,9 @@ namespace Fabricator
                     {
                         case "name":
                             classNode.name = child.Value.ToString(CultureInfo.CurrentCulture);
+                            break;
+                        case "preset":
+                            classNode.preset = child.Value.ToInt32(CultureInfo.CurrentCulture);
                             break;
                         case "price":
                             classNode.price = child.Value.ToInt32(CultureInfo.CurrentCulture);

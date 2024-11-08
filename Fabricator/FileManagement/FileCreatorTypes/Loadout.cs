@@ -10,6 +10,7 @@ namespace Fabricator
             public BoolInt hardcore { get; set; } = BoolInt.Invalid;
             public BoolInt nodisconnect { get; set; } = BoolInt.Invalid;
             public string weapon { get; set; } = "";
+            public int weaponpreset { get; set; } = -1;
             public string ammotype { get; set; } = "";
             public int ammonum { get; set; } = -1;
             public string ammo2type { get; set; } = "";
@@ -44,6 +45,7 @@ namespace Fabricator
                 AddKVObjectEntryStat("hardcore", classNode.hardcore);
                 AddKVObjectEntryStat("nodisconnect", classNode.nodisconnect);
                 AddKVObjectEntryStat("weapon", classNode.weapon);
+                AddKVObjectEntryStat("weaponpreset", classNode.weaponpreset);
                 AddKVObjectEntryStat("ammotype", classNode.ammotype);
                 AddKVObjectEntryStat("ammonum", classNode.ammonum);
                 AddKVObjectEntryStat("ammo2type", classNode.ammo2type);
@@ -88,6 +90,9 @@ namespace Fabricator
                             break;
                         case "weapon":
                             classNode.weapon = child.Value.ToString(CultureInfo.CurrentCulture);
+                            break;
+                        case "weaponpreset":
+                            classNode.weaponpreset = child.Value.ToInt32(CultureInfo.CurrentCulture);
                             break;
                         case "ammotype":
                             classNode.ammotype = child.Value.ToString(CultureInfo.CurrentCulture);

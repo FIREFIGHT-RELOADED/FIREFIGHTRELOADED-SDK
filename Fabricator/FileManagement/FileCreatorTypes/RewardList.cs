@@ -53,6 +53,7 @@ namespace Fabricator
             public string name { get; set; } = "";
             public RewardItemTypes itemType { get; set; } = RewardItemTypes.FR_REWARD_INVALID;
             public string weaponClassName { get; set; } = "";
+            public int weaponPreset { get; set; } = -1;
             public BoolInt ammoIsPrimary { get; set; } = BoolInt.Invalid;
             public int ammoNum { get; set; } = -1;
             public RewardPerkTypes perkID { get; set; } = RewardPerkTypes.FIREFIGHT_PERK_INVALID;
@@ -79,6 +80,7 @@ namespace Fabricator
                 }
 
                 AddKVObjectEntryStat("weapon_classname", classNode.weaponClassName);
+                AddKVObjectEntryStat("weapon_preset", classNode.weaponPreset);
                 AddKVObjectEntryStat("ammo_isprimary", classNode.ammoIsPrimary);
                 AddKVObjectEntryStat("ammo_num", classNode.ammoNum);
 
@@ -115,6 +117,9 @@ namespace Fabricator
                             break;
                         case "weapon_classname":
                             classNode.weaponClassName = child.Value.ToString(CultureInfo.CurrentCulture);
+                            break;
+                        case "weapon_preset":
+                            classNode.weaponPreset = child.Value.ToInt32(CultureInfo.CurrentCulture);
                             break;
                         case "ammo_isprimary":
                             classNode.ammoIsPrimary = (BoolInt)child.Value.ToInt32(CultureInfo.CurrentCulture);
