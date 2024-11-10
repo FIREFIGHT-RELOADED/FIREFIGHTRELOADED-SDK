@@ -28,28 +28,30 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FabricatorOtherForm));
             menu = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             newToolStripMenuItem = new ToolStripMenuItem();
             loadToolStripMenuItem = new ToolStripMenuItem();
             saveToolStripMenuItem = new ToolStripMenuItem();
+            editToolStripMenuItem = new ToolStripMenuItem();
+            createRowFromKeyListToolStripMenuItem = new ToolStripMenuItem();
+            KVNameBox = new ToolStripTextBox();
             KeyValueSet = new DataGridView();
             KeyColumn = new DataGridViewTextBoxColumn();
             ValueColumn = new DataGridViewTextBoxColumn();
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
-            editToolStripMenuItem = new ToolStripMenuItem();
-            createRowFromKeyListToolStripMenuItem = new ToolStripMenuItem();
             menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)KeyValueSet).BeginInit();
             SuspendLayout();
             // 
             // menu
             // 
-            menu.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem });
+            menu.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, KVNameBox });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
-            menu.Size = new Size(578, 24);
+            menu.Size = new Size(578, 27);
             menu.TabIndex = 0;
             menu.Text = "menuStrip1";
             // 
@@ -57,7 +59,7 @@
             // 
             fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem, loadToolStripMenuItem, saveToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(37, 20);
+            fileToolStripMenuItem.Size = new Size(37, 23);
             fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
@@ -81,17 +83,38 @@
             saveToolStripMenuItem.Text = "Save";
             saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
+            // editToolStripMenuItem
+            // 
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem });
+            editToolStripMenuItem.Name = "editToolStripMenuItem";
+            editToolStripMenuItem.Size = new Size(39, 23);
+            editToolStripMenuItem.Text = "Edit";
+            // 
+            // createRowFromKeyListToolStripMenuItem
+            // 
+            createRowFromKeyListToolStripMenuItem.Name = "createRowFromKeyListToolStripMenuItem";
+            createRowFromKeyListToolStripMenuItem.Size = new Size(206, 22);
+            createRowFromKeyListToolStripMenuItem.Text = "Create Row from Key List";
+            createRowFromKeyListToolStripMenuItem.Click += createRowFromKeyListToolStripMenuItem_Click;
+            // 
+            // KVNameBox
+            // 
+            KVNameBox.BorderStyle = BorderStyle.FixedSingle;
+            KVNameBox.Name = "KVNameBox";
+            KVNameBox.Size = new Size(100, 23);
+            KVNameBox.TextChanged += KVNameBox_TextChanged;
+            // 
             // KeyValueSet
             // 
             KeyValueSet.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             KeyValueSet.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             KeyValueSet.Columns.AddRange(new DataGridViewColumn[] { KeyColumn, ValueColumn });
             KeyValueSet.Dock = DockStyle.Fill;
-            KeyValueSet.Location = new Point(0, 24);
+            KeyValueSet.Location = new Point(0, 27);
             KeyValueSet.Name = "KeyValueSet";
             KeyValueSet.RowTemplate.Height = 25;
             KeyValueSet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            KeyValueSet.Size = new Size(578, 326);
+            KeyValueSet.Size = new Size(578, 323);
             KeyValueSet.TabIndex = 1;
             // 
             // KeyColumn
@@ -114,19 +137,6 @@
             saveFileDialog1.DefaultExt = "txt";
             saveFileDialog1.Filter = "Text Files|*.txt|All Files|*.*";
             // 
-            // editToolStripMenuItem
-            // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem });
-            editToolStripMenuItem.Name = "editToolStripMenuItem";
-            editToolStripMenuItem.Size = new Size(39, 20);
-            editToolStripMenuItem.Text = "Edit";
-            // 
-            // createRowFromKeyListToolStripMenuItem
-            // 
-            createRowFromKeyListToolStripMenuItem.Name = "createRowFromKeyListToolStripMenuItem";
-            createRowFromKeyListToolStripMenuItem.Size = new Size(206, 22);
-            createRowFromKeyListToolStripMenuItem.Text = "Create Row from Key List";
-            // 
             // FabricatorOtherForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -134,7 +144,9 @@
             ClientSize = new Size(578, 350);
             Controls.Add(KeyValueSet);
             Controls.Add(menu);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menu;
+            MinimumSize = new Size(336, 159);
             Name = "FabricatorOtherForm";
             Text = "Fabricator";
             Load += FabricatorOtherForm_Load;
@@ -159,5 +171,6 @@
         private SaveFileDialog saveFileDialog1;
         private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem createRowFromKeyListToolStripMenuItem;
+        private ToolStripTextBox KVNameBox;
     }
 }
