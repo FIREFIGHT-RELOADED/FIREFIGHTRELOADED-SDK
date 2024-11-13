@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.Common;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,8 +15,8 @@ using ValveKeyValue;
 
 /*
  * TODO:
- * create menu that opens up collections and edits them
- * make edits get sent to the fileCreator object
+ * create menu that opens up collections and edits them after double click
+ * make edits get sent to the fileCreator object after exiting cell
  * allow the fileCreator object to save the file.
  */
 
@@ -58,6 +59,8 @@ namespace Fabricator
             }
 
             openFileDialog1.Filter = saveFileDialog1.Filter = $"{fileType.ToString()} Text Files|*.txt|All Files|*.*";
+
+            Text = $"{Text} - {fileType.ToString()}";
         }
 
         private void FabricatorOtherForm_Load(object sender, EventArgs e)
@@ -79,6 +82,8 @@ namespace Fabricator
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
+                    NodeList.Nodes.Clear();
+
                     switch (fileType)
                     {
                         case Type.Spawnlist:
@@ -110,7 +115,6 @@ namespace Fabricator
                         KVNameBox.Text = kv.Name;
 
                         int index = 1;
-                        int subindex = 1;
 
                         foreach (KVObject child in kv.Children)
                         {
@@ -126,19 +130,24 @@ namespace Fabricator
                                 }
                             }
 
-                            TreeNode root = NodeList.Nodes.Add($"{child.Name} ({index})");
-                            if (child.Children.Count() > 0)
+                            if (fileType == Type.MapAdd)
                             {
-                                foreach (KVObject child2 in child.Children)
-                                {
-                                    if (child2.Value.ValueType == KVValueType.Collection && fileType == Type.MapAdd)
-                                    {
-                                        root.Nodes.Add($"{child2.Name} ({index}.{subindex})");
-                                        subindex++;
-                                    }
-                                }
+                                int subindex = 1;
 
-                                subindex = 1;
+                                TreeNode root = NodeList.Nodes.Add($"{child.Name} ({index})");
+                                if (child.Children.Count() > 0)
+                                {
+                                    foreach (KVObject child2 in child.Children)
+                                    {
+                                        if (child2.Value.ValueType == KVValueType.Collection)
+                                        {
+                                            root.Nodes.Add($"{child2.Name} ({index}.{subindex})");
+                                            subindex++;
+                                        }
+                                    }
+
+                                    subindex = 1;
+                                }
                             }
 
                             index++;

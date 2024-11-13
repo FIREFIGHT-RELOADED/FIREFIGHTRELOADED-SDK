@@ -148,7 +148,7 @@
             MainMenuStrip = menu;
             MinimumSize = new Size(336, 159);
             Name = "FabricatorOtherForm";
-            Text = "Fabricator";
+            Text = "Fabricator - Other";
             Load += FabricatorOtherForm_Load;
             menu.ResumeLayout(false);
             menu.PerformLayout();

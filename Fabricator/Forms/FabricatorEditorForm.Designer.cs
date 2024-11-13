@@ -124,6 +124,8 @@
             KeyValueSet.TabIndex = 1;
             KeyValueSet.CellContentDoubleClick += KeyValueSet_CellContentDoubleClick;
             KeyValueSet.CellLeave += KeyValueSet_CellLeave;
+            KeyValueSet.CellMouseEnter += KeyValueSet_CellLeave;
+            KeyValueSet.CellMouseLeave += KeyValueSet_CellLeave;
             // 
             // KeyColumn
             // 
@@ -182,7 +184,7 @@
             MainMenuStrip = menu;
             MinimumSize = new Size(336, 159);
             Name = "FabricatorEditorForm";
-            Text = "Fabricator";
+            Text = "Fabricator - Editor";
             Load += FabricatorOtherForm_Load;
             menu.ResumeLayout(false);
             menu.PerformLayout();
