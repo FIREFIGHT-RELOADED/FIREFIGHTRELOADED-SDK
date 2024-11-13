@@ -184,7 +184,7 @@
             MainMenuStrip = menu;
             MinimumSize = new Size(336, 159);
             Name = "FabricatorEditorForm";
-            Text = "Fabricator - Editor";
+            Text = "Fabricator";
             Load += FabricatorOtherForm_Load;
             menu.ResumeLayout(false);
             menu.PerformLayout();
