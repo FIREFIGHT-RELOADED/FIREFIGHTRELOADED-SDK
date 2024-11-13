@@ -11,7 +11,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ValveKeyValue;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
+/*
+ * TODO:
+ * create menu that opens up collections and edits them
+ * make edits get sent to the fileCreator object
+ * allow the fileCreator object to save the file.
+ */
 
 namespace Fabricator
 {
@@ -246,21 +252,19 @@ namespace Fabricator
                         {
                             foreach (KVObject child in fileCreator.entries[index].Children)
                             {
-                                int row = KeyValueSet.Rows.Add(child.Name, child.Value);
-                                DataGridViewRow dataGridViewRow = KeyValueSet.Rows[row];
-                                dataGridViewRow.Tag = $"{index}";
+                                KeyValueSet.Rows.Add(child.Name, child.Value);
                             }
                         }
                     }
                     catch (Exception)
                     {
-                        string indexString = NodeList.SelectedNode.Text.Split(" ")[1].Replace("(", "").Replace(")", "");
-                        string[] splitIndex = indexString.Split(".");
-                        int index = Convert.ToInt32(splitIndex[0]);
-                        int index2 = Convert.ToInt32(splitIndex[1]) - 1;
-
                         if (fileType == Type.MapAdd)
                         {
+                            string indexString = NodeList.SelectedNode.Text.Split(" ")[1].Replace("(", "").Replace(")", "");
+                            string[] splitIndex = indexString.Split(".");
+                            int index = Convert.ToInt32(splitIndex[0]);
+                            int index2 = Convert.ToInt32(splitIndex[1]) - 1;
+
                             MapAdd? mapadd = fileCreator as MapAdd;
 
                             if (mapadd != null)
@@ -291,9 +295,7 @@ namespace Fabricator
                 {
                     foreach (KVObject child in fileCreator.settings)
                     {
-                        int row = KeyValueSet.Rows.Add(child.Name, child.Value);
-                        DataGridViewRow dataGridViewRow = KeyValueSet.Rows[row];
-                        dataGridViewRow.Tag = "setting";
+                        KeyValueSet.Rows.Add(child.Name, child.Value);
                     }
                 }
             }
