@@ -1,8 +1,10 @@
 ﻿
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -102,6 +104,7 @@ namespace Fabricator
                         KVNameBox.Text = kv.Name;
 
                         int index = 1;
+                        int subindex = 1;
 
                         foreach (KVObject child in kv.Children)
                         {
@@ -117,9 +120,25 @@ namespace Fabricator
                                 }
                             }
 
-                            NodeList.Nodes.Add($"{child.Name} ({index})");
+                            TreeNode root = NodeList.Nodes.Add($"{child.Name} ({index})");
+                            if (child.Children.Count() > 0)
+                            {
+                                foreach (KVObject child2 in child.Children)
+                                {
+                                    if (child2.Value.ValueType == KVValueType.Collection && fileType == Type.MapAdd)
+                                    {
+                                        root.Nodes.Add($"{child2.Name} ({index}.{subindex})");
+                                        subindex++;
+                                    }
+                                }
+
+                                subindex = 1;
+                            }
+
                             index++;
                         }
+
+                        NodeList.ExpandAll();
                     }
                 }
             }
@@ -211,9 +230,73 @@ namespace Fabricator
 
         private void NodeList_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            KeyValueSet.Rows.Clear();
+            if (fileCreator != null)
+            {
+                KeyValueSet.Rows.Clear();
 
+                if (!NodeList.SelectedNode.Text.Contains("settings"))
+                {
+                    try
+                    {
+                        string cleanedString = NodeList.SelectedNode.Text.Substring(0, NodeList.SelectedNode.Text.Length - 4).TrimEnd();
 
+                        var index = fileCreator.entries.FindIndex(x => x.Name == cleanedString);
+
+                        if (fileCreator.entries[index] != null)
+                        {
+                            foreach (KVObject child in fileCreator.entries[index].Children)
+                            {
+                                int row = KeyValueSet.Rows.Add(child.Name, child.Value);
+                                DataGridViewRow dataGridViewRow = KeyValueSet.Rows[row];
+                                dataGridViewRow.Tag = $"{index}";
+                            }
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        string indexString = NodeList.SelectedNode.Text.Split(" ")[1].Replace("(", "").Replace(")", "");
+                        string[] splitIndex = indexString.Split(".");
+                        int index = Convert.ToInt32(splitIndex[0]);
+                        int index2 = Convert.ToInt32(splitIndex[1]) - 1;
+
+                        if (fileType == Type.MapAdd)
+                        {
+                            MapAdd? mapadd = fileCreator as MapAdd;
+
+                            if (mapadd != null)
+                            {
+                                MapAdd.MapAddLabel label = mapadd.EntryToNode(index);
+
+                                if (label != null && label.labelNodes != null)
+                                {
+                                    foreach (MapAdd.MapAddLabelNode node in label.labelNodes)
+                                    {
+                                        if (label.labelNodes.IndexOf(node) == index2)
+                                        {
+                                            KeyValueSet.Rows.Add("x", node.x);
+                                            KeyValueSet.Rows.Add("y", node.y);
+                                            KeyValueSet.Rows.Add("z", node.z);
+                                            KeyValueSet.Rows.Add("roll", node.roll);
+                                            KeyValueSet.Rows.Add("yaw", node.yaw);
+                                            KeyValueSet.Rows.Add("pitch", node.pitch);
+                                            KeyValueSet.Rows.Add("KeyValues", node.keyValues.Value);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (KVObject child in fileCreator.settings)
+                    {
+                        int row = KeyValueSet.Rows.Add(child.Name, child.Value);
+                        DataGridViewRow dataGridViewRow = KeyValueSet.Rows[row];
+                        dataGridViewRow.Tag = "setting";
+                    }
+                }
+            }
         }
 
         private void KeyValueSet_CellLeave(object sender, DataGridViewCellEventArgs e)
