@@ -305,5 +305,10 @@ namespace Fabricator
         {
 
         }
+
+        private void KeyValueSet_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

@@ -122,6 +122,7 @@
             KeyValueSet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             KeyValueSet.Size = new Size(384, 353);
             KeyValueSet.TabIndex = 1;
+            KeyValueSet.CellContentDoubleClick += KeyValueSet_CellContentDoubleClick;
             KeyValueSet.CellLeave += KeyValueSet_CellLeave;
             // 
             // KeyColumn
