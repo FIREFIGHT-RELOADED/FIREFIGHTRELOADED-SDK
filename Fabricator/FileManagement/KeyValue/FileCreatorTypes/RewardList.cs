@@ -62,6 +62,10 @@ namespace Fabricator
 
         public override string Label { get; set; } = "Rewards";
 
+        public RewardList() : base()
+        {
+        }
+
         public RewardList(string filePath) : base(filePath)
         {
         }

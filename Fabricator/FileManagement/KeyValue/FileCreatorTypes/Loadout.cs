@@ -32,6 +32,10 @@ namespace Fabricator
 
         public override bool SetLabelToFileName { get; set; } = true;
 
+        public Loadout() : base()
+        {
+        }
+
         public Loadout(string filePath) : base(filePath)
         {
         }

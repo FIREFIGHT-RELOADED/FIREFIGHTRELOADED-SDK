@@ -16,6 +16,10 @@ namespace Fabricator
         public override bool SetLabelToFileName { get; set; } = true;
         public override bool FileUsesSettings { get; set; } = true;
 
+        public Playlist() : base()
+        {
+        }
+
         public Playlist(string filePath) : base(filePath)
         {
         }

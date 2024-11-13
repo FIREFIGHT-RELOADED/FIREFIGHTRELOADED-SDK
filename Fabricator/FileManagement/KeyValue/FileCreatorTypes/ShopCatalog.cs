@@ -69,6 +69,10 @@ namespace Fabricator
 
         public override string Label { get; set; } = "ShopCatalog";
 
+        public ShopCatalog() : base()
+        {
+        }
+
         public ShopCatalog(string filePath) : base(filePath)
         {
         }

@@ -29,6 +29,10 @@ namespace Fabricator
         public override string Label { get; set; } = "MapAdd";
         public override bool PreserveNodeNamesOnRefresh { get; set; } = true;
 
+        public MapAdd() : base()
+        {
+        }
+
         public MapAdd(string filePath) : base(filePath)
         {
         }

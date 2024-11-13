@@ -7,19 +7,19 @@ using System.Reflection;
 
 namespace Fabricator
 {
+    public enum Type
+    {
+        Other,
+        Spawnlist,
+        Catalog,
+        Reward,
+        Playlist,
+        MapAdd,
+        Loadout
+    }
+
     public partial class FabricatorMainForm : Form
     {
-        enum Type
-        {
-            Other,
-            Spawnlist,
-            Catalog,
-            Reward,
-            Playlist,
-            MapAdd,
-            Loadout
-        }
-
         Dictionary<RadioButton, Type> SelectorValues { get; set; }
         Type SelectedType { get; set; }
 
@@ -79,6 +79,8 @@ namespace Fabricator
                     form.ShowDialog();
                     break;
                 default:
+                    FabricatorEditorForm formS = new FabricatorEditorForm(SelectedType);
+                    formS.ShowDialog();
                     break;
             }
         }

@@ -67,6 +67,19 @@ namespace Fabricator
         public virtual bool PreserveNodeNamesOnRefresh { get; set; } = false;
 
         /// <summary>
+        /// the raw data of the file.
+        /// </summary>
+        public KVObject rawData { get; set; }
+
+        /// <summary>
+        /// Constructor. Sets up the list objects and loads the file.
+        /// </summary>
+        public FileCreatorBase()
+        {
+            SetupLists();
+        }
+
+        /// <summary>
         /// Constructor. Sets up the list objects and loads the file.
         /// </summary>
         /// <param name="filePath"></param>
@@ -104,11 +117,11 @@ namespace Fabricator
         {
             bool settingsAvailable = false;
 
-            KVObject? data = LoadKeyValuesFile(filePath);
+            rawData = LoadKeyValuesFile(filePath);
 
-            if (data != null)
+            if (rawData != null)
             {
-                foreach (KVObject item in data)
+                foreach (KVObject item in rawData)
                 {
                     if (FileUsesSettings)
                     {

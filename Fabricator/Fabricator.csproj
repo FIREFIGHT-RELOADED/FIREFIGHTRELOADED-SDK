@@ -18,4 +18,8 @@
     <PackageReference Include="ValveKeyValue" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Forms\FabricatorEditorForm.cs" />
+  </ItemGroup>
+
 </Project>
