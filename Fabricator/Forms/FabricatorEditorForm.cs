@@ -16,6 +16,8 @@ using ValveKeyValue;
 
 /*
  * TODO:
+ * make it so this file USES THE NODES INSTEAD OF KVOBJECTS. we may need to rewrite all of this....
+ * 
  * make edits get sent to the fileCreator object after exiting cell
  * allow the fileCreator object to save the file.
  */
@@ -27,6 +29,7 @@ namespace Fabricator
         string kvName { get; set; }
         FileCreatorBase fileCreator { get; set; }
         Type fileType { get; set; }
+        int savedNodeIndex { get; set; }
 
         public FabricatorEditorForm(Type type)
         {
@@ -255,11 +258,11 @@ namespace Fabricator
                     {
                         string cleanedString = NodeList.SelectedNode.Text.Substring(0, NodeList.SelectedNode.Text.Length - 4).TrimEnd();
 
-                        var index = fileCreator.entries.FindIndex(x => x.Name == cleanedString);
+                        savedNodeIndex = fileCreator.entries.FindIndex(x => x.Name == cleanedString);
 
-                        if (fileCreator.entries[index] != null)
+                        if (fileCreator.entries[savedNodeIndex] != null)
                         {
-                            foreach (KVObject child in fileCreator.entries[index].Children)
+                            foreach (KVObject child in fileCreator.entries[savedNodeIndex].Children)
                             {
                                 KeyValueSet.Rows.Add(child.Name, child.Value);
                             }
@@ -271,14 +274,14 @@ namespace Fabricator
                         {
                             string indexString = NodeList.SelectedNode.Text.Split(" ")[1].Replace("(", "").Replace(")", "");
                             string[] splitIndex = indexString.Split(".");
-                            int index = Convert.ToInt32(splitIndex[0]);
+                            savedNodeIndex = Convert.ToInt32(splitIndex[0]);
                             int index2 = Convert.ToInt32(splitIndex[1]) - 1;
 
                             MapAdd? mapadd = fileCreator as MapAdd;
 
                             if (mapadd != null)
                             {
-                                MapAdd.MapAddLabel label = mapadd.EntryToNode(index);
+                                MapAdd.MapAddLabel label = mapadd.EntryToNode(savedNodeIndex);
 
                                 if (label != null && label.labelNodes != null)
                                 {
