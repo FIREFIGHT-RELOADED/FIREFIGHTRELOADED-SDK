@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.VisualBasic.Logging;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,7 +16,6 @@ using ValveKeyValue;
 
 /*
  * TODO:
- * create menu that opens up collections and edits them after double click
  * make edits get sent to the fileCreator object after exiting cell
  * allow the fileCreator object to save the file.
  */
@@ -310,6 +310,11 @@ namespace Fabricator
             }
         }
 
+        private void KeyValueSet_CellLeave(object sender, EventArgs e)
+        {
+
+        }
+
         private void KeyValueSet_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -317,7 +322,27 @@ namespace Fabricator
 
         private void KeyValueSet_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            object name = KeyValueSet.Rows[e.RowIndex].Cells[0].Value;
+            object val = KeyValueSet.Rows[e.RowIndex].Cells[1].Value;
+            if (val != null)
+            {
+                KVValue kVObj = val as KVValue;
+                if (kVObj != null)
+                {
+                    if (kVObj.ValueType == KVValueType.Collection)
+                    {
+                        KVObject genObj = new KVObject(name.ToString(), kVObj);
+                        using (var kvl = new FabricatorCollectionEditor(genObj))
+                        {
+                            if (kvl.ShowDialog() == DialogResult.OK)
+                            {
+                                KeyValueSet.Rows[e.RowIndex].Cells[0].Value = kvl.objToEdit.Name;
+                                KeyValueSet.Rows[e.RowIndex].Cells[1].Value = kvl.objToEdit.Value;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

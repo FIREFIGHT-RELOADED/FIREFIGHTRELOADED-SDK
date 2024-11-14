@@ -19,6 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Forms\Controls\FabricatorCollectionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Forms\FabricatorEditorForm.cs" />
   </ItemGroup>
 

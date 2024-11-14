@@ -54,10 +54,12 @@
             // 
             // menu
             // 
+            menu.ImageScalingSize = new Size(20, 20);
             menu.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, KVNameBox });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
-            menu.Size = new Size(578, 27);
+            menu.Padding = new Padding(7, 3, 0, 3);
+            menu.Size = new Size(661, 33);
             menu.TabIndex = 0;
             menu.Text = "menuStrip1";
             // 
@@ -65,27 +67,27 @@
             // 
             fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem, loadToolStripMenuItem, saveToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            fileToolStripMenuItem.Size = new Size(37, 23);
+            fileToolStripMenuItem.Size = new Size(46, 27);
             fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem
             // 
             newToolStripMenuItem.Name = "newToolStripMenuItem";
-            newToolStripMenuItem.Size = new Size(100, 22);
+            newToolStripMenuItem.Size = new Size(125, 26);
             newToolStripMenuItem.Text = "New";
             newToolStripMenuItem.Click += newToolStripMenuItem_Click;
             // 
             // loadToolStripMenuItem
             // 
             loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            loadToolStripMenuItem.Size = new Size(100, 22);
+            loadToolStripMenuItem.Size = new Size(125, 26);
             loadToolStripMenuItem.Text = "Load";
             loadToolStripMenuItem.Click += loadToolStripMenuItem_Click;
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(100, 22);
+            saveToolStripMenuItem.Size = new Size(125, 26);
             saveToolStripMenuItem.Text = "Save";
             saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
@@ -93,13 +95,13 @@
             // 
             editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
-            editToolStripMenuItem.Size = new Size(39, 23);
+            editToolStripMenuItem.Size = new Size(49, 27);
             editToolStripMenuItem.Text = "Edit";
             // 
             // createRowFromKeyListToolStripMenuItem
             // 
             createRowFromKeyListToolStripMenuItem.Name = "createRowFromKeyListToolStripMenuItem";
-            createRowFromKeyListToolStripMenuItem.Size = new Size(206, 22);
+            createRowFromKeyListToolStripMenuItem.Size = new Size(258, 26);
             createRowFromKeyListToolStripMenuItem.Text = "Create Row from Key List";
             createRowFromKeyListToolStripMenuItem.Click += createRowFromKeyListToolStripMenuItem_Click;
             // 
@@ -107,7 +109,7 @@
             // 
             KVNameBox.BorderStyle = BorderStyle.FixedSingle;
             KVNameBox.Name = "KVNameBox";
-            KVNameBox.Size = new Size(100, 23);
+            KVNameBox.Size = new Size(114, 27);
             KVNameBox.TextChanged += KVNameBox_TextChanged;
             // 
             // KeyValueSet
@@ -117,24 +119,27 @@
             KeyValueSet.Columns.AddRange(new DataGridViewColumn[] { KeyColumn, ValueColumn });
             KeyValueSet.Dock = DockStyle.Fill;
             KeyValueSet.Location = new Point(0, 0);
+            KeyValueSet.Margin = new Padding(3, 4, 3, 4);
             KeyValueSet.Name = "KeyValueSet";
+            KeyValueSet.RowHeadersWidth = 51;
             KeyValueSet.RowTemplate.Height = 25;
             KeyValueSet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            KeyValueSet.Size = new Size(384, 353);
+            KeyValueSet.Size = new Size(439, 474);
             KeyValueSet.TabIndex = 1;
             KeyValueSet.CellContentDoubleClick += KeyValueSet_CellContentDoubleClick;
             KeyValueSet.CellLeave += KeyValueSet_CellLeave;
-            KeyValueSet.CellMouseEnter += KeyValueSet_CellLeave;
-            KeyValueSet.CellMouseLeave += KeyValueSet_CellLeave;
+            KeyValueSet.Leave += KeyValueSet_CellLeave;
             // 
             // KeyColumn
             // 
             KeyColumn.HeaderText = "Key";
+            KeyColumn.MinimumWidth = 6;
             KeyColumn.Name = "KeyColumn";
             // 
             // ValueColumn
             // 
             ValueColumn.HeaderText = "Value";
+            ValueColumn.MinimumWidth = 6;
             ValueColumn.Name = "ValueColumn";
             // 
             // openFileDialog1
@@ -150,7 +155,8 @@
             // splitContainer1
             // 
             splitContainer1.Dock = DockStyle.Fill;
-            splitContainer1.Location = new Point(0, 27);
+            splitContainer1.Location = new Point(0, 33);
+            splitContainer1.Margin = new Padding(3, 4, 3, 4);
             splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
@@ -160,29 +166,32 @@
             // splitContainer1.Panel2
             // 
             splitContainer1.Panel2.Controls.Add(KeyValueSet);
-            splitContainer1.Size = new Size(578, 353);
-            splitContainer1.SplitterDistance = 190;
+            splitContainer1.Size = new Size(661, 474);
+            splitContainer1.SplitterDistance = 217;
+            splitContainer1.SplitterWidth = 5;
             splitContainer1.TabIndex = 2;
             // 
             // NodeList
             // 
             NodeList.Dock = DockStyle.Fill;
             NodeList.Location = new Point(0, 0);
+            NodeList.Margin = new Padding(3, 4, 3, 4);
             NodeList.Name = "NodeList";
-            NodeList.Size = new Size(190, 353);
+            NodeList.Size = new Size(217, 474);
             NodeList.TabIndex = 0;
             NodeList.AfterSelect += NodeList_AfterSelect;
             // 
             // FabricatorEditorForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(578, 380);
+            ClientSize = new Size(661, 507);
             Controls.Add(splitContainer1);
             Controls.Add(menu);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menu;
-            MinimumSize = new Size(336, 159);
+            Margin = new Padding(3, 4, 3, 4);
+            MinimumSize = new Size(381, 196);
             Name = "FabricatorEditorForm";
             Text = "Fabricator";
             Load += FabricatorOtherForm_Load;
