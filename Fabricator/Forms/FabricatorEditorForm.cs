@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ValveKeyValue;
+using static Fabricator.ShopCatalog;
 
 /*
  * TODO:
@@ -109,6 +110,82 @@ namespace Fabricator
                             break;
                         default:
                             break;
+                    }
+
+                    TreeNode root = NodeList.Nodes.Add(fileCreator.Label);
+                    int index = 1;
+
+                    foreach (var entry in fileCreator.entries)
+                    {
+                        FileCreatorBase.BaseNode entryNode = fileCreator.EntryToNode(index);
+
+                        switch (fileType)
+                        {
+                            case Type.Spawnlist:
+                                {
+                                    Spawnlist.SpawnlistNode? spawnlistNode = entryNode as Spawnlist.SpawnlistNode;
+
+                                    if (spawnlistNode != null)
+                                    {
+
+                                    }
+                                }
+                                break;
+                            case Type.Loadout:
+                                {
+                                    Loadout.LoadoutNode? loadoutNode = entryNode as Loadout.LoadoutNode;
+
+                                    if (loadoutNode != null)
+                                    {
+
+                                    }
+                                }
+                                break;
+                            case Type.Playlist:
+                                {
+                                    Playlist.PlaylistNode? playlistNode = entryNode as Playlist.PlaylistNode;
+
+                                    if (playlistNode != null)
+                                    {
+
+                                    }
+                                }
+                                break;
+                            case Type.Catalog:
+                                {
+                                    ShopCatalog.CatalogNode? catalogNode = entryNode as ShopCatalog.CatalogNode;
+
+                                    if (catalogNode != null)
+                                    {
+
+                                    }
+                                }
+                                break;
+                            case Type.Reward:
+                                {
+                                    RewardList.RewardNode? rewardNode = entryNode as RewardList.RewardNode;
+
+                                    if (rewardNode != null)
+                                    {
+
+                                    }
+                                }
+                                break;
+                            case Type.MapAdd:
+                                {
+                                    MapAdd.MapAddLabel? mapAddLabel = entryNode as MapAdd.MapAddLabel;
+
+                                    if (mapAddLabel != null)
+                                    {
+                                        //we should have an array that adds the nodes....
+                                    }
+                                }
+                                break;
+                            default:
+                                break;
+                        }
+
+                        index++;
                     }
 
                     KVObject? kv = fileCreator.rawData;
