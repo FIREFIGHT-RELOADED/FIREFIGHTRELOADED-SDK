@@ -75,7 +75,7 @@ namespace Fabricator
         }
 
 
-        public override MapAddLabel EntryToNode(int index)
+        public override MapAddLabel KVObjectToNode(int index)
         {
             int actualIndex = index - 1;
 

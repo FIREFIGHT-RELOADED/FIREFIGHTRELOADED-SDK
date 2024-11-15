@@ -204,7 +204,7 @@ namespace Fabricator
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public virtual BaseNode EntryToNode(int index)
+        public virtual BaseNode KVObjectToNode(int index)
         {
             return new BaseNode();
         }

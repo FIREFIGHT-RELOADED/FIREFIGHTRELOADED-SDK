@@ -72,7 +72,7 @@ namespace Fabricator
             return base.NodeToKVObject(node, index);
         }
 
-        public override LoadoutNode EntryToNode(int index)
+        public override LoadoutNode KVObjectToNode(int index)
         {
             int actualIndex = index - 1;
 

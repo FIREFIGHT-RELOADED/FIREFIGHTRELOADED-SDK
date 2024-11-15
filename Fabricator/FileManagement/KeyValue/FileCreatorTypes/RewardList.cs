@@ -99,7 +99,7 @@ namespace Fabricator
             return base.NodeToKVObject(node, index);
         }
 
-        public override RewardNode EntryToNode(int index)
+        public override RewardNode KVObjectToNode(int index)
         {
             int actualIndex = index - 1;
 

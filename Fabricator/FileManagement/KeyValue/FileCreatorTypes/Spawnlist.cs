@@ -115,7 +115,7 @@ namespace Fabricator
             return base.NodeToKVObject(node, index);
         }
 
-        public override SpawnlistNode EntryToNode(int index)
+        public override SpawnlistNode KVObjectToNode(int index)
         {
             int actualIndex = index - 1;
 

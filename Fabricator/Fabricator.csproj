@@ -22,7 +22,19 @@
     <Compile Update="Forms\Controls\FabricatorCollectionEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\FabricatorEditorForm.cs" />
+    <Compile Update="Forms\Editors\FabricatorEditorForm_Spawnlist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Editors\FabricatorEditorForm_ShopCatalog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Editors\FabricatorEditorForm_RewardList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Editors\FabricatorEditorForm_Playlist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Editors\FabricatorEditorForm_Loadout.cs" />
   </ItemGroup>
 
 </Project>

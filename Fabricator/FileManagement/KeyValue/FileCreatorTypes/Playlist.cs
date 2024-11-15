@@ -39,7 +39,7 @@ namespace Fabricator
             return base.NodeToKVObject(node, index);
         }
 
-        public override PlaylistNode EntryToNode(int index)
+        public override PlaylistNode KVObjectToNode(int index)
         {
             int actualIndex = index - 1;
 

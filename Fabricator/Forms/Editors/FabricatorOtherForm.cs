@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -74,49 +73,29 @@ namespace Fabricator
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    List<KVObject> list = new List<KVObject>();
+                    List<KVObject>? list = FabricatorEditorFormHelpers.ListFromCurCells(KeyValueSet);
 
-                    foreach (DataGridViewRow row in KeyValueSet.Rows)
+                    if (list != null)
                     {
-                        if (row.Cells[0].Value == null)
+                        if (string.IsNullOrWhiteSpace(kvName))
                         {
-                            continue;
+                            kvName = Path.GetFileNameWithoutExtension(sfd.FileName);
                         }
 
-                        if (row.Cells[1].Value == null)
+                        KVObject finalFile = new KVObject(kvName, list);
+
+                        //For some strange reason, the data will save DIRECTLY into a file if it exists.
+                        //So, we should remove it so the file can actually work.
+                        if (File.Exists(sfd.FileName))
                         {
-                            DialogResult result = MessageBox.Show($"Row #{row.Index + 1} '{row.Cells[0].Value}' has a missing value, or the value is being edited. Would you like to fix it? If not, the row will not be included in the saved file.", "Fabricator", MessageBoxButtons.YesNo);
-                            if (result == DialogResult.Yes)
-                            {
-                                return;
-                            }
-                            else
-                            {
-                                continue;
-                            }
+                            File.Delete(sfd.FileName);
                         }
 
-                        list.Add(new KVObject(row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString()));
-                    }
-
-                    if (string.IsNullOrWhiteSpace(kvName))
-                    {
-                        kvName = Path.GetFileNameWithoutExtension(sfd.FileName);
-                    }
-
-                    KVObject finalFile = new KVObject(kvName, list);
-
-                    //For some strange reason, the data will save DIRECTLY into a file if it exists.
-                    //So, we should remove it so the file can actually work.
-                    if (File.Exists(sfd.FileName))
-                    {
-                        File.Delete(sfd.FileName);
-                    }
-
-                    KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
-                    using (FileStream stream = File.OpenWrite(sfd.FileName))
-                    {
-                        kv.Serialize(stream, finalFile);
+                        KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
+                        using (FileStream stream = File.OpenWrite(sfd.FileName))
+                        {
+                            kv.Serialize(stream, finalFile);
+                        }
                     }
                 }
             }

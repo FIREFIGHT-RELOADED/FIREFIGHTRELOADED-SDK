@@ -52,6 +52,7 @@
             KeyValueSet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             KeyValueSet.Size = new Size(578, 492);
             KeyValueSet.TabIndex = 1;
+            KeyValueSet.MultiSelect = false;
             // 
             // KeyColumn
             // 

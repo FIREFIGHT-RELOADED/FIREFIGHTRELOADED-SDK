@@ -74,13 +74,31 @@ namespace Fabricator
         {
             switch (SelectedType)
             {
+                case Type.Spawnlist:
+                    FabricatorEditorForm_Spawnlist formSL = new FabricatorEditorForm_Spawnlist();
+                    formSL.ShowDialog();
+                    break;
+                case Type.Catalog:
+                    FabricatorEditorForm_ShopCatalog formSC = new FabricatorEditorForm_ShopCatalog();
+                    formSC.ShowDialog();
+                    break;
+                case Type.Reward:
+                    FabricatorEditorForm_RewardList formR = new FabricatorEditorForm_RewardList();
+                    formR.ShowDialog();
+                    break;
+                case Type.Playlist:
+                    FabricatorEditorForm_Playlist formP = new FabricatorEditorForm_Playlist();
+                    formP.ShowDialog();
+                    break;
+                case Type.Loadout:
+                    FabricatorEditorForm_Loadout formL = new FabricatorEditorForm_Loadout();
+                    formL.ShowDialog();
+                    break;
                 case Type.Other:
                     FabricatorOtherForm form = new FabricatorOtherForm();
                     form.ShowDialog();
                     break;
                 default:
-                    FabricatorEditorForm formS = new FabricatorEditorForm(SelectedType);
-                    formS.ShowDialog();
                     break;
             }
         }

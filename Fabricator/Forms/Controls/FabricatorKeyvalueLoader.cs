@@ -22,7 +22,7 @@ namespace Fabricator
 
             CenterToScreen();
 
-            JSONEntries = SchemeLoader.LoadFile(Path.Combine(AppContext.BaseDirectory, "schema.json"));
+            JSONEntries = SchemeLoader.LoadFile(Path.Combine(GlobalVars.DataPath, "schema.json"));
 
             if (JSONEntries != null)
             {
@@ -46,8 +46,8 @@ namespace Fabricator
 
     public class JSONEntry
     {
-        public string Key { get; set; }
-        public string FileType { get; set; }
+        public string Key { get; set; } = "";
+        public string FileType { get; set; } = "";
     }
 
     public class SchemeLoader
