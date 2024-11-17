@@ -48,8 +48,10 @@ namespace Fabricator
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    FabricatorEditorFormHelpers.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
-                    curFile.Save(sfd.FileName);
+                    if (FabricatorEditorFormHelpers.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile) != null)
+                    {
+                        curFile.Save(sfd.FileName);
+                    }
                 }
             }
         }

@@ -15,7 +15,8 @@ namespace Fabricator
     public partial class FabricatorCollectionEditor : Form
     {
         string kvName { get; set; }
-        public KVObject objToEdit { get; set; }
+        private KVObject objToEdit { get; set; }
+        public KVObject? result { get; set; }
 
         public FabricatorCollectionEditor(KVObject obj)
         {
@@ -24,7 +25,18 @@ namespace Fabricator
             CenterToScreen();
 
             objToEdit = obj;
+            result = null;
             kvName = objToEdit.Name;
+        }
+
+        public FabricatorCollectionEditor(string name)
+        {
+            InitializeComponent();
+
+            CenterToScreen();
+
+            result = null;
+            kvName = name;
         }
 
         private void FabricatorCollectionEditor_Load(object sender, EventArgs e)
@@ -43,36 +55,23 @@ namespace Fabricator
 
         private void FabricatorCollectionEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (objToEdit != null)
+            if (KeyValueSet.Rows.Count > 0)
             {
-                List<KVObject> list = new List<KVObject>();
+                List<KVObject>? list = FabricatorEditorFormHelpers.ListFromCurCellsLegacy(KeyValueSet);
 
-                foreach (DataGridViewRow row in KeyValueSet.Rows)
+                if (list != null)
                 {
-                    if (row.Cells[0].Value == null)
-                    {
-                        continue;
-                    }
-
-                    if (row.Cells[1].Value == null)
-                    {
-                        DialogResult result = MessageBox.Show($"Row #{row.Index + 1} '{row.Cells[0].Value}' has a missing value, or the value is being edited. Would you like to fix it? If not, the row will not be included in the saved file.", "Fabricator", MessageBoxButtons.YesNo);
-                        if (result == DialogResult.Yes)
-                        {
-                            e.Cancel = true;
-                            return;
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-
-                    list.Add(new KVObject(row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString()));
+                    result = new KVObject(kvName, list);
+                    this.DialogResult = DialogResult.OK;
                 }
-
-                objToEdit = new KVObject(kvName, list);
-                this.DialogResult = DialogResult.OK;
+                else
+                {
+                    e.Cancel = true;
+                }
+            }
+            else
+            {
+                this.DialogResult = DialogResult.Cancel;
             }
         }
 

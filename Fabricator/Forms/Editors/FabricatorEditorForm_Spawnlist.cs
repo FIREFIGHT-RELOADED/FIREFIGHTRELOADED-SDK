@@ -3,6 +3,7 @@ using System.Data;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using ValveKeyValue;
 
 namespace Fabricator
@@ -51,8 +52,10 @@ namespace Fabricator
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    FabricatorEditorFormHelpers.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
-                    curFile.Save(sfd.FileName);
+                    if (FabricatorEditorFormHelpers.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile) != null)
+                    {
+                        curFile.Save(sfd.FileName);
+                    }
                 }
             }
         }
@@ -80,8 +83,11 @@ namespace Fabricator
 
         private void deleteNodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FabricatorEditorFormHelpers.DeleteNode(NodeList, KeyValueSet, curFile);
-            nodeIndex = -1;
+            if (!NodeList.SelectedNode.Text.Contains("settings", StringComparison.CurrentCultureIgnoreCase))
+            {
+                FabricatorEditorFormHelpers.DeleteNode(NodeList, KeyValueSet, curFile);
+                nodeIndex = -1;
+            }
         }
 
         private void NodeList_AfterSelect(object sender, TreeViewEventArgs e)
@@ -97,16 +103,27 @@ namespace Fabricator
 
             KeyValueSet.Rows.Clear();
 
-            if (!NodeList.SelectedNode.Text.Contains("settings"))
+            if (!NodeList.SelectedNode.Text.Contains("settings", StringComparison.CurrentCultureIgnoreCase))
             {
                 nodeIndex = e.Node.Index;
-                KVObject kv = curFile.entries[nodeIndex];
+                KVObject kv = curFile.entries[nodeIndex - 1];
 
                 if (kv != null)
                 {
                     foreach (var child in kv.Children)
                     {
-                        KeyValueSet.Rows.Add(child.Name, child.Value);
+                        //this shouldn't fail...hopefully.
+                        int index = KeyValueSet.Rows.Add(child.Name, child.Value);
+                        DataGridViewRow? row = KeyValueSet.Rows[index];
+
+                        if (row != null)
+                        {
+                            //set the collection to read-only.
+                            if (child.Value.ValueType == KVValueType.Collection)
+                            {
+                                row.ReadOnly = true;
+                            }
+                        }
                     }
                 }
             }
@@ -120,33 +137,14 @@ namespace Fabricator
             }
         }
 
-        //todo: fix this fucking thing
-        private void editCollectionToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FabricatorEditorForm_Spawnlist_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
-            if (KeyValueSet.SelectedRows.Count > 0)
-            {
-                object name = KeyValueSet.SelectedRows[0].Cells[0].Value;
-                object val = KeyValueSet.SelectedRows[0].Cells[1].Value;
-                if (val != null)
-                {
-                    KVValue kVObj = val as KVValue;
-                    if (kVObj != null)
-                    {
-                        if (kVObj.ValueType == KVValueType.Collection)
-                        {
-                            KVObject genObj = new KVObject(name.ToString(), kVObj);
-                            using (var kvl = new FabricatorCollectionEditor(genObj))
-                            {
-                                if (kvl.ShowDialog() == DialogResult.OK)
-                                {
-                                    KeyValueSet.SelectedRows[0].Cells[0].Value = kvl.objToEdit.Name;
-                                    KeyValueSet.SelectedRows[0].Cells[1].Value = kvl.objToEdit.Value;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            FabricatorEditorFormHelpers.AddCollection(KeyValueSet, nodeIndex, curFile, e.RowIndex, e.ColumnIndex);
+        }
+
+        private void KeyValueSet_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            FabricatorEditorFormHelpers.EditCollection(KeyValueSet, nodeIndex, curFile, e.RowIndex, e.ColumnIndex);
         }
     }
 }

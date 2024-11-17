@@ -45,7 +45,6 @@
             saveFileDialog1 = new SaveFileDialog();
             splitContainer1 = new SplitContainer();
             NodeList = new TreeView();
-            editCollectionToolStripMenuItem = new ToolStripMenuItem();
             menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)KeyValueSet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -74,27 +73,27 @@
             // newToolStripMenuItem
             // 
             newToolStripMenuItem.Name = "newToolStripMenuItem";
-            newToolStripMenuItem.Size = new Size(100, 22);
+            newToolStripMenuItem.Size = new Size(180, 22);
             newToolStripMenuItem.Text = "New";
             newToolStripMenuItem.Click += newToolStripMenuItem_Click;
             // 
             // loadToolStripMenuItem
             // 
             loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            loadToolStripMenuItem.Size = new Size(100, 22);
+            loadToolStripMenuItem.Size = new Size(180, 22);
             loadToolStripMenuItem.Text = "Load";
             loadToolStripMenuItem.Click += loadToolStripMenuItem_Click;
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(100, 22);
+            saveToolStripMenuItem.Size = new Size(180, 22);
             saveToolStripMenuItem.Text = "Save";
             saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
             // editToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem, addNodeToolStripMenuItem, deleteNodeToolStripMenuItem, editCollectionToolStripMenuItem });
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem, addNodeToolStripMenuItem, deleteNodeToolStripMenuItem });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             editToolStripMenuItem.Size = new Size(39, 20);
             editToolStripMenuItem.Text = "Edit";
@@ -127,13 +126,15 @@
             KeyValueSet.Columns.AddRange(new DataGridViewColumn[] { KeyColumn, ValueColumn });
             KeyValueSet.Dock = DockStyle.Fill;
             KeyValueSet.Location = new Point(0, 0);
+            KeyValueSet.MultiSelect = false;
             KeyValueSet.Name = "KeyValueSet";
             KeyValueSet.RowHeadersWidth = 51;
             KeyValueSet.RowTemplate.Height = 25;
             KeyValueSet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             KeyValueSet.Size = new Size(385, 356);
             KeyValueSet.TabIndex = 1;
-            KeyValueSet.MultiSelect = false;
+            KeyValueSet.CellLeave += FabricatorEditorForm_Spawnlist_CellLeave;
+            KeyValueSet.CellMouseDoubleClick += KeyValueSet_CellMouseDoubleClick;
             // 
             // KeyColumn
             // 
@@ -183,13 +184,6 @@
             NodeList.TabIndex = 0;
             NodeList.AfterSelect += NodeList_AfterSelect;
             // 
-            // editCollectionToolStripMenuItem
-            // 
-            editCollectionToolStripMenuItem.Name = "editCollectionToolStripMenuItem";
-            editCollectionToolStripMenuItem.Size = new Size(206, 22);
-            editCollectionToolStripMenuItem.Text = "Edit Collection";
-            editCollectionToolStripMenuItem.Click += editCollectionToolStripMenuItem_Click;
-            // 
             // FabricatorEditorForm_Spawnlist
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -231,6 +225,5 @@
         private TreeView NodeList;
         private ToolStripMenuItem addNodeToolStripMenuItem;
         private ToolStripMenuItem deleteNodeToolStripMenuItem;
-        private ToolStripMenuItem editCollectionToolStripMenuItem;
     }
 }

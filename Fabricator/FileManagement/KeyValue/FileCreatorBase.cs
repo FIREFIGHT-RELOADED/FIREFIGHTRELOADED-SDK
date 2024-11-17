@@ -176,13 +176,6 @@ namespace Fabricator
         /// <returns></returns>
         public virtual KVObject NodeToKVObject(BaseNode node, int index = -1)
         {
-            //Add at least ONE entry if we have none. Base nodes have no values.
-            //This is so we don't directly assume that the list has entries in it.
-            if (entries.Count <= 0)
-            {
-                AddKVObjectEntryStat("HEY", "YOU FORGOT TO ADD SOMETHING");
-            }
-
             //if we have an invalid index, give it a proper one by
             //specifying 1 to the entry count.
             if (index == -1)
@@ -383,7 +376,16 @@ namespace Fabricator
         public virtual void EditEntry(KVObject kv)
         {
             var index = entries.FindIndex(x => x.Name == kv.Name);
+            EditEntry(index, kv);
+        }
 
+        /// <summary>
+        /// Edits an entry in the list using a KVObject.
+        /// </summary>
+        /// <param name="kv"></param>
+        /// <param name="index"></param>
+        public virtual void EditEntry(int index, KVObject kv)
+        {
             if (entries[index] != null)
             {
                 entries[index] = kv;
@@ -413,10 +415,17 @@ namespace Fabricator
         {
             if (FileUsesSettings)
             {
-                var index = settings.FindIndex(x => x.Name == kv.Name);
-                if (settings[index] != null)
+                try
                 {
-                    settings[index] = kv;
+                    var index = settings.FindIndex(x => x.Name == kv.Name);
+                    if (settings[index] != null)
+                    {
+                        settings[index] = kv;
+                    }
+                }
+                catch (Exception)
+                {
+                    AddSetting(kv);
                 }
             }
         }

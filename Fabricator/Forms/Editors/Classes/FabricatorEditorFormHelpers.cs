@@ -24,7 +24,7 @@ namespace Fabricator
             }
         }
 
-        public static List<KVObject>? ListFromCurCells(DataGridView keyValueSet)
+        public static List<KVObject>? ListFromCurCellsLegacy(DataGridView keyValueSet)
         {
             List<KVObject>? list = new List<KVObject>();
 
@@ -35,28 +35,63 @@ namespace Fabricator
                     continue;
                 }
 
+                KVValue? value = null;
+
                 if (row.Cells[1].Value == null)
                 {
-                    DialogResult result = MessageBox.Show($"Row #{row.Index + 1} '{row.Cells[0].Value}' has a missing value, or the value is being edited. Would you like to fix it? If not, the row will not be included in the saved file.", "Fabricator", MessageBoxButtons.YesNo);
-                    if (result == DialogResult.Yes)
-                    {
-                        return null;
-                    }
-                    else
-                    {
-                        continue;
-                    }
+                    value = "";
+                }
+                else
+                {
+                    value = row.Cells[1].Value.ToString();
                 }
 
-                list.Add(new KVObject(row.Cells[0].Value.ToString(), row.Cells[1].Value.ToString()));
+                KVObject kVObject = new KVObject(row.Cells[0].Value.ToString(), value);
+                list.Add(kVObject);
             }
 
             return list;
         }
 
-        public static KVObject? CurCellsToKVObject(DataGridView keyValueSet, TreeView nodeList, int nodeIndex)
+        public static List<KVObject>? ListFromCurCells(DataGridView keyValueSet, int nodeIndex, FileCreatorBase curFile)
         {
-            List<KVObject>? list = ListFromCurCells(keyValueSet);
+            List<KVObject>? list = new List<KVObject>();
+
+            foreach (DataGridViewRow row in keyValueSet.Rows)
+            {
+                if (row.Cells[0].Value == null)
+                {
+                    continue;
+                }
+
+                KVValue? value = null; 
+
+                if (row.Cells[1].Value == null)
+                {
+                    value = "";
+                }
+                else
+                {
+                    if (row.Cells[1].Value.ToString().Contains("[Collection]", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        value = curFile.entries[nodeIndex - 1][row.Cells[0].Value.ToString()];
+                    }
+                    else
+                    {
+                        value = row.Cells[1].Value.ToString();
+                    }
+                }
+
+                KVObject kVObject = new KVObject(row.Cells[0].Value.ToString(), value);
+                list.Add(kVObject);
+            }
+
+            return list;
+        }
+
+        public static KVObject? CurCellsToKVObject(DataGridView keyValueSet, TreeView nodeList, int nodeIndex, FileCreatorBase curFile)
+        {
+            List<KVObject>? list = ListFromCurCells(keyValueSet, nodeIndex, curFile);
             KVObject? result = null;
 
             if (list != null)
@@ -68,32 +103,104 @@ namespace Fabricator
             return result;
         }
 
-        public static void SaveLastCells(DataGridView keyValueSet, TreeView nodeList, int nodeIndex, FileCreatorBase curFile)
+        public static KVObject? SaveLastCells(DataGridView keyValueSet, TreeView nodeList, int nodeIndex, FileCreatorBase curFile)
         {
+            KVObject? saveObject = null;
+
             //save our current node using the index we saved below if
             //we have an index over -1
             if (nodeIndex > -1)
             {
-                KVObject? saveObject = CurCellsToKVObject(keyValueSet, nodeList, nodeIndex);
+                saveObject = CurCellsToKVObject(keyValueSet, nodeList, nodeIndex, curFile);
 
                 if (saveObject != null)
                 {
                     curFile.EditEntry(saveObject);
                 }
             }
+
+            return saveObject;
         }
 
-        public static void SaveSettingsFromLastCells(DataGridView keyValueSet, TreeView nodeList, int nodeIndex, FileCreatorBase curFile)
+        public static List<KVObject>? SaveSettingsFromLastCells(DataGridView keyValueSet, TreeView nodeList, int nodeIndex, FileCreatorBase curFile)
         {
+            List<KVObject>? list = null;
+
             if (curFile.FileUsesSettings)
             {
-                List<KVObject>? list = ListFromCurCells(keyValueSet);
+                list = ListFromCurCells(keyValueSet, nodeIndex, curFile);
 
                 if (list != null)
                 {
                     foreach (var obj in list)
                     {
-                        curFile.EditSetting(obj);
+                         curFile.EditSetting(obj);
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public static void AddCollection(DataGridView keyValueSet, int nodeIndex, FileCreatorBase curFile, int rowIndex, int columnIndex)
+        {
+            if (nodeIndex > -1)
+            {
+                DataGridViewRow row = keyValueSet.Rows[rowIndex];
+                DataGridViewTextBoxCell cell = (DataGridViewTextBoxCell)row.Cells[columnIndex];
+
+                if (cell.Value != null && row.Cells[0].Value != null && row.Cells[1].Value == cell.Value)
+                {
+                    if (cell.Value.ToString().Contains("[Collection]", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        string title = row.Cells[0].Value.ToString();
+                        KVValue kv = curFile.entries[nodeIndex - 1][title];
+                        if (kv == null)
+                        {
+                            using (var kvl = new FabricatorCollectionEditor(title))
+                            {
+                                if (kvl.ShowDialog() == DialogResult.OK)
+                                {
+                                    //after editing, set collection to our result and save it into the kv.
+                                    if (kvl.result != null)
+                                    {
+                                        curFile.entries[nodeIndex - 1][title] = kvl.result.Value;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void EditCollection(DataGridView keyValueSet, int nodeIndex, FileCreatorBase curFile, int rowIndex, int columnIndex)
+        {
+            if (nodeIndex > -1)
+            {
+                DataGridViewRow row = keyValueSet.Rows[rowIndex];
+                DataGridViewTextBoxCell cell = (DataGridViewTextBoxCell)row.Cells[columnIndex];
+
+                if (cell.Value != null && row.Cells[0].Value != null && row.Cells[1].Value == cell.Value)
+                {
+                    if (cell.Value.ToString().Contains("[Collection]", StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        string title = row.Cells[0].Value.ToString();
+                        KVValue kv = curFile.entries[nodeIndex - 1][title];
+                        if (kv != null)
+                        {
+                            using (var kvl = new FabricatorCollectionEditor(new KVObject(title, kv)))
+                            {
+                                if (kvl.ShowDialog() == DialogResult.OK)
+                                {
+                                    //after editing, set collection to our result and save it into the kv.
+                                    if (kvl.result != null)
+                                    {
+                                        curFile.entries[nodeIndex - 1][title] = kvl.result.Value;
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }

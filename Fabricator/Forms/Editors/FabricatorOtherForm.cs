@@ -73,7 +73,7 @@ namespace Fabricator
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    List<KVObject>? list = FabricatorEditorFormHelpers.ListFromCurCells(KeyValueSet);
+                    List<KVObject>? list = FabricatorEditorFormHelpers.ListFromCurCellsLegacy(KeyValueSet);
 
                     if (list != null)
                     {
