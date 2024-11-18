@@ -100,6 +100,12 @@ namespace Fabricator
                         case string g when g.Contains("Float", StringComparison.CurrentCultureIgnoreCase):
                             res = 0.0f;
                             break;
+                        case string h when h.Contains("FormattedStr", StringComparison.CurrentCultureIgnoreCase):
+                            {
+                                string format = kvl.selectedValType.Split()[1];
+                                res = format;
+                            }
+                            break;
                         case string b when b.Contains("String", StringComparison.CurrentCultureIgnoreCase):
                             res = "Hello World!";
                             break;

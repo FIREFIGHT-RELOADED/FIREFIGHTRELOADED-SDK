@@ -6,15 +6,10 @@ namespace Fabricator
 {
     public class MapAdd : FileCreatorBase
     {
-        public class MapAddLabel : BaseNode
-        {
-            public string labelName { get; set; } = "";
-            public List<MapAddLabelNode>? labelNodes { get; set; } = null;
-        }
-
         public class MapAddLabelNode : BaseNode
         {
             public string entityName { get; set; } = "";
+            public string labelName { get; set; } = "";
             //Positions
             public float x { get; set; } = 0;
             public float y { get; set; } = 0;
@@ -27,7 +22,6 @@ namespace Fabricator
         }
 
         public override string Label { get; set; } = "MapAdd";
-        public override bool PreserveNodeNamesOnRefresh { get; set; } = true;
 
         public MapAdd() : base()
         {
@@ -39,95 +33,74 @@ namespace Fabricator
 
         public override KVObject NodeToKVObject(BaseNode node, int index = -1)
         {
-            MapAddLabel classNode = node as MapAddLabel;
-
-            string nodename = "";
+            MapAddLabelNode classNode = node as MapAddLabelNode;
 
             if (classNode != null)
             {
-                nodename = classNode.labelName;
-
-                foreach (MapAddLabelNode labelNode in classNode.labelNodes)
-                {
-                    KVObject obj = new KVObject(
-                        labelNode.entityName,
-                        [
-                             //WHY CAN'T IT JUST LOAD A DOUBLE?
-                             new KVObject("x", labelNode.x.ToString()),
-                             new KVObject("y", labelNode.y.ToString()),
-                             new KVObject("z", labelNode.z.ToString()),
-                             new KVObject("roll", labelNode.roll.ToString()),
-                             new KVObject("yaw", labelNode.yaw.ToString()),
-                             new KVObject("pitch", labelNode.pitch.ToString()),
-                             labelNode.keyValues
-                        ]);
-
-                    AddKVObjectEntryStat(obj);
-                }
+                //WHY CAN'T IT JUST LOAD A DOUBLE?
+                AddKVObjectEntryStat("entity", classNode.entityName);
+                AddKVObjectEntryStat("label", classNode.labelName);
+                AddKVObjectEntryStat("x", classNode.x.ToString());
+                AddKVObjectEntryStat("y", classNode.y.ToString());
+                AddKVObjectEntryStat("z", classNode.z.ToString());
+                AddKVObjectEntryStat("roll", classNode.roll.ToString());
+                AddKVObjectEntryStat("yaw", classNode.yaw.ToString());
+                AddKVObjectEntryStat("pitch", classNode.pitch.ToString());
+                AddKVObjectEntryStat("KeyValues", classNode.keyValues);
             }
 
-            //Creates a KVObject, clears the entryStats List, and returns the object.
-            KVObject kv = new KVObject(nodename, entryStats);
-
-            entryStats.Clear();
-
-            return kv;
+            return base.NodeToKVObject(node, index);
         }
 
 
-        public override MapAddLabel KVObjectToNode(int index)
+        public override MapAddLabelNode KVObjectToNode(int index)
         {
             int actualIndex = index - 1;
 
-            MapAddLabel classNode = new MapAddLabel();
+            MapAddLabelNode labelNode = new MapAddLabelNode();
 
             if (entries[actualIndex] != null)
             {
                 KVObject obj = entries[actualIndex];
 
-                classNode.labelName = obj.Name;
-                classNode.labelNodes = new List<MapAddLabelNode>();
-
-                foreach (KVObject child in obj.Children)
+                foreach (KVObject nodechild in obj.Children)
                 {
-                    MapAddLabelNode labelNode = new MapAddLabelNode();
-                    labelNode.entityName = child.Name;
-
-                    foreach ( KVObject nodechild in child.Children)
+                    switch (nodechild.Name)
                     {
-                        switch (nodechild.Name)
-                        {
-                            case "x":
-                                labelNode.x = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
-                                break;
-                            case "y":
-                                labelNode.y = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
-                                break;
-                            case "z":
-                                labelNode.z = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
-                                break;
-                            case "roll":
-                                labelNode.roll = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
-                                break;
-                            case "yaw":
-                                labelNode.yaw = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
-                                break;
-                            case "pitch":
-                                labelNode.pitch = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
-                                break;
-                            case "KeyValues":
-                                labelNode.keyValues = nodechild;
-                                break;
-                            default:
-                                break;
-                        }
+                        case "entity":
+                            labelNode.entityName = nodechild.Value.ToString(CultureInfo.CurrentCulture);
+                            break;
+                        case "label":
+                            labelNode.labelName = nodechild.Value.ToString(CultureInfo.CurrentCulture);
+                            break;
+                        case "x":
+                            labelNode.x = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
+                            break;
+                        case "y":
+                            labelNode.y = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
+                            break;
+                        case "z":
+                            labelNode.z = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
+                            break;
+                        case "roll":
+                            labelNode.roll = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
+                            break;
+                        case "yaw":
+                            labelNode.yaw = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
+                            break;
+                        case "pitch":
+                            labelNode.pitch = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
+                            break;
+                        case "KeyValues":
+                            labelNode.keyValues = nodechild;
+                            break;
+                        default:
+                            break;
                     }
-
-                    classNode.labelNodes.Add(labelNode);
                 }
             }
 
-            return classNode;
+            return labelNode;
         }
     }
 }

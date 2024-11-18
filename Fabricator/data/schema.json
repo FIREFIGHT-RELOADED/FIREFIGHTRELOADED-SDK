@@ -296,7 +296,7 @@
     {
         "Key":"grenades",
         "FileType":"Spawnlist-Node",
-        "ValType":"String (formatted as <minGrenades>-<maxGrenades>)",
+        "ValType":"FormattedStr <min>-<max>",
         "Required":false
     },
     {
@@ -318,44 +318,62 @@
         "Required":false
     }, 
     {
+        "Key":"entity",
+        "FileType":"MapAdd-Node",
+        "ValType":"String",
+        "Required":true
+    }, 
+    {
+        "Key":"label",
+        "FileType":"MapAdd-Node",
+        "ValType":"String",
+        "Required":false
+    }, 
+    {
         "Key":"x",
-        "FileType":"MapAdd-LabelNode",
+        "FileType":"MapAdd-Node",
         "ValType":"Double",
         "Required":true
     },
     {
         "Key":"y",
-        "FileType":"MapAdd-LabelNode",
+        "FileType":"MapAdd-Node",
         "ValType":"Double",
         "Required":true
     },
     {
         "Key":"z",
-        "FileType":"MapAdd-LabelNode",
+        "FileType":"MapAdd-Node",
         "ValType":"Double",
         "Required":true
     },
     {
         "Key":"roll",
-        "FileType":"MapAdd-LabelNode",
+        "FileType":"MapAdd-Node",
         "ValType":"Double",
         "Required":true
     },
     {
         "Key":"yaw",
-        "FileType":"MapAdd-LabelNode",
+        "FileType":"MapAdd-Node",
         "ValType":"Double",
         "Required":true
     },
     {
         "Key":"pitch",
-        "FileType":"MapAdd-LabelNode",
+        "FileType":"MapAdd-Node",
         "ValType":"Double",
         "Required":true
     },
     {
-        "Key":"keyvalues",
-        "FileType":"MapAdd-LabelNode",
+        "Key":"KeyValues",
+        "FileType":"MapAdd-Node",
+        "ValType":"Collection",
+        "Required":false
+    },
+    {
+        "Key":"Flags",
+        "FileType":"MapAdd-Node",
         "ValType":"Collection",
         "Required":false
     },
