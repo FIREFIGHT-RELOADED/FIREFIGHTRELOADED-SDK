@@ -99,5 +99,12 @@ namespace Fabricator
                 }
             }
         }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FabricatorTextViewer ftv = new FabricatorTextViewer(Path.Combine(GlobalVars.DataPath, "shopcatalog_help.txt"));
+            ftv.Text = "ShopCatalog Help";
+            ftv.Show();
+        }
     }
 }

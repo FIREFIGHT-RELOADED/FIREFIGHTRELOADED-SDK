@@ -45,6 +45,7 @@
             saveFileDialog1 = new SaveFileDialog();
             splitContainer1 = new SplitContainer();
             NodeList = new TreeView();
+            helpToolStripMenuItem = new ToolStripMenuItem();
             menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)KeyValueSet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -56,7 +57,7 @@
             // menu
             // 
             menu.ImageScalingSize = new Size(20, 20);
-            menu.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem });
+            menu.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, helpToolStripMenuItem });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
             menu.Size = new Size(578, 24);
@@ -126,13 +127,13 @@
             KeyValueSet.Columns.AddRange(new DataGridViewColumn[] { KeyColumn, ValueColumn });
             KeyValueSet.Dock = DockStyle.Fill;
             KeyValueSet.Location = new Point(0, 0);
+            KeyValueSet.MultiSelect = false;
             KeyValueSet.Name = "KeyValueSet";
             KeyValueSet.RowHeadersWidth = 51;
             KeyValueSet.RowTemplate.Height = 25;
             KeyValueSet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             KeyValueSet.Size = new Size(385, 356);
             KeyValueSet.TabIndex = 1;
-            KeyValueSet.MultiSelect = false;
             // 
             // KeyColumn
             // 
@@ -182,6 +183,13 @@
             NodeList.TabIndex = 0;
             NodeList.AfterSelect += NodeList_AfterSelect;
             // 
+            // helpToolStripMenuItem
+            // 
+            helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            helpToolStripMenuItem.Size = new Size(44, 20);
+            helpToolStripMenuItem.Text = "Help";
+            helpToolStripMenuItem.Click += helpToolStripMenuItem_Click;
+            // 
             // FabricatorEditorForm_RewardList
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -223,5 +231,6 @@
         private TreeView NodeList;
         private ToolStripMenuItem addNodeToolStripMenuItem;
         private ToolStripMenuItem deleteNodeToolStripMenuItem;
+        private ToolStripMenuItem helpToolStripMenuItem;
     }
 }

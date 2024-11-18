@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.IO;
 using System.Windows.Forms;
 using ValveKeyValue;
 
@@ -98,6 +99,13 @@ namespace Fabricator
                     KeyValueSet.Rows.Add(child.Name, child.Value);
                 }
             }
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FabricatorTextViewer ftv = new FabricatorTextViewer(Path.Combine(GlobalVars.DataPath, "rewards_help.txt"));
+            ftv.Text = "RewardList Help";
+            ftv.Show();
         }
     }
 }
