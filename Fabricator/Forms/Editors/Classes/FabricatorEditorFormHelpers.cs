@@ -219,7 +219,10 @@ namespace Fabricator
         public static void Clear(DataGridView keyValueSet, TreeView nodeList, FileCreatorBase curFile)
         {
             curFile.entries.Clear();
-            curFile.settings.Clear();
+            if (curFile.FileUsesSettings)
+            {
+                curFile.settings.Clear();
+            }
             keyValueSet.Rows.Clear();
             nodeList.Nodes.Clear();
         }
