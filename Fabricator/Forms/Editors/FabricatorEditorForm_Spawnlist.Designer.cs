@@ -73,21 +73,21 @@
             // newToolStripMenuItem
             // 
             newToolStripMenuItem.Name = "newToolStripMenuItem";
-            newToolStripMenuItem.Size = new Size(180, 22);
+            newToolStripMenuItem.Size = new Size(100, 22);
             newToolStripMenuItem.Text = "New";
             newToolStripMenuItem.Click += newToolStripMenuItem_Click;
             // 
             // loadToolStripMenuItem
             // 
             loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            loadToolStripMenuItem.Size = new Size(180, 22);
+            loadToolStripMenuItem.Size = new Size(100, 22);
             loadToolStripMenuItem.Text = "Load";
             loadToolStripMenuItem.Click += loadToolStripMenuItem_Click;
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(180, 22);
+            saveToolStripMenuItem.Size = new Size(100, 22);
             saveToolStripMenuItem.Text = "Save";
             saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
@@ -133,8 +133,8 @@
             KeyValueSet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             KeyValueSet.Size = new Size(385, 356);
             KeyValueSet.TabIndex = 1;
-            KeyValueSet.CellLeave += FabricatorEditorForm_Spawnlist_CellLeave;
             KeyValueSet.CellMouseDoubleClick += KeyValueSet_CellMouseDoubleClick;
+            KeyValueSet.CellValidated += KeyValueSet_CellLeave;
             // 
             // KeyColumn
             // 

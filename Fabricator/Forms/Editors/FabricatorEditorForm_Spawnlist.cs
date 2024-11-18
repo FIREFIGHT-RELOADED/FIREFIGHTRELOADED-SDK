@@ -150,7 +150,7 @@ namespace Fabricator
             }
         }
 
-        private void FabricatorEditorForm_Spawnlist_CellLeave(object sender, DataGridViewCellEventArgs e)
+        private void KeyValueSet_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
             FabricatorEditorFormHelpers.AddCollection(KeyValueSet, nodeIndex, curFile, e.RowIndex, e.ColumnIndex);
         }

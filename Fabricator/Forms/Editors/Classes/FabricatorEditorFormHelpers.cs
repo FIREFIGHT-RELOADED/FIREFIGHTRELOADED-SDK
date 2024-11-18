@@ -72,7 +72,7 @@ namespace Fabricator
                 }
                 else
                 {
-                    if (row.Cells[1].Value.ToString().Contains("[Collection]", StringComparison.CurrentCultureIgnoreCase))
+                    if (row.Cells[1].Value.ToString().Contains("[Collection]", StringComparison.CurrentCultureIgnoreCase) && nodeIndex > -1)
                     {
                         value = curFile.entries[nodeIndex - 1][row.Cells[0].Value.ToString()];
                     }
@@ -165,6 +165,10 @@ namespace Fabricator
                                     if (kvl.result != null)
                                     {
                                         curFile.entries[nodeIndex - 1][title] = kvl.result.Value;
+                                        if (!row.ReadOnly)
+                                        {
+                                            row.ReadOnly = true;
+                                        }
                                     }
                                 }
                             }
@@ -197,6 +201,10 @@ namespace Fabricator
                                     if (kvl.result != null)
                                     {
                                         curFile.entries[nodeIndex - 1][title] = kvl.result.Value;
+                                        if (!row.ReadOnly)
+                                        {
+                                            row.ReadOnly = true;
+                                        }
                                     }
                                 }
                             }
