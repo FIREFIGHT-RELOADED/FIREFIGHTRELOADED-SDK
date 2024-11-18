@@ -25,7 +25,7 @@ namespace Fabricator
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FabricatorEditorFormHelpers.Clear(KeyValueSet, NodeList);
+            FabricatorEditorFormHelpers.Clear(KeyValueSet, NodeList, curFile);
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -37,7 +37,7 @@ namespace Fabricator
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     nodeIndex = -1;
-                    FabricatorEditorFormHelpers.Clear(KeyValueSet, NodeList);
+                    FabricatorEditorFormHelpers.Clear(KeyValueSet, NodeList, curFile);
                     curFile = new Spawnlist(ofd.FileName);
                     FabricatorEditorFormHelpers.ReloadNodeList(NodeList, curFile);
                 }

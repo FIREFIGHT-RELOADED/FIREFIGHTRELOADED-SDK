@@ -21,7 +21,7 @@ namespace Fabricator
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FabricatorEditorFormHelpers.Clear(KeyValueSet, NodeList);
+            FabricatorEditorFormHelpers.Clear(KeyValueSet, NodeList, curFile);
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -33,7 +33,7 @@ namespace Fabricator
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     nodeIndex = -1;
-                    FabricatorEditorFormHelpers.Clear(KeyValueSet, NodeList);
+                    FabricatorEditorFormHelpers.Clear(KeyValueSet, NodeList, curFile);
                     curFile = new Playlist(ofd.FileName);
                     FabricatorEditorFormHelpers.ReloadNodeList(NodeList, curFile);
                 }
@@ -79,21 +79,44 @@ namespace Fabricator
 
         private void deleteNodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FabricatorEditorFormHelpers.DeleteNode(NodeList, KeyValueSet, curFile);
-            nodeIndex = -1;
+            if (!NodeList.SelectedNode.Text.Contains("settings", StringComparison.CurrentCultureIgnoreCase))
+            {
+                FabricatorEditorFormHelpers.DeleteNode(NodeList, KeyValueSet, curFile);
+                nodeIndex = -1;
+            }
         }
 
         private void NodeList_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            FabricatorEditorFormHelpers.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
-            KeyValueSet.Rows.Clear();
-            nodeIndex = e.Node.Index;
-
-            KVObject kv = curFile.entries[nodeIndex];
-
-            if (kv != null)
+            if (nodeIndex == -2)
             {
-                foreach (var child in kv.Children)
+                FabricatorEditorFormHelpers.SaveSettingsFromLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
+            }
+            else
+            {
+                FabricatorEditorFormHelpers.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
+            }
+
+            KeyValueSet.Rows.Clear();
+
+            if (!NodeList.SelectedNode.Text.Contains("settings", StringComparison.CurrentCultureIgnoreCase))
+            {
+                nodeIndex = e.Node.Index;
+
+                KVObject kv = curFile.entries[nodeIndex - 1];
+
+                if (kv != null)
+                {
+                    foreach (var child in kv.Children)
+                    {
+                        KeyValueSet.Rows.Add(child.Name, child.Value);
+                    }
+                }
+            }
+            else
+            {
+                nodeIndex = -2;
+                foreach (KVObject child in curFile.settings)
                 {
                     KeyValueSet.Rows.Add(child.Name, child.Value);
                 }
