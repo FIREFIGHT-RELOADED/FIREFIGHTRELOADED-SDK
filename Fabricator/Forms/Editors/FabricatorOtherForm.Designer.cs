@@ -36,19 +36,20 @@
             saveToolStripMenuItem = new ToolStripMenuItem();
             editToolStripMenuItem = new ToolStripMenuItem();
             createRowFromKeyListToolStripMenuItem = new ToolStripMenuItem();
-            KVNameBox = new ToolStripTextBox();
             KeyValueSet = new DataGridView();
             KeyColumn = new DataGridViewTextBoxColumn();
             ValueColumn = new DataGridViewTextBoxColumn();
             openFileDialog1 = new OpenFileDialog();
             saveFileDialog1 = new SaveFileDialog();
+            helpToolStripMenuItem = new ToolStripMenuItem();
+            KVNameBox = new ToolStripTextBox();
             menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)KeyValueSet).BeginInit();
             SuspendLayout();
             // 
             // menu
             // 
-            menu.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, KVNameBox });
+            menu.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, helpToolStripMenuItem, KVNameBox });
             menu.Location = new Point(0, 0);
             menu.Name = "menu";
             menu.Size = new Size(578, 27);
@@ -65,21 +66,21 @@
             // newToolStripMenuItem
             // 
             newToolStripMenuItem.Name = "newToolStripMenuItem";
-            newToolStripMenuItem.Size = new Size(100, 22);
+            newToolStripMenuItem.Size = new Size(180, 22);
             newToolStripMenuItem.Text = "New";
             newToolStripMenuItem.Click += newToolStripMenuItem_Click;
             // 
             // loadToolStripMenuItem
             // 
             loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            loadToolStripMenuItem.Size = new Size(100, 22);
+            loadToolStripMenuItem.Size = new Size(180, 22);
             loadToolStripMenuItem.Text = "Load";
             loadToolStripMenuItem.Click += loadToolStripMenuItem_Click;
             // 
             // saveToolStripMenuItem
             // 
             saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            saveToolStripMenuItem.Size = new Size(100, 22);
+            saveToolStripMenuItem.Size = new Size(180, 22);
             saveToolStripMenuItem.Text = "Save";
             saveToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
@@ -97,13 +98,6 @@
             createRowFromKeyListToolStripMenuItem.Text = "Create Row from Key List";
             createRowFromKeyListToolStripMenuItem.Click += createRowFromKeyListToolStripMenuItem_Click;
             // 
-            // KVNameBox
-            // 
-            KVNameBox.BorderStyle = BorderStyle.FixedSingle;
-            KVNameBox.Name = "KVNameBox";
-            KVNameBox.Size = new Size(100, 23);
-            KVNameBox.TextChanged += KVNameBox_TextChanged;
-            // 
             // KeyValueSet
             // 
             KeyValueSet.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -111,12 +105,12 @@
             KeyValueSet.Columns.AddRange(new DataGridViewColumn[] { KeyColumn, ValueColumn });
             KeyValueSet.Dock = DockStyle.Fill;
             KeyValueSet.Location = new Point(0, 27);
+            KeyValueSet.MultiSelect = false;
             KeyValueSet.Name = "KeyValueSet";
             KeyValueSet.RowTemplate.Height = 25;
             KeyValueSet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             KeyValueSet.Size = new Size(578, 323);
             KeyValueSet.TabIndex = 1;
-            KeyValueSet.MultiSelect = false;
             // 
             // KeyColumn
             // 
@@ -137,6 +131,19 @@
             // 
             saveFileDialog1.DefaultExt = "txt";
             saveFileDialog1.Filter = "Text Files|*.txt|All Files|*.*";
+            // 
+            // helpToolStripMenuItem
+            // 
+            helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            helpToolStripMenuItem.Size = new Size(44, 23);
+            helpToolStripMenuItem.Text = "Help";
+            helpToolStripMenuItem.Click += helpToolStripMenuItem_Click;
+            // 
+            // KVNameBox
+            // 
+            KVNameBox.BorderStyle = BorderStyle.FixedSingle;
+            KVNameBox.Name = "KVNameBox";
+            KVNameBox.Size = new Size(100, 23);
             // 
             // FabricatorOtherForm
             // 
@@ -172,6 +179,7 @@
         private SaveFileDialog saveFileDialog1;
         private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem createRowFromKeyListToolStripMenuItem;
+        private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripTextBox KVNameBox;
     }
 }

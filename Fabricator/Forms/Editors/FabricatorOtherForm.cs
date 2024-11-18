@@ -132,5 +132,12 @@ namespace Fabricator
                 kvName = KVNameBox.Text;
             }
         }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FabricatorTextViewer ftv = new FabricatorTextViewer(Path.Combine(GlobalVars.DataPath, "other_help.txt"));
+            ftv.Text = "Other Files Help";
+            ftv.Show();
+        }
     }
 }
