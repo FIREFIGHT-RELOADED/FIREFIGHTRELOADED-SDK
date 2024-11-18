@@ -66,7 +66,20 @@ namespace Fabricator
                 {
                     if (kvl.ShowDialog() == DialogResult.OK)
                     {
-                        KeyValueSet.Rows.Add(kvl.selectedKey);
+                        string type = kvl.selectedValType;
+                        object? res = GlobalVars.DataTypeForString(type);
+
+                        int index = KeyValueSet.Rows.Add(kvl.selectedKey, res);
+                        DataGridViewRow? row = KeyValueSet.Rows[index];
+
+                        if (row != null)
+                        {
+                            //set the collection to read-only.
+                            if (kvl.selectedValType.Contains("Collection", StringComparison.CurrentCultureIgnoreCase))
+                            {
+                                row.ReadOnly = true;
+                            }
+                        }
                     }
                 }
             }

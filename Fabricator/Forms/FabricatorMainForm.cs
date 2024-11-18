@@ -7,21 +7,11 @@ using System.Reflection;
 
 namespace Fabricator
 {
-    public enum Type
-    {
-        Other,
-        Spawnlist,
-        Catalog,
-        Reward,
-        Playlist,
-        MapAdd,
-        Loadout
-    }
+
 
     public partial class FabricatorMainForm : Form
     {
-        Dictionary<RadioButton, Type> SelectorValues { get; set; }
-        Type SelectedType { get; set; }
+        Dictionary<RadioButton, FabType> SelectorValues { get; set; }
 
         public FabricatorMainForm()
         {
@@ -29,17 +19,17 @@ namespace Fabricator
 
             CenterToScreen();
 
-            SelectorValues = new Dictionary<RadioButton, Type>();
+            SelectorValues = new Dictionary<RadioButton, FabType>();
 
-            SelectorValues.Add(SpawnlistRadioButton, Type.Spawnlist);
-            SelectorValues.Add(OtherRadioButton, Type.Other);
-            SelectorValues.Add(CatalogRadioButton, Type.Catalog);
-            SelectorValues.Add(PlaylistRadioButton, Type.Playlist);
-            SelectorValues.Add(RewardRadioButton, Type.Reward);
-            SelectorValues.Add(MapaddRadioButton, Type.MapAdd);
-            SelectorValues.Add(LoadoutRadioButton, Type.Loadout);
+            SelectorValues.Add(SpawnlistRadioButton, FabType.Spawnlist);
+            SelectorValues.Add(OtherRadioButton, FabType.Other);
+            SelectorValues.Add(CatalogRadioButton, FabType.ShopCatalog);
+            SelectorValues.Add(PlaylistRadioButton, FabType.Playlist);
+            SelectorValues.Add(RewardRadioButton, FabType.RewardList);
+            SelectorValues.Add(MapaddRadioButton, FabType.MapAdd);
+            SelectorValues.Add(LoadoutRadioButton, FabType.Loadout);
 
-            SelectType(Type.Spawnlist);
+            SelectType(FabType.Spawnlist);
         }
 
         private void FabricatorForm_Load(object sender, EventArgs e)
@@ -64,37 +54,37 @@ namespace Fabricator
             }
         }
 
-        private void SelectType(Type type)
+        private void SelectType(FabType type)
         {
-            SelectedType = type;
-            SelectionLabel.Text = $"Selected: {SelectedType.ToString()}";
+            GlobalVars.SelectedType = type;
+            SelectionLabel.Text = $"Selected: {GlobalVars.SelectedType.ToString()}";
         }
 
         private void OpenFileEditor_Click(object sender, EventArgs e)
         {
-            switch (SelectedType)
+            switch (GlobalVars.SelectedType)
             {
-                case Type.Spawnlist:
+                case FabType.Spawnlist:
                     FabricatorEditorForm_Spawnlist formSL = new FabricatorEditorForm_Spawnlist();
                     formSL.ShowDialog();
                     break;
-                case Type.Catalog:
+                case FabType.ShopCatalog:
                     FabricatorEditorForm_ShopCatalog formSC = new FabricatorEditorForm_ShopCatalog();
                     formSC.ShowDialog();
                     break;
-                case Type.Reward:
+                case FabType.RewardList:
                     FabricatorEditorForm_RewardList formR = new FabricatorEditorForm_RewardList();
                     formR.ShowDialog();
                     break;
-                case Type.Playlist:
+                case FabType.Playlist:
                     FabricatorEditorForm_Playlist formP = new FabricatorEditorForm_Playlist();
                     formP.ShowDialog();
                     break;
-                case Type.Loadout:
+                case FabType.Loadout:
                     FabricatorEditorForm_Loadout formL = new FabricatorEditorForm_Loadout();
                     formL.ShowDialog();
                     break;
-                case Type.Other:
+                case FabType.Other:
                     FabricatorOtherForm form = new FabricatorOtherForm();
                     form.ShowDialog();
                     break;

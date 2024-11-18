@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -13,8 +14,10 @@ namespace Fabricator
 {
     public partial class FabricatorKeyvalueLoader : Form
     {
-        List<JSONEntry>? JSONEntries {  get; set; }
+        List<JSONEntry>? JSONEntries { get; set; }
         public string selectedKey { get; set; }
+        public string selectedValType { get; set; }
+        public string fullItemName { get; set; }
 
         public FabricatorKeyvalueLoader()
         {
@@ -28,7 +31,10 @@ namespace Fabricator
             {
                 foreach (var entry in JSONEntries)
                 {
-                    AvailableKeys.Items.Add($"{entry.Key} ({entry.FileType})");
+                    if (entry.FileType.Contains(GlobalVars.SelectedType.ToString(), StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        AvailableKeys.Items.Add(entry.ToString());
+                    }
                 }
             }
         }
@@ -37,10 +43,17 @@ namespace Fabricator
         {
             if (AvailableKeys.Items.Count > 0)
             {
-                selectedKey = AvailableKeys.SelectedItem.ToString().Split(' ')[0];
+                fullItemName = AvailableKeys.SelectedItem.ToString();
+                selectedKey = fullItemName.Split(' ')[0].Replace("(!)", "");
+                selectedValType = fullItemName.Split(' ')[2].Replace(")", "");
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
+        }
+
+        private void FabricatorKeyvalueLoader_Load(object sender, EventArgs e)
+        {
+
         }
     }
 
@@ -48,6 +61,13 @@ namespace Fabricator
     {
         public string Key { get; set; } = "";
         public string FileType { get; set; } = "";
+        public string ValType { get; set; } = "";
+        public bool Required { get; set; } = false;
+
+        public override string ToString()
+        {
+            return $"{((Required) ? "(!)" : "")}{Key} ({FileType}, {ValType})";
+        }
     }
 
     public class SchemeLoader

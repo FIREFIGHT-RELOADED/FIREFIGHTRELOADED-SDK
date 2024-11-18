@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -81,7 +82,32 @@ namespace Fabricator
             {
                 if (kvl.ShowDialog() == DialogResult.OK)
                 {
-                    KeyValueSet.Rows.Add(kvl.selectedKey);
+                    string type = kvl.selectedValType;
+                    object? res = null;
+
+                    switch (type)
+                    {
+                        case string a when a.Contains("Boolean", StringComparison.CurrentCultureIgnoreCase):
+                        case string c when c.Contains("Integer", StringComparison.CurrentCultureIgnoreCase):
+                            res = 0;
+                            break;
+                        case string d when d.Contains("Collection", StringComparison.CurrentCultureIgnoreCase):
+                            res = "[Collection]";
+                            break;
+                        case string f when f.Contains("Double", StringComparison.CurrentCultureIgnoreCase):
+                            res = 0.0d;
+                            break;
+                        case string g when g.Contains("Float", StringComparison.CurrentCultureIgnoreCase):
+                            res = 0.0f;
+                            break;
+                        case string b when b.Contains("String", StringComparison.CurrentCultureIgnoreCase):
+                            res = "Hello World!";
+                            break;
+                        default:
+                            break;
+                    }
+
+                    KeyValueSet.Rows.Add(kvl.selectedKey, res);
                 }
             }
         }

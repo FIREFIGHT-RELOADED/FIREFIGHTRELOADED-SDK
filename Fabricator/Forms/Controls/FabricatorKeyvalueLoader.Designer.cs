@@ -36,23 +36,27 @@
             // 
             AvailableKeys.Dock = DockStyle.Fill;
             AvailableKeys.FormattingEnabled = true;
-            AvailableKeys.ItemHeight = 15;
+            AvailableKeys.ItemHeight = 19;
             AvailableKeys.Location = new Point(0, 0);
+            AvailableKeys.Margin = new Padding(4, 4, 4, 4);
             AvailableKeys.Name = "AvailableKeys";
-            AvailableKeys.Size = new Size(407, 450);
+            AvailableKeys.Size = new Size(606, 458);
             AvailableKeys.TabIndex = 0;
             AvailableKeys.SelectedIndexChanged += AvailableKeys_SelectedIndexChanged;
             // 
             // FabricatorKeyvalueLoader
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(407, 450);
+            ClientSize = new Size(606, 458);
             Controls.Add(AvailableKeys);
-            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(4, 4, 4, 4);
             Name = "FabricatorKeyvalueLoader";
             Text = "Available Keys";
+            Load += FabricatorKeyvalueLoader_Load;
             ResumeLayout(false);
         }
 
