@@ -482,7 +482,7 @@ namespace Fabricator
         /// Converts the file object into a KVObject.
         /// </summary>
         /// <returns></returns>
-        public virtual KVObject ToKVObject()
+        public virtual KVObject? ToKVObject()
         {
             List<KVObject> list = new List<KVObject>();
 
@@ -495,9 +495,24 @@ namespace Fabricator
                 }
             }
 
-            list.AddRange(entries);
+            List<KVObject> entryList = new List<KVObject>();
 
-            KVObject finalFile = new KVObject(Label, list);
+            foreach (KVObject obj in entries)
+            {
+                if (obj.Children.Count() > 0)
+                {
+                    entryList.Add(obj);
+                }
+            }
+
+            KVObject? finalFile = null;
+
+            if (entryList.Count > 0)
+            {
+                list.AddRange(entryList);
+                finalFile = new KVObject(Label, list);
+            }
+
             return finalFile;
         }
 
@@ -506,26 +521,38 @@ namespace Fabricator
         /// </summary>
         public virtual void Save(string filePath)
         {
-            if (SetLabelToFileName)
-            {
-                Label = Path.GetFileNameWithoutExtension(filePath);
-            }
+            // Make our file a KVObject.
+            KVObject? finalFile = ToKVObject();
 
-            //For some strange reason, the data will save DIRECTLY into a file if it exists.
-            //So, we should remove it so the file can actually work.
-            if (File.Exists(filePath))
+            //check if our file is null.
+            if (finalFile != null)
             {
-                File.Delete(filePath);
-            }
+                // set the label to the file name if SetLabelToFileName is on.
+                if (SetLabelToFileName)
+                {
+                    Label = Path.GetFileNameWithoutExtension(filePath);
+                }
 
-            // Make our file a KVObject, then save using a FileStream.
-            KVObject finalFile = ToKVObject();
-            KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
-            using (FileStream stream = File.OpenWrite(filePath))
+                //For some strange reason, the data will save DIRECTLY into a file if it exists.
+                //So, we should remove it so the file can actually work.
+                if (File.Exists(filePath))
+                {
+                    File.Delete(filePath);
+                }
+            
+                // Finally, save using a FileStream.
+                KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
+                using (FileStream stream = File.OpenWrite(filePath))
+                {
+                    byte[] info = new UTF8Encoding(true).GetBytes($"//#{GetType().Name}\n//WARNING: DO NOT REMOVE THESE TOP COMMENTS.\n//FABRICATOR REQUIRES THE FIRST COMMENT TO LOAD THIS FILE.\n\n");
+                    stream.Write(info, 0, info.Length);
+                    kv.Serialize(stream, finalFile);
+                }
+            }
+            else
             {
-                byte[] info = new UTF8Encoding(true).GetBytes($"//#{GetType().Name}\n//WARNING: DO NOT REMOVE THESE TOP COMMENTS.\n//FABRICATOR REQUIRES THE FIRST COMMENT TO LOAD THIS FILE.\n\n");
-                stream.Write(info, 0, info.Length);
-                kv.Serialize(stream, finalFile);
+                // show a message box if we don't have any data.
+                MessageBox.Show("Your file does not seem to have any data in it. Please add data before saving.", "Fabricator", MessageBoxButtons.YesNo);
             }
         }
     }
