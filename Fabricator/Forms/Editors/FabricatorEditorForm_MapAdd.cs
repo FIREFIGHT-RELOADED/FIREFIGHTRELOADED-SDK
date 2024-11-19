@@ -1,23 +1,26 @@
-﻿using System.Data;
-using System.IO;
+﻿using System;
+using System.Data;
+using System.Reflection;
+using System.Reflection.Metadata.Ecma335;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using ValveKeyValue;
 
 namespace Fabricator
 {
-    public partial class FabricatorEditorForm_RewardList : Form
+    public partial class FabricatorEditorForm_MapAdd : Form
     {
-        RewardList curFile { get; set; }
+        MapAdd curFile { get; set; }
         int nodeIndex { get; set; }
 
-        public FabricatorEditorForm_RewardList()
+        public FabricatorEditorForm_MapAdd()
         {
             InitializeComponent();
 
-            curFile = new RewardList();
+            curFile = new MapAdd();
             nodeIndex = -1;
 
-            openFileDialog1.Filter = saveFileDialog1.Filter = $"RewardList Text Files|*.txt|All Files|*.*";
+            openFileDialog1.Filter = saveFileDialog1.Filter = $"MapAdd Text Files|*.txt|All Files|*.*";
         }
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
@@ -35,7 +38,7 @@ namespace Fabricator
                 {
                     nodeIndex = -1;
                     FabricatorEditorFormHelpers.Clear(KeyValueSet, NodeList, curFile);
-                    curFile = new RewardList(ofd.FileName);
+                    curFile = new MapAdd(ofd.FileName);
                     FabricatorEditorFormHelpers.ReloadNodeList(NodeList, curFile);
                 }
             }
@@ -86,7 +89,7 @@ namespace Fabricator
 
         private void addNodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RewardList.RewardNode node = new RewardList.RewardNode();
+            MapAdd.MapAddLabelNode node = new MapAdd.MapAddLabelNode();
             curFile.AddEntry(node);
             FabricatorEditorFormHelpers.ReloadNodeList(NodeList, curFile);
         }
@@ -100,25 +103,40 @@ namespace Fabricator
         private void NodeList_AfterSelect(object sender, TreeViewEventArgs e)
         {
             FabricatorEditorFormHelpers.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
-            KeyValueSet.Rows.Clear();
-            nodeIndex = e.Node.Index;
 
+            KeyValueSet.Rows.Clear();
+
+            nodeIndex = e.Node.Index;
             KVObject kv = curFile.entries[nodeIndex];
 
             if (kv != null)
             {
                 foreach (var child in kv.Children)
                 {
-                    KeyValueSet.Rows.Add(child.Name, child.Value);
+                    //this shouldn't fail...hopefully.
+                    int index = KeyValueSet.Rows.Add(child.Name, child.Value);
+                    DataGridViewRow? row = KeyValueSet.Rows[index];
+
+                    if (row != null)
+                    {
+                        //set the collection to read-only.
+                        if (child.Value.ValueType == KVValueType.Collection)
+                        {
+                            row.ReadOnly = true;
+                        }
+                    }
                 }
             }
         }
 
-        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        private void KeyValueSet_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
-            FabricatorTextViewer ftv = new FabricatorTextViewer(Path.Combine(GlobalVars.DataPath, "rewards_help.txt"));
-            ftv.Text = "RewardList Help";
-            ftv.Show();
+            FabricatorEditorFormHelpers.AddCollection(KeyValueSet, nodeIndex, curFile, e.RowIndex, e.ColumnIndex);
+        }
+
+        private void KeyValueSet_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            FabricatorEditorFormHelpers.EditCollection(KeyValueSet, nodeIndex, curFile, e.RowIndex, e.ColumnIndex);
         }
     }
 }

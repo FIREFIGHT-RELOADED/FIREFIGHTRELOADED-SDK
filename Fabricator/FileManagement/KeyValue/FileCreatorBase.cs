@@ -54,7 +54,7 @@ namespace Fabricator
         /// <summary>
         /// A List that handles settings if the file has any.
         /// </summary>
-        public List<KVObject> settings { get; set; }
+        public List<KVObject>? settings { get; set; }
 
         /// <summary>
         /// Does the file we need have a special "settings" section?
@@ -165,6 +165,10 @@ namespace Fabricator
             if (settings == null)
             {
                 settings = new List<KVObject>();
+            }
+            else
+            {
+                settings = null;
             }
         }
 
@@ -447,6 +451,16 @@ namespace Fabricator
             }
         }
 
+        public virtual KVObject? SettingsToKVObject()
+        {
+            if (FileUsesSettings)
+            {
+                return new KVObject("settings", settings);
+            }
+
+            return null;
+        }
+
         /// <summary>
         /// Converts the file object into a KVObject.
         /// </summary>
@@ -457,7 +471,7 @@ namespace Fabricator
 
             if (FileUsesSettings)
             {
-                KVObject set = new KVObject("settings", settings);
+                KVObject set = SettingsToKVObject();
                 list.Add(set);
             }
 

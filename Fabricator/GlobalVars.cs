@@ -52,6 +52,12 @@ namespace Fabricator
                 case string i when i.Contains("Vector", StringComparison.CurrentCultureIgnoreCase):
                     res = "0 0 0";
                     break;
+                case string l when l.Contains("FormattedStr", StringComparison.CurrentCultureIgnoreCase):
+                    {
+                        string format = data.Split()[1];
+                        res = format;
+                    }
+                    break;
                 default:
                     break;
             }

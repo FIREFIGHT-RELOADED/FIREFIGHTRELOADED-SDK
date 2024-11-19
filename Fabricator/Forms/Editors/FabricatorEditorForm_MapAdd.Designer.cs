@@ -1,6 +1,6 @@
 ﻿namespace Fabricator
 {
-    partial class FabricatorEditorForm_Spawnlist
+    partial class FabricatorEditorForm_MapAdd
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FabricatorEditorForm_Spawnlist));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FabricatorEditorForm_MapAdd));
             menu = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
             newToolStripMenuItem = new ToolStripMenuItem();
@@ -38,7 +38,6 @@
             createRowFromKeyListToolStripMenuItem = new ToolStripMenuItem();
             addNodeToolStripMenuItem = new ToolStripMenuItem();
             deleteNodeToolStripMenuItem = new ToolStripMenuItem();
-            editSettingsToolStripMenuItem = new ToolStripMenuItem();
             KeyValueSet = new DataGridView();
             KeyColumn = new DataGridViewTextBoxColumn();
             ValueColumn = new DataGridViewTextBoxColumn();
@@ -94,7 +93,7 @@
             // 
             // editToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem, addNodeToolStripMenuItem, deleteNodeToolStripMenuItem, editSettingsToolStripMenuItem });
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem, addNodeToolStripMenuItem, deleteNodeToolStripMenuItem });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             editToolStripMenuItem.Size = new Size(39, 20);
             editToolStripMenuItem.Text = "Edit";
@@ -119,13 +118,6 @@
             deleteNodeToolStripMenuItem.Size = new Size(206, 22);
             deleteNodeToolStripMenuItem.Text = "Delete Node";
             deleteNodeToolStripMenuItem.Click += deleteNodeToolStripMenuItem_Click;
-            // 
-            // editSettingsToolStripMenuItem
-            // 
-            editSettingsToolStripMenuItem.Name = "editSettingsToolStripMenuItem";
-            editSettingsToolStripMenuItem.Size = new Size(206, 22);
-            editSettingsToolStripMenuItem.Text = "Edit Settings";
-            editSettingsToolStripMenuItem.Click += editSettingsToolStripMenuItem_Click;
             // 
             // KeyValueSet
             // 
@@ -192,7 +184,7 @@
             NodeList.TabIndex = 0;
             NodeList.AfterSelect += NodeList_AfterSelect;
             // 
-            // FabricatorEditorForm_Spawnlist
+            // FabricatorEditorForm_MapAdd
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -202,8 +194,8 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = menu;
             MinimumSize = new Size(335, 157);
-            Name = "FabricatorEditorForm_Spawnlist";
-            Text = "Fabricator - Spawnlist";
+            Name = "FabricatorEditorForm_MapAdd";
+            Text = "Fabricator - MapAdd";
             menu.ResumeLayout(false);
             menu.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)KeyValueSet).EndInit();
@@ -233,6 +225,5 @@
         private TreeView NodeList;
         private ToolStripMenuItem addNodeToolStripMenuItem;
         private ToolStripMenuItem deleteNodeToolStripMenuItem;
-        private ToolStripMenuItem editSettingsToolStripMenuItem;
     }
 }

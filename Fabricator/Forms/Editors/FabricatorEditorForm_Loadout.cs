@@ -104,7 +104,7 @@ namespace Fabricator
             KeyValueSet.Rows.Clear();
             nodeIndex = e.Node.Index;
 
-            KVObject kv = curFile.entries[nodeIndex - 1];
+            KVObject kv = curFile.entries[nodeIndex];
 
             if (kv != null)
             {

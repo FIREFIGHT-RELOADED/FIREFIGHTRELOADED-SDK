@@ -10,14 +10,6 @@ namespace Fabricator
         {
             nodeList.Nodes.Clear();
 
-            if (curFile.FileUsesSettings)
-            {
-                //this SHOULD be the first one.....
-                //if it isn't, we shouldn't worry because 
-                //index doesn't increment.
-                nodeList.Nodes.Add("settings");
-            }
-
             for (var i = 0; i < curFile.entries.Count(); i++)
             {
                 nodeList.Nodes.Add((i + 1).ToString());
@@ -74,7 +66,7 @@ namespace Fabricator
                 {
                     if (row.Cells[1].Value.ToString().Contains("[Collection]", StringComparison.CurrentCultureIgnoreCase) && nodeIndex > -1)
                     {
-                        value = curFile.entries[nodeIndex - 1][row.Cells[0].Value.ToString()];
+                        value = curFile.entries[nodeIndex][row.Cells[0].Value.ToString()];
                     }
                     else
                     {
@@ -122,24 +114,29 @@ namespace Fabricator
             return saveObject;
         }
 
-        public static List<KVObject>? SaveSettingsFromLastCells(DataGridView keyValueSet, TreeView nodeList, int nodeIndex, FileCreatorBase curFile)
+        public static void EditSettings(FileCreatorBase curFile)
         {
-            List<KVObject>? list = null;
-
-            if (curFile.FileUsesSettings)
+            KVObject kv = curFile.SettingsToKVObject();
+            if (kv != null)
             {
-                list = ListFromCurCells(keyValueSet, nodeIndex, curFile);
-
-                if (list != null)
+                using (var kvl = new FabricatorCollectionEditor(kv))
                 {
-                    foreach (var obj in list)
+                    kvl.Text = "Edit Settings";
+                    if (kvl.ShowDialog() == DialogResult.OK)
                     {
-                         curFile.EditSetting(obj);
+                        //after editing, set collection to our result and save it into the kv.
+                        if (kvl.result != null)
+                        {
+                            curFile.settings = kvl.result.Children.ToList();
+                        }
                     }
                 }
             }
-
-            return list;
+            else
+            {
+                curFile.ToggleSettings();
+                EditSettings(curFile);
+            }
         }
 
         public static void AddCollection(DataGridView keyValueSet, int nodeIndex, FileCreatorBase curFile, int rowIndex, int columnIndex)
@@ -154,7 +151,7 @@ namespace Fabricator
                     if (cell.Value.ToString().Contains("[Collection]", StringComparison.CurrentCultureIgnoreCase))
                     {
                         string title = row.Cells[0].Value.ToString();
-                        KVValue kv = curFile.entries[nodeIndex - 1][title];
+                        KVValue kv = curFile.entries[nodeIndex][title];
                         if (kv == null)
                         {
                             using (var kvl = new FabricatorCollectionEditor(title))
@@ -164,7 +161,7 @@ namespace Fabricator
                                     //after editing, set collection to our result and save it into the kv.
                                     if (kvl.result != null)
                                     {
-                                        curFile.entries[nodeIndex - 1][title] = kvl.result.Value;
+                                        curFile.entries[nodeIndex][title] = kvl.result.Value;
                                         if (!row.ReadOnly)
                                         {
                                             row.ReadOnly = true;
@@ -190,7 +187,7 @@ namespace Fabricator
                     if (cell.Value.ToString().Contains("[Collection]", StringComparison.CurrentCultureIgnoreCase))
                     {
                         string title = row.Cells[0].Value.ToString();
-                        KVValue kv = curFile.entries[nodeIndex - 1][title];
+                        KVValue kv = curFile.entries[nodeIndex][title];
                         if (kv != null)
                         {
                             using (var kvl = new FabricatorCollectionEditor(new KVObject(title, kv)))
@@ -200,7 +197,7 @@ namespace Fabricator
                                     //after editing, set collection to our result and save it into the kv.
                                     if (kvl.result != null)
                                     {
-                                        curFile.entries[nodeIndex - 1][title] = kvl.result.Value;
+                                        curFile.entries[nodeIndex][title] = kvl.result.Value;
                                         if (!row.ReadOnly)
                                         {
                                             row.ReadOnly = true;

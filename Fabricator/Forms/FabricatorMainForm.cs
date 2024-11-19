@@ -64,6 +64,10 @@ namespace Fabricator
         {
             switch (GlobalVars.SelectedType)
             {
+                case FabType.MapAdd:
+                    FabricatorEditorForm_MapAdd formMA = new FabricatorEditorForm_MapAdd();
+                    formMA.ShowDialog();
+                    break;
                 case FabType.Spawnlist:
                     FabricatorEditorForm_Spawnlist formSL = new FabricatorEditorForm_Spawnlist();
                     formSL.ShowDialog();

@@ -92,48 +92,31 @@ namespace Fabricator
 
         private void deleteNodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (!NodeList.SelectedNode.Text.Contains("settings", StringComparison.CurrentCultureIgnoreCase))
-            {
-                FabricatorEditorFormHelpers.DeleteNode(NodeList, KeyValueSet, curFile);
-                nodeIndex = -1;
-            }
+            FabricatorEditorFormHelpers.DeleteNode(NodeList, KeyValueSet, curFile);
+            nodeIndex = -1;
         }
 
         private void NodeList_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (nodeIndex == -2)
-            {
-                FabricatorEditorFormHelpers.SaveSettingsFromLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
-            }
-            else
-            {
-                FabricatorEditorFormHelpers.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
-            }
+            FabricatorEditorFormHelpers.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
 
             KeyValueSet.Rows.Clear();
 
-            if (!NodeList.SelectedNode.Text.Contains("settings", StringComparison.CurrentCultureIgnoreCase))
-            {
-                nodeIndex = e.Node.Index;
+            nodeIndex = e.Node.Index;
+            KVObject kv = curFile.entries[nodeIndex];
 
-                KVObject kv = curFile.entries[nodeIndex - 1];
-
-                if (kv != null)
-                {
-                    foreach (var child in kv.Children)
-                    {
-                        KeyValueSet.Rows.Add(child.Name, child.Value);
-                    }
-                }
-            }
-            else
+            if (kv != null)
             {
-                nodeIndex = -2;
-                foreach (KVObject child in curFile.settings)
+                foreach (var child in kv.Children)
                 {
                     KeyValueSet.Rows.Add(child.Name, child.Value);
                 }
             }
+        }
+
+        private void editSettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FabricatorEditorFormHelpers.EditSettings(curFile);
         }
     }
 }

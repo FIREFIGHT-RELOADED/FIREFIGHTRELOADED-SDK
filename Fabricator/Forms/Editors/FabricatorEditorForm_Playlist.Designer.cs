@@ -38,6 +38,7 @@
             createRowFromKeyListToolStripMenuItem = new ToolStripMenuItem();
             addNodeToolStripMenuItem = new ToolStripMenuItem();
             deleteNodeToolStripMenuItem = new ToolStripMenuItem();
+            editSettingsToolStripMenuItem = new ToolStripMenuItem();
             KeyValueSet = new DataGridView();
             KeyColumn = new DataGridViewTextBoxColumn();
             ValueColumn = new DataGridViewTextBoxColumn();
@@ -93,7 +94,7 @@
             // 
             // editToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem, addNodeToolStripMenuItem, deleteNodeToolStripMenuItem });
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem, addNodeToolStripMenuItem, deleteNodeToolStripMenuItem, editSettingsToolStripMenuItem });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             editToolStripMenuItem.Size = new Size(39, 20);
             editToolStripMenuItem.Text = "Edit";
@@ -119,6 +120,13 @@
             deleteNodeToolStripMenuItem.Text = "Delete Node";
             deleteNodeToolStripMenuItem.Click += deleteNodeToolStripMenuItem_Click;
             // 
+            // editSettingsToolStripMenuItem
+            // 
+            editSettingsToolStripMenuItem.Name = "editSettingsToolStripMenuItem";
+            editSettingsToolStripMenuItem.Size = new Size(206, 22);
+            editSettingsToolStripMenuItem.Text = "Edit Settings";
+            editSettingsToolStripMenuItem.Click += editSettingsToolStripMenuItem_Click;
+            // 
             // KeyValueSet
             // 
             KeyValueSet.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -126,13 +134,13 @@
             KeyValueSet.Columns.AddRange(new DataGridViewColumn[] { KeyColumn, ValueColumn });
             KeyValueSet.Dock = DockStyle.Fill;
             KeyValueSet.Location = new Point(0, 0);
+            KeyValueSet.MultiSelect = false;
             KeyValueSet.Name = "KeyValueSet";
             KeyValueSet.RowHeadersWidth = 51;
             KeyValueSet.RowTemplate.Height = 25;
             KeyValueSet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             KeyValueSet.Size = new Size(385, 356);
             KeyValueSet.TabIndex = 1;
-            KeyValueSet.MultiSelect = false;
             // 
             // KeyColumn
             // 
@@ -223,5 +231,6 @@
         private TreeView NodeList;
         private ToolStripMenuItem addNodeToolStripMenuItem;
         private ToolStripMenuItem deleteNodeToolStripMenuItem;
+        private ToolStripMenuItem editSettingsToolStripMenuItem;
     }
 }
