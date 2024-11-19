@@ -62,6 +62,9 @@ namespace Fabricator
 
         private void OpenFileEditor_Click(object sender, EventArgs e)
         {
+            FileTypeList.Enabled = false;
+            OpenFileEditor.Enabled = false;
+
             switch (GlobalVars.SelectedType)
             {
                 case FabType.MapAdd:
@@ -70,7 +73,7 @@ namespace Fabricator
                     break;
                 case FabType.Spawnlist:
                     FabricatorEditorForm_Spawnlist formSL = new FabricatorEditorForm_Spawnlist();
-                    formSL.ShowDialog();
+                    formSL.ShowDialog(); 
                     break;
                 case FabType.ShopCatalog:
                     FabricatorEditorForm_ShopCatalog formSC = new FabricatorEditorForm_ShopCatalog();
@@ -95,6 +98,9 @@ namespace Fabricator
                 default:
                     break;
             }
+
+            FileTypeList.Enabled = true;
+            OpenFileEditor.Enabled = true;
         }
     }
 }
