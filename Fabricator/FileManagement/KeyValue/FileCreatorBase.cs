@@ -523,7 +523,7 @@ namespace Fabricator
             KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
             using (FileStream stream = File.OpenWrite(filePath))
             {
-                byte[] info = new UTF8Encoding(true).GetBytes($"//#{GetType().Name}\n");
+                byte[] info = new UTF8Encoding(true).GetBytes($"//#{GetType().Name}\n//WARNING: DO NOT REMOVE THESE TOP COMMENTS.\n//FABRICATOR REQUIRES THE FIRST COMMENT TO LOAD THIS FILE.\n\n");
                 stream.Write(info, 0, info.Length);
                 kv.Serialize(stream, finalFile);
             }
