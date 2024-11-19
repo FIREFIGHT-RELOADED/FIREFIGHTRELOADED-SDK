@@ -129,6 +129,10 @@ namespace Fabricator
                     return;
                 }
             }
+            else
+            {
+                return;
+            }
 
             rawData = LoadKeyValuesFile(filePath);
 
