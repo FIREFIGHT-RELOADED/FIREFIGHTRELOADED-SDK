@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom;
+using System.Text;
 using System.Windows.Forms;
 using ValveKeyValue;
 
@@ -116,6 +117,18 @@ namespace Fabricator
         public virtual void LoadFile(string filePath)
         {
             bool settingsAvailable = false;
+
+            string firstline = File.ReadLines(filePath).First();
+
+            if (firstline.Contains("//#"))
+            {
+                string fileType = firstline.Replace("//#","");
+
+                if (!fileType.Equals(GetType().Name))
+                {
+                    return;
+                }
+            }
 
             rawData = LoadKeyValuesFile(filePath);
 
@@ -471,8 +484,11 @@ namespace Fabricator
 
             if (FileUsesSettings)
             {
-                KVObject set = SettingsToKVObject();
-                list.Add(set);
+                if (settings.Count > 0)
+                {
+                    KVObject set = SettingsToKVObject();
+                    list.Add(set);
+                }
             }
 
             list.AddRange(entries);
@@ -503,6 +519,8 @@ namespace Fabricator
             KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
             using (FileStream stream = File.OpenWrite(filePath))
             {
+                byte[] info = new UTF8Encoding(true).GetBytes($"//#{GetType().Name}\n");
+                stream.Write(info, 0, info.Length);
                 kv.Serialize(stream, finalFile);
             }
         }
