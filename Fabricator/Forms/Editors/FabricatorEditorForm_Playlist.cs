@@ -12,6 +12,7 @@ namespace Fabricator
         public FabricatorEditorForm_Playlist()
         {
             InitializeComponent();
+            CenterToScreen();
 
             curFile = new Playlist();
             nodeIndex = -1;

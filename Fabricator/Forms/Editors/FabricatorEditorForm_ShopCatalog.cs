@@ -12,6 +12,7 @@ namespace Fabricator
         public FabricatorEditorForm_ShopCatalog()
         {
             InitializeComponent();
+            CenterToScreen();
 
             curFile = new ShopCatalog();
             nodeIndex = -1;

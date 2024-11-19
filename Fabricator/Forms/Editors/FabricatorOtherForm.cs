@@ -18,6 +18,7 @@ namespace Fabricator
         public FabricatorOtherForm()
         {
             InitializeComponent();
+            CenterToScreen();
         }
 
         private void FabricatorOtherForm_Load(object sender, EventArgs e)

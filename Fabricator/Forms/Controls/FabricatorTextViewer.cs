@@ -15,6 +15,7 @@ namespace Fabricator
         public FabricatorTextViewer(string path)
         {
             InitializeComponent();
+            CenterToScreen();
             richTextBox1.Text = File.ReadAllText(path);
         }
     }

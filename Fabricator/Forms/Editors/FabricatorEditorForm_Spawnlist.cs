@@ -16,6 +16,7 @@ namespace Fabricator
         public FabricatorEditorForm_Spawnlist()
         {
             InitializeComponent();
+            CenterToScreen();
 
             curFile = new Spawnlist();
             nodeIndex = -1;

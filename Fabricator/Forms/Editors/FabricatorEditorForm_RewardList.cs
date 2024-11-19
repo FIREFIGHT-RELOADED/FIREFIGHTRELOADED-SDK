@@ -13,6 +13,7 @@ namespace Fabricator
         public FabricatorEditorForm_RewardList()
         {
             InitializeComponent();
+            CenterToScreen();
 
             curFile = new RewardList();
             nodeIndex = -1;

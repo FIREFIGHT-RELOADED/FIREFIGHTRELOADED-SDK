@@ -14,6 +14,7 @@ namespace Fabricator
         public FabricatorEditorForm_Loadout()
         {
             InitializeComponent();
+            CenterToScreen();
 
             curFile = new Loadout();
             nodeIndex = -1;

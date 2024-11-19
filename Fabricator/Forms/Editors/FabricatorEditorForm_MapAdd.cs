@@ -16,6 +16,7 @@ namespace Fabricator
         public FabricatorEditorForm_MapAdd()
         {
             InitializeComponent();
+            CenterToScreen();
 
             curFile = new MapAdd();
             nodeIndex = -1;
