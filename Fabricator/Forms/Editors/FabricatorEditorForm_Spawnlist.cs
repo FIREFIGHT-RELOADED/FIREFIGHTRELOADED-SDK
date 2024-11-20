@@ -134,12 +134,18 @@ namespace Fabricator
 
         private void KeyValueSet_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
-            FabricatorEditorFormHelpers.AddCollection(KeyValueSet, nodeIndex, curFile, e.RowIndex, e.ColumnIndex);
+            if (nodeIndex > -1)
+            {
+                FabricatorEditorFormHelpers.AddCollection(KeyValueSet, nodeIndex, curFile, e.RowIndex, e.ColumnIndex);
+            }
         }
 
         private void KeyValueSet_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            FabricatorEditorFormHelpers.EditCollection(KeyValueSet, nodeIndex, curFile, e.RowIndex, e.ColumnIndex);
+            if (nodeIndex > -1)
+            {
+                FabricatorEditorFormHelpers.EditCollection(KeyValueSet, nodeIndex, curFile, e.RowIndex, e.ColumnIndex);
+            }
         }
 
         private void editSettingsToolStripMenuItem_Click(object sender, EventArgs e)

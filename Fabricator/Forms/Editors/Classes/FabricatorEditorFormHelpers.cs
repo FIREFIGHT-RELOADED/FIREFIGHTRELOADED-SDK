@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
+using System.Windows.Forms;
 using ValveKeyValue;
 
 namespace Fabricator
@@ -83,6 +84,29 @@ namespace Fabricator
 
         public static KVObject? CurCellsToKVObject(DataGridView keyValueSet, TreeView nodeList, int nodeIndex, FileCreatorBase curFile)
         {
+            int emptyCells = 0;
+            int cells = 0;
+
+            for (int i = 0; i < keyValueSet.Rows.Count; i++)
+            {
+                if (keyValueSet.Rows[i].IsNewRow)
+                    continue;
+
+                cells++;
+
+                var value = keyValueSet.Rows[i].Cells[0].Value.ToString();
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    emptyCells++;
+                    break;
+                }
+            }
+
+            if (cells == emptyCells)
+            {
+                return null;
+            }
+
             List<KVObject>? list = ListFromCurCells(keyValueSet, nodeIndex, curFile);
             KVObject? result = null;
 
@@ -97,6 +121,29 @@ namespace Fabricator
 
         public static KVObject? SaveLastCells(DataGridView keyValueSet, TreeView nodeList, int nodeIndex, FileCreatorBase curFile)
         {
+            int emptyCells = 0;
+            int cells = 0;
+
+            for (int i = 0; i < keyValueSet.Rows.Count; i++)
+            {
+                if (keyValueSet.Rows[i].IsNewRow)
+                    continue;
+
+                cells++;
+
+                var value = keyValueSet.Rows[i].Cells[0].Value.ToString();
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    emptyCells++;
+                    break;
+                }
+            }
+
+            if (cells == emptyCells)
+            {
+                return null;
+            }
+
             KVObject? saveObject = null;
 
             //save our current node using the index we saved below if
