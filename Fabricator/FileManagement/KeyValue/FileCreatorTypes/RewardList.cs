@@ -50,12 +50,17 @@ namespace Fabricator
 
         public class RewardNode : BaseNode
         {
-            public string name { get; set; } = "";
-            public RewardItemTypes itemType { get; set; } = RewardItemTypes.FR_REWARD_INVALID;
+            public string name { get; set; } = "#GameUI_Store_Buy_HealthKit";
+            public RewardItemTypes itemType { get; set; } = RewardItemTypes.FR_HEALTHKIT;
             public string weaponClassName { get; set; } = "";
             public int weaponPreset { get; set; } = -1;
             public BoolInt ammoIsPrimary { get; set; } = BoolInt.Invalid;
             public int ammoNum { get; set; } = -1;
+            public int minLevel { get; set; } = 1;
+            public BoolInt classic { get; set; } = BoolInt.Invalid;
+            public BoolInt hardcore { get; set; } = BoolInt.Invalid;
+            public BoolInt loneWolf { get; set; } = BoolInt.Invalid;
+            public BoolInt ironKick { get; set; } = BoolInt.True;
             public RewardPerkTypes perkID { get; set; } = RewardPerkTypes.FIREFIGHT_PERK_INVALID;
             public string command { get; set; } = "";
         }
@@ -87,6 +92,11 @@ namespace Fabricator
                 AddKVObjectEntryStat("weapon_preset", classNode.weaponPreset);
                 AddKVObjectEntryStat("ammo_isprimary", classNode.ammoIsPrimary);
                 AddKVObjectEntryStat("ammo_num", classNode.ammoNum);
+                AddKVObjectEntryStat("min_level", classNode.minLevel);
+                AddKVObjectEntryStat("unlocks_in_classic", classNode.classic);
+                AddKVObjectEntryStat("unlocks_in_hardcore", classNode.hardcore);
+                AddKVObjectEntryStat("unlocks_in_lone_wolf", classNode.loneWolf);
+                AddKVObjectEntryStat("unlocks_in_iron_kick", classNode.ironKick);
 
                 if (classNode.perkID != RewardPerkTypes.FIREFIGHT_PERK_INVALID)
                 {
@@ -130,6 +140,21 @@ namespace Fabricator
                             break;
                         case "ammo_num":
                             classNode.ammoNum = child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "min_level":
+                            classNode.minLevel = child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "unlocks_in_classic":
+                            classNode.classic = (BoolInt)child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "unlocks_in_hardcore":
+                            classNode.hardcore = (BoolInt)child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "unlocks_in_lone_wolf":
+                            classNode.loneWolf = (BoolInt)child.Value.ToInt32(CultureInfo.CurrentCulture);
+                            break;
+                        case "unlocks_in_iron_kick":
+                            classNode.ironKick = (BoolInt)child.Value.ToInt32(CultureInfo.CurrentCulture);
                             break;
                         case "perk_id":
                             classNode.perkID = (RewardPerkTypes)child.Value.ToInt32(CultureInfo.CurrentCulture);

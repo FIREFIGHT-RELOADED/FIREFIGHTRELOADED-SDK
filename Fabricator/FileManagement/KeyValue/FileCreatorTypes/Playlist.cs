@@ -7,10 +7,10 @@ namespace Fabricator
     {
         public class PlaylistNode : BaseNode
         {
-            public string path { get; set; } = "";
-            public string title { get; set; } = "";
-            public string artist { get; set; } = "";
-            public string album { get; set; } = "";
+            public string path { get; set; } = "hl1/music/Half-Life13.mp3";
+            public string title { get; set; } = "Hazardous Environments";
+            public string artist { get; set; } = "Kelly Bailey";
+            public string album { get; set; } = "HalfLife2";
         }
 
         public override bool SetLabelToFileName { get; set; } = true;

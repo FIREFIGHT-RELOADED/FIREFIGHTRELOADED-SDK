@@ -8,7 +8,7 @@ namespace Fabricator
     {
         public class MapAddLabelNode : BaseNode
         {
-            public string entityName { get; set; } = "";
+            public string entityName { get; set; } = "npc_maker_firefight";
             public string labelName { get; set; } = "";
             //Positions
             public float x { get; set; } = 0;
@@ -18,7 +18,7 @@ namespace Fabricator
             public float roll { get; set; } = 0;
             public float yaw { get; set; } = 0;
             public float pitch { get; set; } = 0;
-            public KVObject? keyValues { get; set; } = null;
+            public KVObject? keyValues { get; set; } = new KVObject("KeyValues", [new KVObject("StartDisabled","0")]);
         }
 
         public override string Label { get; set; } = "MapAdd";

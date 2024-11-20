@@ -168,6 +168,12 @@
         "Required":true
     },
     {
+        "Key":"min_level",
+        "FileType":"RewardList-Node",
+        "ValType":"Integer",
+        "Required":false
+    }, 
+    {
         "Key":"weapon_classname",
         "FileType":"RewardList-Node",
         "ValType":"String",
@@ -197,6 +203,30 @@
         "ValType":"Perk Type (Integer)",
         "Required":false
     }, 
+    {
+        "Key":"unlocks_in_classic",
+        "FileType":"RewardList-Node",
+        "ValType":"Boolean",
+        "Required":false
+    },
+    {
+        "Key":"unlocks_in_hardcore",
+        "FileType":"RewardList-Node",
+        "ValType":"Boolean",
+        "Required":false
+    },
+    {
+        "Key":"unlocks_in_lone_wolf",
+        "FileType":"RewardList-Node",
+        "ValType":"Boolean",
+        "Required":false
+    },
+    {
+        "Key":"unlocks_in_iron_kick",
+        "FileType":"RewardList-Node",
+        "ValType":"Boolean",
+        "Required":false
+    },
     {
         "Key":"command",
         "FileType":"RewardList-Node",

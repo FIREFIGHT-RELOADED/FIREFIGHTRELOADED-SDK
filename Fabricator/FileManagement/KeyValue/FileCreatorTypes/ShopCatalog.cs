@@ -60,11 +60,11 @@ namespace Fabricator
 
         public class CatalogNode : BaseNode
         {
-            public string name { get; set; } = "";
+            public string name { get; set; } = "HealthKit";
             public int preset { get; set; } = -1;
-            public int price { get; set; } = -1;
+            public int price { get; set; } = 20;
             public int limit { get; set; } = -1;
-            public Command? command { get; set; } = null;
+            public Command? command { get; set; } = new Command("healthkit");
         }
 
         public override string Label { get; set; } = "ShopCatalog";

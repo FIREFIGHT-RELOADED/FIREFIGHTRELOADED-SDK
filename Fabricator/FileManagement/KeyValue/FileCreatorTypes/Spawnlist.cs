@@ -31,18 +31,18 @@ namespace Fabricator
 
         public class SpawnlistNode : BaseNode
         {
-            public string classname { get; set; } = "";
-            public int preset { get; set; } = -2;
-            public int minLevel { get; set; } = -1;
-            public BoolInt rare { get; set; } = BoolInt.Invalid;
+            public string classname { get; set; } = "npc_combine_s";
+            public int preset { get; set; } = 0;
+            public int minLevel { get; set; } = 1;
+            public BoolInt rare { get; set; } = BoolInt.False;
             public int exp { get; set; } = -1;
             public int wildcard { get; set; } = -2;
             public List<string>? mapspawn { get; set; } = null;
             public float weight { get; set; } = -1;
             public GrenadeEntry? grenades { get; set; } = null;
-            public int kash { get; set; } = -1;
+            public int kash { get; set; } = 45;
             public BoolInt subsitute { get; set; } = BoolInt.Invalid;
-            public Dictionary<string, float>? equipment { get; set; } = null;
+            public Dictionary<string, float>? equipment { get; set; } = new Dictionary<string, float> { ["weapon_shotgun"] = 5 };
         }
 
         

@@ -9,12 +9,12 @@ namespace Fabricator
         {
             public BoolInt hardcore { get; set; } = BoolInt.Invalid;
             public BoolInt nodisconnect { get; set; } = BoolInt.Invalid;
-            public string weapon { get; set; } = "";
+            public string weapon { get; set; } = "weapon_smg1";
             public int weaponpreset { get; set; } = -1;
-            public string ammotype { get; set; } = "";
-            public int ammonum { get; set; } = -1;
-            public string ammo2type { get; set; } = "";
-            public int ammo2num { get; set; } = -1;
+            public string ammotype { get; set; } = "SMG1";
+            public int ammonum { get; set; } = 180;
+            public string ammo2type { get; set; } = "SMG1_Grenade";
+            public int ammo2num { get; set; } = 3;
             public int health { get; set; } = -1;
             public BoolInt setmaxhealth { get; set; } = BoolInt.Invalid;
             public BoolInt incrementhealth { get; set; } = BoolInt.Invalid;
