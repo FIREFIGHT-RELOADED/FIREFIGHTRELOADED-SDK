@@ -66,7 +66,7 @@ namespace Fabricator
                     if (kvl.ShowDialog() == DialogResult.OK)
                     {
                         string type = kvl.selectedValType;
-                        object? res = GlobalVars.DataTypeForString(type);
+                        object? res = LocalVars.DataTypeForString(type);
 
                         int index = KeyValueSet.Rows.Add(kvl.selectedKey, res);
                         DataGridViewRow? row = KeyValueSet.Rows[index];
@@ -116,7 +116,7 @@ namespace Fabricator
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FabricatorTextViewer ftv = new FabricatorTextViewer(Path.Combine(GlobalVars.DataPath, "shopcatalog_help.txt"));
+            FabricatorTextViewer ftv = new FabricatorTextViewer(Path.Combine(LocalVars.DataPath, "shopcatalog_help.txt"));
             ftv.Text = "ShopCatalog Help";
             ftv.Show();
         }

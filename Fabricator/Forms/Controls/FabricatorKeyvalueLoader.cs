@@ -25,13 +25,13 @@ namespace Fabricator
 
             CenterToScreen();
 
-            JSONEntries = SchemeLoader.LoadFile(Path.Combine(GlobalVars.DataPath, "schema.json"));
+            JSONEntries = SchemeLoader.LoadFile(Path.Combine(LocalVars.DataPath, "schema.json"));
 
             if (JSONEntries != null)
             {
                 foreach (var entry in JSONEntries)
                 {
-                    if (entry.FileType.Contains(GlobalVars.SelectedType.ToString(), StringComparison.CurrentCultureIgnoreCase))
+                    if (entry.FileType.Contains(LocalVars.SelectedType.ToString(), StringComparison.CurrentCultureIgnoreCase))
                     {
                         AvailableKeys.Items.Add(entry.ToString());
                     }

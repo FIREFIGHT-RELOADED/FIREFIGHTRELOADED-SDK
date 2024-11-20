@@ -56,8 +56,8 @@ namespace Fabricator
 
         private void SelectType(FabType type)
         {
-            GlobalVars.SelectedType = type;
-            SelectionLabel.Text = $"Selected: {GlobalVars.SelectedType.ToString()}";
+            LocalVars.SelectedType = type;
+            SelectionLabel.Text = $"Selected: {LocalVars.SelectedType.ToString()}";
         }
 
         private void OpenFileEditor_Click(object sender, EventArgs e)
@@ -65,7 +65,7 @@ namespace Fabricator
             FileTypeList.Enabled = false;
             OpenFileEditor.Enabled = false;
 
-            switch (GlobalVars.SelectedType)
+            switch (LocalVars.SelectedType)
             {
                 case FabType.MapAdd:
                     FabricatorEditorForm_MapAdd formMA = new FabricatorEditorForm_MapAdd();

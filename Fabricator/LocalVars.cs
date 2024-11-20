@@ -14,7 +14,7 @@ namespace Fabricator
         Loadout
     }
 
-    public class GlobalVars
+    public class LocalVars
     {
         public static FabType SelectedType { get; set; }
 

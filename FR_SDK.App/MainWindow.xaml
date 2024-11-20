@@ -363,6 +363,47 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style
+            x:Key="FabricatorItemStyle"
+            BasedOn="{StaticResource BaseItemStyle}"
+            TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border
+                            Name="_Border"
+                            Margin="4,0,5,0"
+                            Padding="2"
+                            SnapsToDevicePixels="true">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="graphics/fabricator.png" />
+                                <TextBlock
+                                    Margin="4,0,0,0"
+                                    FontFamily="Tahoma"
+                                    Text="{TemplateBinding Content}"
+                                    TextOptions.TextFormattingMode="Display"
+                                    TextOptions.TextRenderingMode="Aliased" />
+                            </StackPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="_Border" Property="Background" Value="#958831" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="_Border" Property="Background" Value="#282E22" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="true" />
+                                    <Condition Property="Selector.IsSelectionActive" Value="false" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="_Border" Property="Background" Value="#282E22" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <Style TargetType="ListBox">
             <Setter Property="Background" Value="#3E4637" />
             <Setter Property="Template">
@@ -477,6 +518,11 @@
                 Content="Face Poser"
                 MouseDoubleClick="faceposer_DoubleClick"
                 Style="{StaticResource FaceposerItemStyle}" />
+            <ListBoxItem
+                x:Name="fabricator"
+                Content="Fabricator"
+                MouseDoubleClick="fabricator_DoubleClick"
+                Style="{StaticResource FabricatorItemStyle}" />
             <ListBoxItem
                 x:Name="workshop"
                 Content="Workshop Uploader"

@@ -210,6 +210,16 @@ namespace FR_SDK.App
             CloseWindow(msgboxname);
         }
 
+        private void fabricator_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            string msgboxname = "fabbox";
+            CreateMessageBoxAppLaunch(msgboxname, "Starting Fabricator...");
+            var proc = processController.LaunchApp(GlobalVars.fabricator, "");
+            proc.Start();
+            Task.Delay(2500);
+            CloseWindow(msgboxname);
+        }
+
         public static void CreateMessageBox(string text)
         {
             CustomMessageBox box = new CustomMessageBox(text);

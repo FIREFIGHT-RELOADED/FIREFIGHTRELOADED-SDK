@@ -8,6 +8,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationIcon>635px-HLA_Resin.ico</ApplicationIcon>
+    <AssemblyName>FR_Fabricator</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
