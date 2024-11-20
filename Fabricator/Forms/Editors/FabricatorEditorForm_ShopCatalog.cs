@@ -87,8 +87,10 @@ namespace Fabricator
         private void addNodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShopCatalog.CatalogNode node = new ShopCatalog.CatalogNode();
+            int count = curFile.entries.Count;
             curFile.AddEntry(node);
             FabricatorEditorFormHelpers.ReloadNodeList(NodeList, curFile);
+            NodeList.SelectedNode = NodeList.Nodes[count];
         }
 
         private void deleteNodeToolStripMenuItem_Click(object sender, EventArgs e)
