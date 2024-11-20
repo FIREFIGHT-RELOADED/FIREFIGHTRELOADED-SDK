@@ -41,4 +41,8 @@
     <Compile Update="Forms\Editors\FabricatorEditorForm_Loadout.cs" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if not exist &quot;$(ProjectDir)$(OutDir)data&quot; mkdir &quot;$(ProjectDir)$(OutDir)data&quot;&#xD;&#xA;copy &quot;$(ProjectDir)data\*&quot; &quot;$(ProjectDir)$(OutDir)data&quot;" />
+  </Target>
+
 </Project>

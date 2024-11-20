@@ -3,3 +3,10 @@ FIREFIGHT_UPGRADE_MAXHEALTH = 0
 FIREFIGHT_UPGRADE_EXPBOOST = 1
 FIREFIGHT_UPGRADE_KASHBOOST = 2
 FIREFIGHT_UPGRADE_HEALTHREGENERATION_RANGE = 3
+
+Commands:
+healthkit
+battery
+upgrade <Upgrade ID>
+ammo <Ammo Name> <Ammo Count>
+item <Weapon Name> <Can we get multiple of this item? Can be 0 or 1>
