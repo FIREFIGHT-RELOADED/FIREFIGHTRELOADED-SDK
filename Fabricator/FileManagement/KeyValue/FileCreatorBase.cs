@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using ValveKeyValue;
@@ -414,6 +415,50 @@ namespace Fabricator
 
             //This is unnessessary as it doesn't change indexes, but better safe than sorry.
             RefreshEntries();
+        }
+
+
+        /// <summary>
+        /// Moves an entry in the list using a KVObject. Returns the new index of the node.
+        /// </summary>
+        /// <param name="oldIndex"></param>
+        /// <param name="newIndex"></param>
+        public virtual int MoveEntry(int oldIndex, bool movedown = false)
+        {
+            int actualIndex = oldIndex - 1;
+
+            if (actualIndex >= 0 && actualIndex < entries.Count)
+            {
+                KVObject item = entries[actualIndex];
+
+                int newIndex;
+
+                if (movedown)
+                {
+                    newIndex = actualIndex + 1;
+                }
+                else
+                {
+                    newIndex = actualIndex - 1;
+                }
+
+                if (newIndex >= 0 && newIndex < entries.Count)
+                {
+                    if (entries[newIndex] != null)
+                    {
+                        entries.Insert(newIndex, item);
+                    }
+                    if (newIndex <= actualIndex)
+                    {
+                        ++actualIndex;
+                    }
+                    entries.RemoveAt(actualIndex);
+                    RefreshEntries();
+                    return newIndex;
+                }
+            }
+
+            return actualIndex;
         }
 
         /// <summary>

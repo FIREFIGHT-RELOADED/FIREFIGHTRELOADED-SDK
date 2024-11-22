@@ -289,5 +289,17 @@ namespace Fabricator
                 ReloadNodeList(nodeList, curFile);
             }
         }
+
+        public static void MoveNode(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile, bool movedown = false)
+        {
+            if (nodeList.SelectedNode != null)
+            {
+                int nodeIndex = Convert.ToInt32(nodeList.SelectedNode.Text);
+                int newIndex = curFile.MoveEntry(nodeIndex, movedown);
+                keyValueSet.Rows.Clear();
+                ReloadNodeList(nodeList, curFile);
+                nodeList.SelectedNode = nodeList.Nodes[newIndex];
+            }
+        }
     }
 }
