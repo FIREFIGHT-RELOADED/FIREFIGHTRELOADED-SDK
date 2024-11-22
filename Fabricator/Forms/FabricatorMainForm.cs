@@ -73,7 +73,7 @@ namespace Fabricator
                     break;
                 case FabType.Spawnlist:
                     FabricatorEditorForm_Spawnlist formSL = new FabricatorEditorForm_Spawnlist();
-                    formSL.ShowDialog(); 
+                    formSL.ShowDialog();
                     break;
                 case FabType.ShopCatalog:
                     FabricatorEditorForm_ShopCatalog formSC = new FabricatorEditorForm_ShopCatalog();
@@ -92,7 +92,7 @@ namespace Fabricator
                     formL.ShowDialog();
                     break;
                 case FabType.Other:
-                    FabricatorOtherForm form = new FabricatorOtherForm();
+                    FabricatorEditorForm_Other form = new FabricatorEditorForm_Other();
                     form.ShowDialog();
                     break;
                 default:

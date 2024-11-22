@@ -54,7 +54,7 @@
             FileTypeList.Controls.Add(LoadoutRadioButton);
             FileTypeList.Location = new Point(12, 12);
             FileTypeList.Name = "FileTypeList";
-            FileTypeList.Size = new Size(320, 197);
+            FileTypeList.Size = new Size(339, 197);
             FileTypeList.TabIndex = 7;
             FileTypeList.TabStop = false;
             FileTypeList.Text = "Select a file type to edit.";
@@ -148,7 +148,7 @@
             OpenFileEditor.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             OpenFileEditor.Location = new Point(12, 237);
             OpenFileEditor.Name = "OpenFileEditor";
-            OpenFileEditor.Size = new Size(320, 23);
+            OpenFileEditor.Size = new Size(339, 23);
             OpenFileEditor.TabIndex = 8;
             OpenFileEditor.Text = "Open Editor";
             OpenFileEditor.UseVisualStyleBackColor = true;
@@ -159,7 +159,7 @@
             SelectionLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             SelectionLabel.Location = new Point(12, 215);
             SelectionLabel.Name = "SelectionLabel";
-            SelectionLabel.Size = new Size(320, 15);
+            SelectionLabel.Size = new Size(339, 15);
             SelectionLabel.TabIndex = 9;
             SelectionLabel.Text = "Selected: [ItemHere]";
             // 
@@ -167,7 +167,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(344, 268);
+            ClientSize = new Size(363, 268);
             Controls.Add(SelectionLabel);
             Controls.Add(OpenFileEditor);
             Controls.Add(FileTypeList);

@@ -42,7 +42,9 @@ namespace Fabricator
             public GrenadeEntry? grenades { get; set; } = null;
             public int kash { get; set; } = 45;
             public BoolInt subsitute { get; set; } = BoolInt.Invalid;
-            public Dictionary<string, float>? equipment { get; set; } = new Dictionary<string, float> { ["weapon_shotgun"] = 5 };
+            public Dictionary<string, float>? equipment { get; set; } = new Dictionary<string, float> { 
+                ["weapon_shotgun"] = 5 
+            };
         }
 
         

@@ -18,7 +18,15 @@ namespace Fabricator
             public float roll { get; set; } = 0;
             public float yaw { get; set; } = 0;
             public float pitch { get; set; } = 0;
-            public KVObject? keyValues { get; set; } = new KVObject("KeyValues", [new KVObject("StartDisabled","0")]);
+            public Dictionary<string, KVValue>? keyValues { get; set; } = new Dictionary<string, KVValue> { 
+                ["StartDisabled"] = 0,
+                ["targetname"] = "Spawner",
+                ["NPCSquadName"] = "Squad",
+                ["RareNPCRarity"] = 5,
+                ["SpawnFrequency"] = 5,
+                ["MaxLiveChildren"] = 15,
+                ["MaxLiveRareNPCs"] = 5,
+            };
         }
 
         public override string Label { get; set; } = "MapAdd";
@@ -37,6 +45,19 @@ namespace Fabricator
 
             if (classNode != null)
             {
+                List<KVObject> keyvalueEntries = new List<KVObject>();
+
+                bool keyvalues = false;
+                if (classNode.keyValues != null && classNode.keyValues.Count > 0)
+                {
+                    foreach (var item in classNode.keyValues)
+                    {
+                        keyvalueEntries.Add(new KVObject(item.Key, item.Value));
+                    }
+
+                    keyvalues = true;
+                }
+
                 //WHY CAN'T IT JUST LOAD A DOUBLE?
                 AddKVObjectEntryStat("entity", classNode.entityName);
                 AddKVObjectEntryStat("label", classNode.labelName);
@@ -46,7 +67,11 @@ namespace Fabricator
                 AddKVObjectEntryStat("roll", classNode.roll.ToString());
                 AddKVObjectEntryStat("yaw", classNode.yaw.ToString());
                 AddKVObjectEntryStat("pitch", classNode.pitch.ToString());
-                AddKVObjectEntryStat("KeyValues", classNode.keyValues);
+
+                if (keyvalues)
+                {
+                    entryStats.Add(new KVObject("KeyValues", keyvalueEntries));
+                }
             }
 
             return base.NodeToKVObject(node, index);
@@ -92,7 +117,16 @@ namespace Fabricator
                             labelNode.pitch = nodechild.Value.ToSingle(CultureInfo.CurrentCulture);
                             break;
                         case "KeyValues":
-                            labelNode.keyValues = nodechild;
+                            {
+                                Dictionary<string, KVValue> vals = new Dictionary<string, KVValue>();
+
+                                foreach (KVObject val in nodechild.Children)
+                                {
+                                    vals.Add(val.Name, val.Value);
+                                }
+
+                                labelNode.keyValues = vals;
+                            }
                             break;
                         default:
                             break;

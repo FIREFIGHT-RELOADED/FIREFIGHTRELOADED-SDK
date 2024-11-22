@@ -11,11 +11,11 @@ using ValveKeyValue;
 
 namespace Fabricator
 {
-    public partial class FabricatorOtherForm : Form
+    public partial class FabricatorEditorForm_Other : Form
     {
         string kvName { get; set; }
 
-        public FabricatorOtherForm()
+        public FabricatorEditorForm_Other()
         {
             InitializeComponent();
             CenterToScreen();
