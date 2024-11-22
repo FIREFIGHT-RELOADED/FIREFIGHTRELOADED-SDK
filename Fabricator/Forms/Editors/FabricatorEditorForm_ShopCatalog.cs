@@ -122,5 +122,15 @@ namespace Fabricator
             ftv.Text = "ShopCatalog Help";
             ftv.Show();
         }
+
+        private void moveNodeUpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FabricatorEditorFormHelpers.MoveNode(NodeList, KeyValueSet, curFile);
+        }
+
+        private void moveNodeDownToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FabricatorEditorFormHelpers.MoveNode(NodeList, KeyValueSet, curFile, true);
+        }
     }
 }

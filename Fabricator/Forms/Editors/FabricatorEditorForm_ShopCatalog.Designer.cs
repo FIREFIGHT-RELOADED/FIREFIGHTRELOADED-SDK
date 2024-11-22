@@ -46,6 +46,8 @@
             splitContainer1 = new SplitContainer();
             NodeList = new TreeView();
             helpToolStripMenuItem = new ToolStripMenuItem();
+            moveNodeUpToolStripMenuItem = new ToolStripMenuItem();
+            moveNodeDownToolStripMenuItem = new ToolStripMenuItem();
             menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)KeyValueSet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -94,7 +96,7 @@
             // 
             // editToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem, addNodeToolStripMenuItem, deleteNodeToolStripMenuItem });
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem, addNodeToolStripMenuItem, deleteNodeToolStripMenuItem, moveNodeUpToolStripMenuItem, moveNodeDownToolStripMenuItem });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             editToolStripMenuItem.Size = new Size(39, 20);
             editToolStripMenuItem.Text = "Edit";
@@ -190,6 +192,20 @@
             helpToolStripMenuItem.Text = "Help";
             helpToolStripMenuItem.Click += helpToolStripMenuItem_Click;
             // 
+            // moveNodeUpToolStripMenuItem
+            // 
+            moveNodeUpToolStripMenuItem.Name = "moveNodeUpToolStripMenuItem";
+            moveNodeUpToolStripMenuItem.Size = new Size(206, 22);
+            moveNodeUpToolStripMenuItem.Text = "Move Node Up";
+            moveNodeUpToolStripMenuItem.Click += moveNodeUpToolStripMenuItem_Click;
+            // 
+            // moveNodeDownToolStripMenuItem
+            // 
+            moveNodeDownToolStripMenuItem.Name = "moveNodeDownToolStripMenuItem";
+            moveNodeDownToolStripMenuItem.Size = new Size(206, 22);
+            moveNodeDownToolStripMenuItem.Text = "Move Node Down";
+            moveNodeDownToolStripMenuItem.Click += moveNodeDownToolStripMenuItem_Click;
+            // 
             // FabricatorEditorForm_ShopCatalog
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -232,5 +248,7 @@
         private ToolStripMenuItem addNodeToolStripMenuItem;
         private ToolStripMenuItem deleteNodeToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
+        private ToolStripMenuItem moveNodeUpToolStripMenuItem;
+        private ToolStripMenuItem moveNodeDownToolStripMenuItem;
     }
 }
