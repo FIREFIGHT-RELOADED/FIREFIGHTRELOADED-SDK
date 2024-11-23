@@ -381,19 +381,19 @@
         "Key":"roll",
         "FileType":"MapAdd-Node",
         "ValType":"Double",
-        "Required":true
+        "Required":false
     },
     {
         "Key":"yaw",
         "FileType":"MapAdd-Node",
         "ValType":"Double",
-        "Required":true
+        "Required":false
     },
     {
         "Key":"pitch",
         "FileType":"MapAdd-Node",
         "ValType":"Double",
-        "Required":true
+        "Required":false
     },
     {
         "Key":"KeyValues",
@@ -405,6 +405,36 @@
         "Key":"Flags",
         "FileType":"MapAdd-Node",
         "ValType":"Collection",
+        "Required":false
+    },
+    {
+        "Key":"remove_classname",
+        "FileType":"MapAdd-Node-Extra",
+        "ValType":"String",
+        "Required":false
+    },
+    {
+        "Key":"remove_targetname",
+        "FileType":"MapAdd-Node-ExtraRemoveEnitity",
+        "ValType":"String",
+        "Required":false
+    },
+    {
+        "Key":"radius",
+        "FileType":"MapAdd-Node-ExtraRemoveEnitity",
+        "ValType":"Float",
+        "Required":false
+    },
+    {
+        "Key":"maxallowed",
+        "FileType":"MapAdd-Node-ExtraSpecialEnitity",
+        "ValType":"Float",
+        "Required":false
+    },
+    {
+        "Key":"weaponname",
+        "FileType":"MapAdd-Node-ExtraSpecialEnitity",
+        "ValType":"String",
         "Required":false
     },
     {
