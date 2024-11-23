@@ -363,19 +363,19 @@
         "Key":"x",
         "FileType":"MapAdd-Node",
         "ValType":"Double",
-        "Required":true
+        "Required":false
     },
     {
         "Key":"y",
         "FileType":"MapAdd-Node",
         "ValType":"Double",
-        "Required":true
+        "Required":false
     },
     {
         "Key":"z",
         "FileType":"MapAdd-Node",
         "ValType":"Double",
-        "Required":true
+        "Required":false
     },
     {
         "Key":"roll",
