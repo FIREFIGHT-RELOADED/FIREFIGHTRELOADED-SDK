@@ -1,7 +1,9 @@
-﻿using System;
+﻿
+using System;
 using System.Data;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using ValveKeyValue;
@@ -156,6 +158,48 @@ namespace Fabricator
         private void moveNodeDownToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FabricatorEditorFormHelpers.MoveNode(NodeList, KeyValueSet, curFile, true);
+        }
+
+        private void addPositionFromStringToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (NodeList.SelectedNode != null)
+            {
+                using (var kvl = new FabricatorLoadStringPrompt())
+                {
+                    kvl.Text = "Add Position from String";
+                    if (kvl.ShowDialog() == DialogResult.OK)
+                    {
+                        var match = Regex.Match(kvl.result, "X: \\d+\\.\\d+ Y: \\d+\\.\\d+ Z: \\d+\\.\\d+", RegexOptions.IgnoreCase);
+                        string res = match.Groups[0].Value;
+
+                        if (!string.IsNullOrWhiteSpace(res))
+                        {
+                            var x = Convert.ToSingle(Regex.Match(kvl.result, "X: \\d+\\.\\d+", RegexOptions.IgnoreCase).Groups[0].Value.Replace("X: ", ""));
+                            var y = Convert.ToSingle(Regex.Match(kvl.result, "Y: \\d+\\.\\d+", RegexOptions.IgnoreCase).Groups[0].Value.Replace("Y: ", ""));
+                            var z = Convert.ToSingle(Regex.Match(kvl.result, "Z: \\d+\\.\\d+", RegexOptions.IgnoreCase).Groups[0].Value.Replace("Z: ", ""));
+
+                            int fakeIndex = nodeIndex + 1;
+
+                            MapAdd.MapAddLabelNode node = curFile.KVObjectToNode(fakeIndex);
+
+                            node.x = x;
+                            node.y = y;
+                            node.z = z;
+
+
+                            curFile.EditEntry(fakeIndex, node);
+
+                            KeyValueSet.Rows.Clear();
+                            FabricatorEditorFormHelpers.ReloadNodeList(NodeList, curFile);
+                            NodeList.SelectedNode = NodeList.Nodes[fakeIndex - 1];
+                        }
+                        else
+                        {
+                            MessageBox.Show("Please enter a correct string. Make sure the string is in this format as it comes out of the weapon_positiongrabber's output:\n\"Player position XYZ Coords: X: (X Position) Y: (Y Position) Z: (Z Position)\"\nYou may also enter in your coordinates as:\n\"X: (X Position) Y: (Y Position) Z: (Z Position)\"");
+                        }
+                    }
+                }
+            }
         }
     }
 }
