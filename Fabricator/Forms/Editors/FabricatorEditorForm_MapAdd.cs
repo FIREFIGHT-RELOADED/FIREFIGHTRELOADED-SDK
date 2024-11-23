@@ -186,7 +186,6 @@ namespace Fabricator
                             node.y = y;
                             node.z = z;
 
-
                             curFile.EditEntry(fakeIndex, node);
 
                             KeyValueSet.Rows.Clear();
