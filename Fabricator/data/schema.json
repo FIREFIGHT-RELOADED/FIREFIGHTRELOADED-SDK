@@ -132,6 +132,12 @@
         "Required":false
     },
     {
+        "Key":"extensions",
+        "FileType":"Playlist-Settings",
+        "ValType":"Boolean",
+        "Required":false
+    },
+    {
         "Key":"path",
         "FileType":"Playlist-Node",
         "ValType":"String",

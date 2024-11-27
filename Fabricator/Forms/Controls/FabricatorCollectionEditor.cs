@@ -75,5 +75,29 @@ namespace Fabricator
                 this.DialogResult = DialogResult.Cancel;
             }
         }
+
+        private void createRowFromKeyListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using (var kvl = new FabricatorKeyvalueLoader())
+            {
+                if (kvl.ShowDialog() == DialogResult.OK)
+                {
+                    string type = kvl.selectedValType;
+                    object? res = LocalVars.DataTypeForString(type);
+
+                    int index = KeyValueSet.Rows.Add(kvl.selectedKey, res);
+                    DataGridViewRow? row = KeyValueSet.Rows[index];
+
+                    if (row != null)
+                    {
+                        //set the collection to read-only.
+                        if (kvl.selectedValType.Contains("Collection", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            row.ReadOnly = true;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
