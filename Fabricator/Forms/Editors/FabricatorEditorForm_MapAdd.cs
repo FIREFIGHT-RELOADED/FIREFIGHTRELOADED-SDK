@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Data;
+using System.Numerics;
 using System.Reflection;
 using System.Reflection.Metadata.Ecma335;
 using System.Text.RegularExpressions;
@@ -74,6 +75,8 @@ namespace Fabricator
                 {
                     if (kvl.ShowDialog() == DialogResult.OK)
                     {
+                        //this code determines the data type based on the schema. If it's a collection, make it read-only.
+
                         string type = kvl.selectedValType;
                         object? res = LocalVars.DataTypeForString(type);
 
@@ -121,6 +124,7 @@ namespace Fabricator
             {
                 foreach (var child in kv.Children)
                 {
+                    //This code is used for making collections read only when we load a node.
                     //this shouldn't fail...hopefully.
                     int index = KeyValueSet.Rows.Add(child.Name, child.Value);
                     DataGridViewRow? row = KeyValueSet.Rows[index];
@@ -172,6 +176,14 @@ namespace Fabricator
                     kvl.Text = "Add Position from String";
                     if (kvl.ShowDialog() == DialogResult.OK)
                     {
+                        //in FIREFIGHT RELOADED, there is a tool named the Position Grabber, that takes the player's position
+                        //and puts it onto the console in the following format:
+                        //
+                        //Player position XYZ Coords: X: <X Position float> Y: <Y Position float> Z: <Z Position float>
+                        //
+                        //This code uses Regex patterns to extract the X/Y/Z portions of the string, verifies it, and converts the individual parts of the string
+                        //to usable float values, then edits the entry being edited.
+
                         var match = Regex.Match(kvl.result, "X: \\d+\\.\\d+ Y: \\d+\\.\\d+ Z: \\d+\\.\\d+", RegexOptions.IgnoreCase);
                         string res = match.Groups[0].Value;
 

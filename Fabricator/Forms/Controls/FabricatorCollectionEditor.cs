@@ -82,6 +82,11 @@ namespace Fabricator
             {
                 if (kvl.ShowDialog() == DialogResult.OK)
                 {
+                    //this code determines the data type based on the schema. If it's a collection, make it read-only.
+                    //note: we don't expect collections inside of collections for a good reason, so we don't have to re-iliterate
+                    //multiple times. Fabricator is made for editing collections in individual nodes, and not for editing collections inside
+                    //collections or nodes inside of nodes.
+
                     string type = kvl.selectedValType;
                     object? res = LocalVars.DataTypeForString(type);
 

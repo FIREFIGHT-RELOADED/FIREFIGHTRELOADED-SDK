@@ -25,6 +25,8 @@ namespace Fabricator
 
             CenterToScreen();
 
+            // load and deserialize the schema. While reading every entry, determine what should be shown by checking if the file type name
+            // exists in the "FileType" string.
             JSONEntries = SchemeLoader.LoadFile(Path.Combine(LocalVars.DataPath, "schema.json"));
 
             if (JSONEntries != null)
@@ -43,6 +45,7 @@ namespace Fabricator
         {
             if (AvailableKeys.Items.Count > 0)
             {
+                // trim off some bits to get the key name and the value type so we can send it as a return output.
                 fullItemName = AvailableKeys.SelectedItem.ToString();
                 selectedKey = fullItemName.Split(' ')[0].Replace("(!)", "");
                 selectedValType = fullItemName.Split(' ')[2].Replace(")", "");
@@ -64,6 +67,7 @@ namespace Fabricator
         public string ValType { get; set; } = "";
         public bool Required { get; set; } = false;
 
+        // the (!) is a mark to the user that a value is required for a entry to work properly.
         public override string ToString()
         {
             return $"{((Required) ? "(!)" : "")}{Key} ({FileType}, {ValType})";

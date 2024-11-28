@@ -30,6 +30,7 @@ namespace Fabricator
 
             if (classNode != null)
             {
+                //load every entry into the entrystats list and convert them to KVObjects.
                 AddKVObjectEntryStat("path", classNode.path);
                 AddKVObjectEntryStat("title", classNode.title);
                 AddKVObjectEntryStat("artist", classNode.artist);
@@ -49,6 +50,7 @@ namespace Fabricator
             {
                 KVObject obj = entries[actualIndex];
 
+                //go through the KVObject's children and fill in the entries of each node.
                 foreach (KVObject child in obj.Children)
                 {
                     switch (child.Name)

@@ -65,6 +65,7 @@ namespace Fabricator
 
             if (classNode != null)
             {
+                // add any equipment and map entries we need to add to lists.
                 List<KVObject> equipmentEntries = new List<KVObject>();
 
                 bool equipment = false;
@@ -103,6 +104,7 @@ namespace Fabricator
                 AddKVObjectEntryStat("subsitute", classNode.subsitute);
                 AddKVObjectEntryStat("kash", classNode.kash);
 
+                //convert the list of equipment and map entries into kvobjects and add to the entrystats list.
                 if (mapspawn)
                 {
                     entryStats.Add(new KVObject("mapspawn", mapEntries));
@@ -127,6 +129,7 @@ namespace Fabricator
             {
                 KVObject obj = entries[actualIndex];
 
+                //go through the KVObject's children and fill in the entries of each node.
                 foreach (KVObject child in obj.Children)
                 {
                     switch (child.Name)

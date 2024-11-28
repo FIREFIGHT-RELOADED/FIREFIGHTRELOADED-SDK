@@ -45,6 +45,7 @@ namespace Fabricator
 
             if (classNode != null)
             {
+                //add any keyvalues we need to add to a list.
                 List<KVObject> keyvalueEntries = new List<KVObject>();
 
                 bool keyvalues = false;
@@ -58,6 +59,7 @@ namespace Fabricator
                     keyvalues = true;
                 }
 
+                //load every entry into the entrystats list and convert them to KVObjects.
                 //WHY CAN'T IT JUST LOAD A DOUBLE?
                 AddKVObjectEntryStat("entity", classNode.entityName);
                 AddKVObjectEntryStat("label", classNode.labelName);
@@ -68,6 +70,7 @@ namespace Fabricator
                 AddKVObjectEntryStat("yaw", classNode.yaw.ToString());
                 AddKVObjectEntryStat("pitch", classNode.pitch.ToString());
 
+                //convert the list of keyvalues into a kvobject and add to the entrystats list.
                 if (keyvalues)
                 {
                     entryStats.Add(new KVObject("KeyValues", keyvalueEntries));
@@ -88,6 +91,7 @@ namespace Fabricator
             {
                 KVObject obj = entries[actualIndex];
 
+                //go through the KVObject's children and fill in the entries of each node.
                 foreach (KVObject nodechild in obj.Children)
                 {
                     switch (nodechild.Name)

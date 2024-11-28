@@ -69,6 +69,9 @@ namespace Fabricator
                 {
                     if (kvl.ShowDialog() == DialogResult.OK)
                     {
+                        //this code determines the data type based on the schema. If it's a collection, make it read-only.
+                        //note that this file type doesn't use collections, so collections are only supported as a backup.
+
                         string type = kvl.selectedValType;
                         object? res = LocalVars.DataTypeForString(type);
 

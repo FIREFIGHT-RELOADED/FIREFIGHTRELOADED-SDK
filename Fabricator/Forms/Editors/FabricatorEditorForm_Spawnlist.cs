@@ -72,6 +72,8 @@ namespace Fabricator
                 {
                     if (kvl.ShowDialog() == DialogResult.OK)
                     {
+                        //this code determines the data type based on the schema. If it's a collection, make it read-only.
+
                         string type = kvl.selectedValType;
                         object? res = LocalVars.DataTypeForString(type);
 
@@ -119,6 +121,7 @@ namespace Fabricator
             {
                 foreach (var child in kv.Children)
                 {
+                    //This code is used for making collections read only when we load a node.
                     //this shouldn't fail...hopefully.
                     int index = KeyValueSet.Rows.Add(child.Name, child.Value);
                     DataGridViewRow? row = KeyValueSet.Rows[index];
