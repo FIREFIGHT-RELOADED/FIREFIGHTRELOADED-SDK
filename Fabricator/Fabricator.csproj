@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>635px-HLA_Resin.ico</ApplicationIcon>
+    <AssemblyName>FR_Fabricator</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="635px-HLA_Resin.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ValveKeyValue" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Forms\Controls\FabricatorCollectionEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Editors\FabricatorEditorForm_MapAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Editors\FabricatorEditorForm_Spawnlist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Editors\FabricatorEditorForm_ShopCatalog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Editors\FabricatorEditorForm_RewardList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Editors\FabricatorEditorForm_Playlist.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Forms\Editors\FabricatorEditorForm_Loadout.cs" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="if not exist &quot;$(ProjectDir)$(OutDir)data&quot; mkdir &quot;$(ProjectDir)$(OutDir)data&quot;&#xD;&#xA;copy &quot;$(ProjectDir)data\*&quot; &quot;$(ProjectDir)$(OutDir)data&quot;" />
+  </Target>
+
+</Project>

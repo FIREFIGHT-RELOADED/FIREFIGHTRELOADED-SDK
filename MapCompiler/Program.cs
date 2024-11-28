@@ -51,11 +51,11 @@ namespace MapCompiler
         {
             if (e.Error != null)
             {
-                Console.WriteLine("ERROR: " + e.Error.Message);
+                Console.WriteLine($"ERROR: {e.Error.Message}");
             }
             else
             {
-                Console.WriteLine("File " + VMFFile + " finished.");
+                Console.WriteLine($"File {VMFFile} finished.");
             }
 
             Console.WriteLine("Loading next map...");
@@ -80,7 +80,7 @@ namespace MapCompiler
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 VMFFile = openFileDialog1.FileName;
-                Console.WriteLine("Compiling map " + Path.GetFileName(VMFFile) + "...");
+                Console.WriteLine($"Compiling map {Path.GetFileName(VMFFile)}...");
 
                 BackgroundWorker bgWorker;
                 bgWorker = new BackgroundWorker();
@@ -98,23 +98,32 @@ namespace MapCompiler
 
         private static Task CompileMap(string VMFFile)
         {
-            Console.WriteLine("Mod: " + GlobalVars.moddir);
+            Console.WriteLine($"Mod set to: {GlobalVars.moddir}");
 
             Console.WriteLine("Loading VBSP...");
-            Process vbsp = processController.LaunchApp(GlobalVars.vbsp, "-game \"" + GlobalVars.moddir + "\" -low \"" + VMFFile + "\"");
+            Process vbsp = processController.LaunchApp(GlobalVars.vbsp, $"-game \"{GlobalVars.moddir}\" \"{VMFFile}\"");
             int code1 = BeginToolLoad(vbsp);
-            Console.WriteLine("VBSP ended with code: " + code1);
+            Console.WriteLine($"VBSP ended with code: {code1}");
 
             Console.WriteLine("Loading VVIS...");
-            Process vvis = processController.LaunchApp(GlobalVars.vvis, "-game \"" + GlobalVars.moddir + "\" -low -fast \"" + VMFFile + "\"");
+            Process vvis = processController.LaunchApp(GlobalVars.vvis, $"-game \"{GlobalVars.moddir}\" \"{VMFFile}\"");
             int code2 = BeginToolLoad(vvis);
-            Console.WriteLine("VVIS ended with code: " + code2);
+            Console.WriteLine($"VVIS ended with code: {code2}");
 
             Console.WriteLine("Loading VRAD...");
-            string mapPath = Path.GetDirectoryName(VMFFile) + "\\" + Path.GetFileNameWithoutExtension(VMFFile) + ".bsp";
-            Process vrad = processController.LaunchApp(GlobalVars.vrad, "-game \"" + GlobalVars.moddir + "\" -low -both -StaticPropPolys \"" + mapPath + "\"");
+            string mapPath = $"{ Path.GetDirectoryName(VMFFile)}\\{ Path.GetFileNameWithoutExtension(VMFFile)}.bsp";
+
+            string vradCompileParms = "-both -final";
+
+            DialogResult result = MessageBox.Show("Would you like to add advanced lighting options to improve lighting with props? This may make the map take longer to compile and might break lighting on some maps in rare cases.", "Map Compiler", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                vradCompileParms += " -staticproppolys -textureshadows -staticproplighting";
+            }
+
+            Process vrad = processController.LaunchApp(GlobalVars.vrad, $"-game \"{GlobalVars.moddir}\" {vradCompileParms} \"{mapPath}\"");
             int code3 = BeginToolLoad(vrad);
-            Console.WriteLine("VRAD ended with code: " + code3);
+            Console.WriteLine($"VRAD ended with code: {code3}");
 
             return Task.CompletedTask;
         }

@@ -1,0 +1,46 @@
+Spawnflag/EFlag/Effects:
+
+More information on the Valve Developer Community Wiki:
+https://developer.valvesoftware.com/wiki/Flag
+
+The values represent flags added together.
+
+RenderMode_t:
+kRenderNormal = 0,		// src
+kRenderTransColor = 1,		// c*a+dest*(1-a)
+kRenderTransTexture = 2,	// src*a+dest*(1-a)
+kRenderGlow = 3,			// src*a+dest -- No Z buffer checks -- Fixed size in screen space
+kRenderTransAlpha = 4,		// src*srca+dest*(1-srca)
+kRenderTransAdd = 5,		// src*a+dest
+kRenderEnvironmental = 6,	// not drawn, used for environmental effects
+kRenderTransAddFrameBlend = 7, // use a fractional frame value to blend between animation frames
+kRenderTransAlphaAdd = 8,	// src + dest*(1-a)
+kRenderWorldGlow = 9,		// Same as kRenderGlow but not fixed size in screen space
+kRenderNone = 10,			// Don't render.
+
+RenderFx_t:
+kRenderFxNone = 0, 
+kRenderFxPulseSlow = 1, 
+kRenderFxPulseFast = 2, 
+kRenderFxPulseSlowWide = 3, 
+kRenderFxPulseFastWide = 4, 
+kRenderFxFadeSlow = 5, 
+kRenderFxFadeFast = 6, 
+kRenderFxSolidSlow = 7, 
+kRenderFxSolidFast = 8, 	   
+kRenderFxStrobeSlow = 9, 
+kRenderFxStrobeFast = 10, 
+kRenderFxStrobeFaster = 11, 
+kRenderFxFlickerSlow = 12, 
+kRenderFxFlickerFast = 13,
+kRenderFxNoDissipation = 14,
+kRenderFxDistort = 15,			// Distort/scale/translate flicker
+kRenderFxHologram = 16,			// kRenderFxDistort + distance fade
+kRenderFxExplode = 17,			// Scale up really big!
+kRenderFxGlowShell = 18,			// Glowing Shell
+kRenderFxClampMinScale = 19,		// Keep this sprite from getting very small (SPRITES only!)
+kRenderFxEnvRain = 20,			// for environmental rendermode, make rain
+kRenderFxEnvSnow = 21,			//  "        "            "    , make snow
+kRenderFxSpotlight = 22,			// TEST CODE for experimental spotlight
+kRenderFxRagdoll = 13,			// HACKHACK: TEST CODE for signalling death of a ragdoll character
+kRenderFxPulseFastWider = 24,

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FR_SDK.Core", "FR_SDK.Core\FR_SDK.Core.csproj", "{C5B2A6F9-0B52-4E06-8C2E-0297EF39F443}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FR_SDK.Core", "FR_SDK.Core\FR_SDK.Core.csproj", "{C5B2A6F9-0B52-4E06-8C2E-0297EF39F443}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FR_SDK.App", "FR_SDK.App\FR_SDK.App.csproj", "{94F26801-F531-4282-928C-2F07EAEF1BA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FR_SDK.App", "FR_SDK.App\FR_SDK.App.csproj", "{94F26801-F531-4282-928C-2F07EAEF1BA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapCompiler", "MapCompiler\MapCompiler.csproj", "{93627BBF-0411-479C-BA4B-9EE4096C8748}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapCompiler", "MapCompiler\MapCompiler.csproj", "{93627BBF-0411-479C-BA4B-9EE4096C8748}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkshopUploader", "WorkshopUploader\WorkshopUploader.csproj", "{34D182C5-59C9-48C7-8145-C78FFB6655EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WorkshopUploader", "WorkshopUploader\WorkshopUploader.csproj", "{34D182C5-59C9-48C7-8145-C78FFB6655EA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Fabricator", "Fabricator\Fabricator.csproj", "{5226210E-7866-4EEC-8945-741597F780C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,14 @@ Global
 		{34D182C5-59C9-48C7-8145-C78FFB6655EA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{34D182C5-59C9-48C7-8145-C78FFB6655EA}.Release|x86.ActiveCfg = Release|Any CPU
 		{34D182C5-59C9-48C7-8145-C78FFB6655EA}.Release|x86.Build.0 = Release|Any CPU
+		{5226210E-7866-4EEC-8945-741597F780C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5226210E-7866-4EEC-8945-741597F780C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5226210E-7866-4EEC-8945-741597F780C6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5226210E-7866-4EEC-8945-741597F780C6}.Debug|x86.Build.0 = Debug|Any CPU
+		{5226210E-7866-4EEC-8945-741597F780C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5226210E-7866-4EEC-8945-741597F780C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5226210E-7866-4EEC-8945-741597F780C6}.Release|x86.ActiveCfg = Release|Any CPU
+		{5226210E-7866-4EEC-8945-741597F780C6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

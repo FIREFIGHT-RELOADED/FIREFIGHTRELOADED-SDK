@@ -39,6 +39,7 @@ namespace FR_SDK.Core
         public static string vrad = bindir + @"\vrad.exe";
         public static string workshop = sdkdir + @"\FR_WorkshopUploader.exe";
         public static string mapcomp = sdkdir + @"\FR_MapCompiler.exe";
+        public static string fabricator = sdkdir + @"\FR_Fabricator.exe";
 
         public static string fgd = bindir + @"\firefightreloaded.fgd";
         public static string gameconfig = bindir + @"\GameConfig.txt";
