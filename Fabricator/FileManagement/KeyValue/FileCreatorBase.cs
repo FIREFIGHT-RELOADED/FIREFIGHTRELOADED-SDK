@@ -558,18 +558,18 @@ namespace Fabricator
         /// </summary>
         public virtual void Save(string filePath)
         {
+            // set the label to the file name if SetLabelToFileName is on.
+            if (SetLabelToFileName)
+            {
+                Label = Path.GetFileNameWithoutExtension(filePath);
+            }
+
             // Make our file a KVObject.
             KVObject? finalFile = ToKVObject();
 
             //check if our file is null.
             if (finalFile != null)
             {
-                // set the label to the file name if SetLabelToFileName is on.
-                if (SetLabelToFileName)
-                {
-                    Label = Path.GetFileNameWithoutExtension(filePath);
-                }
-
                 //For some strange reason, the data will save DIRECTLY into a file if it exists.
                 //So, we should remove it so the file can actually work.
                 if (File.Exists(filePath))
