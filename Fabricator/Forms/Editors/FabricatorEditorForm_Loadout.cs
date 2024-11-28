@@ -56,6 +56,7 @@ namespace Fabricator
                 {
                     if (FabricatorEditorFormHelpers.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile) != null)
                     {
+                        savedFileName = Path.GetFileName(sfd.FileName);
                         curFile.Save(sfd.FileName);
                     }
                 }
