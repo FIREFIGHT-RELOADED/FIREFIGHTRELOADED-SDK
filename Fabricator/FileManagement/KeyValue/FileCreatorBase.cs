@@ -444,15 +444,7 @@ namespace Fabricator
 
                 if (newIndex >= 0 && newIndex < entries.Count)
                 {
-                    if (entries[newIndex] != null)
-                    {
-                        entries.Insert(newIndex, item);
-                    }
-                    if (newIndex <= actualIndex)
-                    {
-                        ++actualIndex;
-                    }
-                    entries.RemoveAt(actualIndex);
+                    entries.Move(actualIndex, newIndex);
                     RefreshEntries();
                     return newIndex;
                 }

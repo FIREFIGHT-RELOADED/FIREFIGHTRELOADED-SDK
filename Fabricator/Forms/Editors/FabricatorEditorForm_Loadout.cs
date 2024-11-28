@@ -10,6 +10,7 @@ namespace Fabricator
     {
         Loadout curFile { get; set; }
         int nodeIndex { get; set; }
+        string savedFileName { get; set; }
 
         public FabricatorEditorForm_Loadout()
         {
@@ -24,6 +25,7 @@ namespace Fabricator
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            savedFileName = "";
             FabricatorEditorFormHelpers.Clear(KeyValueSet, NodeList, curFile);
         }
 
@@ -37,6 +39,7 @@ namespace Fabricator
                 {
                     nodeIndex = -1;
                     FabricatorEditorFormHelpers.Clear(KeyValueSet, NodeList, curFile);
+                    savedFileName = ofd.SafeFileName;
                     curFile = new Loadout(ofd.FileName);
                     FabricatorEditorFormHelpers.ReloadNodeList(NodeList, curFile);
                 }
@@ -47,7 +50,7 @@ namespace Fabricator
         {
             using (var sfd = saveFileDialog1)
             {
-                sfd.FileName = "";
+                sfd.FileName = savedFileName;
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
