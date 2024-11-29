@@ -188,14 +188,14 @@ namespace Fabricator
                         //This code uses Regex patterns to extract the X/Y/Z portions of the string, verifies it, and converts the individual parts of the string
                         //to usable float values, then edits the entry being edited.
 
-                        var match = Regex.Match(kvl.result, "X: \\d+\\.\\d+ Y: \\d+\\.\\d+ Z: \\d+\\.\\d+", RegexOptions.IgnoreCase);
+                        var match = Regex.Match(kvl.result, "X: ([+-]?(?=\\.\\d|\\d)(?:\\d+)?(?:\\.?\\d*))(?:[Ee]([+-]?\\d+))? Y: ([+-]?(?=\\.\\d|\\d)(?:\\d+)?(?:\\.?\\d*))(?:[Ee]([+-]?\\d+))? Z: ([+-]?(?=\\.\\d|\\d)(?:\\d+)?(?:\\.?\\d*))(?:[Ee]([+-]?\\d+))?", RegexOptions.IgnoreCase);
                         string res = match.Groups[0].Value;
 
                         if (!string.IsNullOrWhiteSpace(res))
                         {
-                            var x = Convert.ToSingle(Regex.Match(kvl.result, "X: \\d+\\.\\d+", RegexOptions.IgnoreCase).Groups[0].Value.Replace("X: ", ""));
-                            var y = Convert.ToSingle(Regex.Match(kvl.result, "Y: \\d+\\.\\d+", RegexOptions.IgnoreCase).Groups[0].Value.Replace("Y: ", ""));
-                            var z = Convert.ToSingle(Regex.Match(kvl.result, "Z: \\d+\\.\\d+", RegexOptions.IgnoreCase).Groups[0].Value.Replace("Z: ", ""));
+                            var x = Convert.ToSingle(Regex.Match(kvl.result, "X: ([+-]?(?=\\.\\d|\\d)(?:\\d+)?(?:\\.?\\d*))(?:[Ee]([+-]?\\d+))?", RegexOptions.IgnoreCase).Groups[0].Value.Replace("X: ", ""));
+                            var y = Convert.ToSingle(Regex.Match(kvl.result, "Y: ([+-]?(?=\\.\\d|\\d)(?:\\d+)?(?:\\.?\\d*))(?:[Ee]([+-]?\\d+))?", RegexOptions.IgnoreCase).Groups[0].Value.Replace("Y: ", ""));
+                            var z = Convert.ToSingle(Regex.Match(kvl.result, "Z: ([+-]?(?=\\.\\d|\\d)(?:\\d+)?(?:\\.?\\d*))(?:[Ee]([+-]?\\d+))?", RegexOptions.IgnoreCase).Groups[0].Value.Replace("Z: ", ""));
 
                             int fakeIndex = nodeIndex + 1;
 
