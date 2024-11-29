@@ -13,7 +13,7 @@ namespace Fabricator
 {
     public partial class FabricatorEditorForm_Other : Form
     {
-        string kvName { get; set; }
+        string kvName { get; set; } = "";
 
         public FabricatorEditorForm_Other()
         {

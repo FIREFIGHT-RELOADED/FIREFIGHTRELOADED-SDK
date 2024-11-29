@@ -16,7 +16,7 @@ namespace Fabricator
     public partial class FabricatorCollectionEditor : Form
     {
         string kvName { get; set; }
-        private KVObject objToEdit { get; set; }
+        private KVObject? objToEdit { get; set; }
         public KVObject? result { get; set; }
 
         public FabricatorCollectionEditor(KVObject obj)
@@ -36,6 +36,7 @@ namespace Fabricator
 
             CenterToScreen();
 
+            objToEdit = null;
             result = null;
             kvName = name;
         }

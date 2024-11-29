@@ -8,7 +8,7 @@ namespace Fabricator
     {
         ShopCatalog curFile { get; set; }
         int nodeIndex { get; set; }
-        string savedFileName { get; set; }
+        string savedFileName { get; set; } = "";
 
         public FabricatorEditorForm_ShopCatalog()
         {
@@ -108,17 +108,20 @@ namespace Fabricator
 
         private void NodeList_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            FabricatorEditorFormHelpers.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
-            KeyValueSet.Rows.Clear();
-            nodeIndex = e.Node.Index;
-
-            KVObject kv = curFile.entries[nodeIndex];
-
-            if (kv != null)
+            if (e.Node != null)
             {
-                foreach (var child in kv.Children)
+                FabricatorEditorFormHelpers.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
+                KeyValueSet.Rows.Clear();
+                nodeIndex = e.Node.Index;
+
+                KVObject kv = curFile.entries[nodeIndex];
+
+                if (kv != null)
                 {
-                    KeyValueSet.Rows.Add(child.Name, child.Value);
+                    foreach (var child in kv.Children)
+                    {
+                        KeyValueSet.Rows.Add(child.Name, child.Value);
+                    }
                 }
             }
         }

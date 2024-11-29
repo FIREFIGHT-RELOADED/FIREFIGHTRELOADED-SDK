@@ -42,7 +42,7 @@ namespace Fabricator
 
         public override KVObject NodeToKVObject(BaseNode node, int index = -1)
         {
-            LoadoutNode classNode = node as LoadoutNode;
+            LoadoutNode? classNode = node as LoadoutNode;
 
             if (classNode != null)
             {

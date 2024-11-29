@@ -65,13 +65,18 @@ namespace Fabricator
                 }
                 else
                 {
-                    if (row.Cells[1].Value.ToString().Contains("[Collection]", StringComparison.CurrentCultureIgnoreCase) && nodeIndex > -1)
+                    string? valString = row.Cells[1].Value.ToString();
+
+                    if (valString != null)
                     {
-                        value = curFile.entries[nodeIndex][row.Cells[0].Value.ToString()];
-                    }
-                    else
-                    {
-                        value = row.Cells[1].Value.ToString();
+                        if (valString.Contains("[Collection]", StringComparison.CurrentCultureIgnoreCase) && nodeIndex > -1)
+                        {
+                            value = curFile.entries[nodeIndex][row.Cells[0].Value.ToString()];
+                        }
+                        else
+                        {
+                            value = valString;
+                        }
                     }
                 }
 
@@ -163,7 +168,7 @@ namespace Fabricator
 
         public static void EditSettings(FileCreatorBase curFile)
         {
-            KVObject kv = curFile.SettingsToKVObject();
+            KVObject? kv = curFile.SettingsToKVObject();
             if (kv != null)
             {
                 using (var kvl = new FabricatorCollectionEditor(kv))
@@ -195,23 +200,28 @@ namespace Fabricator
 
                 if (cell.Value != null && row.Cells[0].Value != null && row.Cells[1].Value == cell.Value)
                 {
-                    if (cell.Value.ToString().Contains("[Collection]", StringComparison.CurrentCultureIgnoreCase))
+                    string? valString = cell.Value.ToString();
+
+                    if (valString != null && valString.Contains("[Collection]", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        string title = row.Cells[0].Value.ToString();
-                        KVValue kv = curFile.entries[nodeIndex][title];
-                        if (kv == null)
+                        string? title = row.Cells[0].Value.ToString();
+                        if (title != null)
                         {
-                            using (var kvl = new FabricatorCollectionEditor(title))
+                            KVValue kv = curFile.entries[nodeIndex][title];
+                            if (kv == null)
                             {
-                                if (kvl.ShowDialog() == DialogResult.OK)
+                                using (var kvl = new FabricatorCollectionEditor(title))
                                 {
-                                    //after editing, set collection to our result and save it into the kv.
-                                    if (kvl.result != null)
+                                    if (kvl.ShowDialog() == DialogResult.OK)
                                     {
-                                        curFile.entries[nodeIndex][title] = kvl.result.Value;
-                                        if (!row.ReadOnly)
+                                        //after editing, set collection to our result and save it into the kv.
+                                        if (kvl.result != null)
                                         {
-                                            row.ReadOnly = true;
+                                            curFile.entries[nodeIndex][title] = kvl.result.Value;
+                                            if (!row.ReadOnly)
+                                            {
+                                                row.ReadOnly = true;
+                                            }
                                         }
                                     }
                                 }
@@ -231,23 +241,28 @@ namespace Fabricator
 
                 if (cell.Value != null && row.Cells[0].Value != null && row.Cells[1].Value == cell.Value)
                 {
-                    if (cell.Value.ToString().Contains("[Collection]", StringComparison.CurrentCultureIgnoreCase))
+                    string? valString = cell.Value.ToString();
+
+                    if (valString != null && valString.Contains("[Collection]", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        string title = row.Cells[0].Value.ToString();
-                        KVValue kv = curFile.entries[nodeIndex][title];
-                        if (kv != null)
+                        string? title = row.Cells[0].Value.ToString();
+                        if (title != null)
                         {
-                            using (var kvl = new FabricatorCollectionEditor(new KVObject(title, kv)))
+                            KVValue kv = curFile.entries[nodeIndex][title];
+                            if (kv != null)
                             {
-                                if (kvl.ShowDialog() == DialogResult.OK)
+                                using (var kvl = new FabricatorCollectionEditor(new KVObject(title, kv)))
                                 {
-                                    //after editing, set collection to our result and save it into the kv.
-                                    if (kvl.result != null)
+                                    if (kvl.ShowDialog() == DialogResult.OK)
                                     {
-                                        curFile.entries[nodeIndex][title] = kvl.result.Value;
-                                        if (!row.ReadOnly)
+                                        //after editing, set collection to our result and save it into the kv.
+                                        if (kvl.result != null)
                                         {
-                                            row.ReadOnly = true;
+                                            curFile.entries[nodeIndex][title] = kvl.result.Value;
+                                            if (!row.ReadOnly)
+                                            {
+                                                row.ReadOnly = true;
+                                            }
                                         }
                                     }
                                 }
@@ -271,7 +286,7 @@ namespace Fabricator
         public static void Clear(DataGridView keyValueSet, TreeView nodeList, FileCreatorBase curFile)
         {
             curFile.entries.Clear();
-            if (curFile.FileUsesSettings)
+            if (curFile.FileUsesSettings && curFile.settings != null)
             {
                 curFile.settings.Clear();
             }

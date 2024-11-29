@@ -26,7 +26,7 @@ namespace Fabricator
 
         public override KVObject NodeToKVObject(BaseNode node, int index = -1)
         {
-            PlaylistNode classNode = node as PlaylistNode;
+            PlaylistNode? classNode = node as PlaylistNode;
 
             if (classNode != null)
             {

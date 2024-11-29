@@ -79,7 +79,7 @@ namespace Fabricator
 
         public override KVObject NodeToKVObject(BaseNode node, int index = -1)
         {
-            CatalogNode classNode = node as CatalogNode;
+            CatalogNode? classNode = node as CatalogNode;
 
             if (classNode != null)
             {

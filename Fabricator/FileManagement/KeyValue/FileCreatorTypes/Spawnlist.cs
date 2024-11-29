@@ -61,7 +61,7 @@ namespace Fabricator
 
         public override KVObject NodeToKVObject(BaseNode node, int index = -1)
         {
-            SpawnlistNode classNode = node as SpawnlistNode;
+            SpawnlistNode? classNode = node as SpawnlistNode;
 
             if (classNode != null)
             {

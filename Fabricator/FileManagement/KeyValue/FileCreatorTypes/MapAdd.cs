@@ -41,7 +41,7 @@ namespace Fabricator
 
         public override KVObject NodeToKVObject(BaseNode node, int index = -1)
         {
-            MapAddLabelNode classNode = node as MapAddLabelNode;
+            MapAddLabelNode? classNode = node as MapAddLabelNode;
 
             if (classNode != null)
             {

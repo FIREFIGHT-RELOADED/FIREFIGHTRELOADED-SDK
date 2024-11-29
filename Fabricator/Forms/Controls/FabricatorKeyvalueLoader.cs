@@ -15,9 +15,9 @@ namespace Fabricator
     public partial class FabricatorKeyvalueLoader : Form
     {
         List<JSONEntry>? JSONEntries { get; set; }
-        public string selectedKey { get; set; }
-        public string selectedValType { get; set; }
-        public string fullItemName { get; set; }
+        public string selectedKey { get; set; } = "";
+        public string selectedValType { get; set; } = "";
+        public string fullItemName { get; set; } = "";
 
         public FabricatorKeyvalueLoader()
         {
@@ -43,14 +43,19 @@ namespace Fabricator
 
         private void AvailableKeys_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (AvailableKeys.Items.Count > 0)
+            if (AvailableKeys.Items.Count > 0 && AvailableKeys.SelectedItem != null && fullItemName != null)
             {
-                // trim off some bits to get the key name and the value type so we can send it as a return output.
-                fullItemName = AvailableKeys.SelectedItem.ToString();
-                selectedKey = fullItemName.Split(' ')[0].Replace("(!)", "");
-                selectedValType = fullItemName.Split(' ')[2].Replace(")", "");
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                string? selectedItem = AvailableKeys.SelectedItem.ToString();
+
+                if (selectedItem != null)
+                {
+                    // trim off some bits to get the key name and the value type so we can send it as a return output.
+                    fullItemName = selectedItem;
+                    selectedKey = fullItemName.Split(' ')[0].Replace("(!)", "");
+                    selectedValType = fullItemName.Split(' ')[2].Replace(")", "");
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
             }
         }
 

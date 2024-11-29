@@ -77,7 +77,7 @@ namespace Fabricator
 
         public override KVObject NodeToKVObject(BaseNode node, int index = -1)
         {
-            RewardNode classNode = node as RewardNode;
+            RewardNode? classNode = node as RewardNode;
 
             if (classNode != null)
             {

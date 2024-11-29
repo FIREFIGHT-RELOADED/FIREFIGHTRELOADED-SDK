@@ -71,12 +71,14 @@ namespace Fabricator
         /// <summary>
         /// the raw data of the file.
         /// </summary>
-        public KVObject rawData { get; set; }
+        public KVObject? rawData { get; set; }
 
         /// <summary>
         /// Constructor. Sets up the list objects and loads the file.
         /// </summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         public FileCreatorBase()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         {
             SetupLists();
         }
@@ -85,7 +87,9 @@ namespace Fabricator
         /// Constructor. Sets up the list objects and loads the file.
         /// </summary>
         /// <param name="filePath"></param>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         public FileCreatorBase(string filePath)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         {
             SetupLists();
             LoadFile(filePath);
@@ -459,7 +463,7 @@ namespace Fabricator
         /// <param name="kv"></param>
         public virtual void AddSetting(KVObject kv)
         {
-            if (FileUsesSettings)
+            if (FileUsesSettings && settings != null)
             {
                 settings.Add(kv);
             }
@@ -471,7 +475,7 @@ namespace Fabricator
         /// <param name="kv"></param>
         public virtual void EditSetting(KVObject kv)
         {
-            if (FileUsesSettings)
+            if (FileUsesSettings && settings != null)
             {
                 try
                 {
@@ -494,7 +498,7 @@ namespace Fabricator
         /// <param name="settingName"></param>
         public virtual void RemoveSetting(string settingName)
         {
-            if (FileUsesSettings)
+            if (FileUsesSettings && settings != null)
             {
                 KVObject? query = settings.Find(x => x.Name == settingName);
 
@@ -523,12 +527,15 @@ namespace Fabricator
         {
             List<KVObject> list = new List<KVObject>();
 
-            if (FileUsesSettings)
+            if (FileUsesSettings && settings != null)
             {
                 if (settings.Count > 0)
                 {
-                    KVObject set = SettingsToKVObject();
-                    list.Add(set);
+                    KVObject? set = SettingsToKVObject();
+                    if (set != null)
+                    {
+                        list.Add(set);
+                    }
                 }
             }
 
