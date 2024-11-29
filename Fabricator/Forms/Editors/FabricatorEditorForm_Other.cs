@@ -74,7 +74,7 @@ namespace Fabricator
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    List<KVObject>? list = FabricatorEditorFormHelpers.ListFromCurCellsLegacy(KeyValueSet);
+                    List<KVObject>? list = LocalFuncs.ListFromCurCellsLegacy(KeyValueSet);
 
                     if (list != null)
                     {
@@ -106,26 +106,7 @@ namespace Fabricator
         {
             using (var kvl = new FabricatorKeyvalueLoader())
             {
-                if (kvl.ShowDialog() == DialogResult.OK)
-                {
-                    //this code determines the data type based on the schema. If it's a collection, make it read-only.
-                    //note that this file type doesn't use collections, so collections are only supported as a backup.
-
-                    string type = kvl.selectedValType;
-                    object? res = LocalVars.DataTypeForString(type);
-
-                    int index = KeyValueSet.Rows.Add(kvl.selectedKey, res);
-                    DataGridViewRow? row = KeyValueSet.Rows[index];
-
-                    if (row != null)
-                    {
-                        //set the collection to read-only.
-                        if (kvl.selectedValType.Contains("Collection", StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            row.ReadOnly = true;
-                        }
-                    }
-                }
+                LocalFuncs.AddKeyValue(KeyValueSet);
             }
         }
 

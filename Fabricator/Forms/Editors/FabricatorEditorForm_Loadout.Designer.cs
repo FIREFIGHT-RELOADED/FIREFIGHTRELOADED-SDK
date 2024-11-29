@@ -38,6 +38,8 @@
             createRowFromKeyListToolStripMenuItem = new ToolStripMenuItem();
             addNodeToolStripMenuItem = new ToolStripMenuItem();
             deleteNodeToolStripMenuItem = new ToolStripMenuItem();
+            moveNodeUpToolStripMenuItem = new ToolStripMenuItem();
+            moveNodeDownToolStripMenuItem = new ToolStripMenuItem();
             KeyValueSet = new DataGridView();
             KeyColumn = new DataGridViewTextBoxColumn();
             ValueColumn = new DataGridViewTextBoxColumn();
@@ -45,8 +47,7 @@
             saveFileDialog1 = new SaveFileDialog();
             splitContainer1 = new SplitContainer();
             NodeList = new TreeView();
-            moveNodeUpToolStripMenuItem = new ToolStripMenuItem();
-            moveNodeDownToolStripMenuItem = new ToolStripMenuItem();
+            duplicateNodeToolStripMenuItem = new ToolStripMenuItem();
             menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)KeyValueSet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -95,7 +96,7 @@
             // 
             // editToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem, addNodeToolStripMenuItem, deleteNodeToolStripMenuItem, moveNodeUpToolStripMenuItem, moveNodeDownToolStripMenuItem });
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem, addNodeToolStripMenuItem, duplicateNodeToolStripMenuItem, deleteNodeToolStripMenuItem, moveNodeUpToolStripMenuItem, moveNodeDownToolStripMenuItem });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             editToolStripMenuItem.Size = new Size(39, 20);
             editToolStripMenuItem.Text = "Edit";
@@ -121,6 +122,20 @@
             deleteNodeToolStripMenuItem.Text = "Delete Node";
             deleteNodeToolStripMenuItem.Click += deleteNodeToolStripMenuItem_Click;
             // 
+            // moveNodeUpToolStripMenuItem
+            // 
+            moveNodeUpToolStripMenuItem.Name = "moveNodeUpToolStripMenuItem";
+            moveNodeUpToolStripMenuItem.Size = new Size(206, 22);
+            moveNodeUpToolStripMenuItem.Text = "Move Node Up";
+            moveNodeUpToolStripMenuItem.Click += moveNodeUpToolStripMenuItem_Click;
+            // 
+            // moveNodeDownToolStripMenuItem
+            // 
+            moveNodeDownToolStripMenuItem.Name = "moveNodeDownToolStripMenuItem";
+            moveNodeDownToolStripMenuItem.Size = new Size(206, 22);
+            moveNodeDownToolStripMenuItem.Text = "Move Node Down";
+            moveNodeDownToolStripMenuItem.Click += moveNodeDownToolStripMenuItem_Click;
+            // 
             // KeyValueSet
             // 
             KeyValueSet.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -128,13 +143,13 @@
             KeyValueSet.Columns.AddRange(new DataGridViewColumn[] { KeyColumn, ValueColumn });
             KeyValueSet.Dock = DockStyle.Fill;
             KeyValueSet.Location = new Point(0, 0);
+            KeyValueSet.MultiSelect = false;
             KeyValueSet.Name = "KeyValueSet";
             KeyValueSet.RowHeadersWidth = 51;
             KeyValueSet.RowTemplate.Height = 25;
             KeyValueSet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             KeyValueSet.Size = new Size(385, 356);
             KeyValueSet.TabIndex = 1;
-            KeyValueSet.MultiSelect = false;
             // 
             // KeyColumn
             // 
@@ -184,19 +199,12 @@
             NodeList.TabIndex = 0;
             NodeList.AfterSelect += NodeList_AfterSelect;
             // 
-            // moveNodeUpToolStripMenuItem
+            // duplicateNodeToolStripMenuItem
             // 
-            moveNodeUpToolStripMenuItem.Name = "moveNodeUpToolStripMenuItem";
-            moveNodeUpToolStripMenuItem.Size = new Size(206, 22);
-            moveNodeUpToolStripMenuItem.Text = "Move Node Up";
-            moveNodeUpToolStripMenuItem.Click += moveNodeUpToolStripMenuItem_Click;
-            // 
-            // moveNodeDownToolStripMenuItem
-            // 
-            moveNodeDownToolStripMenuItem.Name = "moveNodeDownToolStripMenuItem";
-            moveNodeDownToolStripMenuItem.Size = new Size(206, 22);
-            moveNodeDownToolStripMenuItem.Text = "Move Node Down";
-            moveNodeDownToolStripMenuItem.Click += moveNodeDownToolStripMenuItem_Click;
+            duplicateNodeToolStripMenuItem.Name = "duplicateNodeToolStripMenuItem";
+            duplicateNodeToolStripMenuItem.Size = new Size(206, 22);
+            duplicateNodeToolStripMenuItem.Text = "Duplicate Node";
+            duplicateNodeToolStripMenuItem.Click += duplicateNodeToolStripMenuItem_Click;
             // 
             // FabricatorEditorForm_Loadout
             // 
@@ -241,5 +249,6 @@
         private ToolStripMenuItem deleteNodeToolStripMenuItem;
         private ToolStripMenuItem moveNodeUpToolStripMenuItem;
         private ToolStripMenuItem moveNodeDownToolStripMenuItem;
+        private ToolStripMenuItem duplicateNodeToolStripMenuItem;
     }
 }

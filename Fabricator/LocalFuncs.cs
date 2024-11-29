@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using ValveKeyValue;
 
 namespace Fabricator
 {
-    public class FabricatorEditorFormHelpers
+    public class LocalFuncs
     {
         public static void ReloadNodeList(TreeView nodeList, FileCreatorBase curFile)
         {
@@ -305,6 +306,36 @@ namespace Fabricator
             }
         }
 
+        public static void AddNode(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile, FileCreatorBase.BaseNode node)
+        {
+            int count = curFile.entries.Count;
+            curFile.AddEntry(node);
+            AddNodeInternal(nodeList, keyValueSet, curFile, count);
+        }
+
+        public static void AddNode(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile, KVObject node)
+        {
+            int count = curFile.entries.Count;
+            curFile.AddEntry(node);
+            AddNodeInternal(nodeList, keyValueSet, curFile, count);
+        }
+
+        private static void AddNodeInternal(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile, int count)
+        {
+            ReloadNodeList(nodeList, curFile);
+            nodeList.SelectedNode = nodeList.Nodes[count];
+        }
+
+        public static void DuplicateNode(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile)
+        {
+            if (nodeList.SelectedNode != null)
+            {
+                int nodeIndex = Convert.ToInt32(nodeList.SelectedNode.Text);
+                int actualIndex = nodeIndex - 1;
+                AddNode(nodeList, keyValueSet, curFile, curFile.entries[actualIndex]);
+            }
+        }
+
         public static void MoveNode(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile, bool movedown = false)
         {
             if (nodeList.SelectedNode != null)
@@ -314,6 +345,35 @@ namespace Fabricator
                 keyValueSet.Rows.Clear();
                 ReloadNodeList(nodeList, curFile);
                 nodeList.SelectedNode = nodeList.Nodes[newIndex];
+            }
+        }
+
+        public static void AddKeyValue(DataGridView keyValueSet)
+        {
+            using (var kvl = new FabricatorKeyvalueLoader())
+            {
+                if (kvl.ShowDialog() == DialogResult.OK)
+                {
+                    //this code determines the data type based on the schema. If it's a collection, make it read-only.
+                    //note: we don't expect collections inside of collections for a good reason, so we don't have to re-iliterate
+                    //multiple times. Fabricator is made for editing collections in individual nodes, and not for editing collections inside
+                    //collections or nodes inside of nodes.
+
+                    string type = kvl.selectedValType;
+                    object? res = LocalVars.DataTypeForString(type);
+
+                    int index = keyValueSet.Rows.Add(kvl.selectedKey, res);
+                    DataGridViewRow? row = keyValueSet.Rows[index];
+
+                    if (row != null)
+                    {
+                        //set the collection to read-only.
+                        if (kvl.selectedValType.Contains("Collection", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            row.ReadOnly = true;
+                        }
+                    }
+                }
             }
         }
     }

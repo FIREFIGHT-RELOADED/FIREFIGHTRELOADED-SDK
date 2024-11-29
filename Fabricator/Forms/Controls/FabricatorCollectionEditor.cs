@@ -59,7 +59,7 @@ namespace Fabricator
         {
             if (KeyValueSet.Rows.Count > 0)
             {
-                List<KVObject>? list = FabricatorEditorFormHelpers.ListFromCurCellsLegacy(KeyValueSet);
+                List<KVObject>? list = LocalFuncs.ListFromCurCellsLegacy(KeyValueSet);
 
                 if (list != null)
                 {
@@ -79,31 +79,7 @@ namespace Fabricator
 
         private void createRowFromKeyListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            using (var kvl = new FabricatorKeyvalueLoader())
-            {
-                if (kvl.ShowDialog() == DialogResult.OK)
-                {
-                    //this code determines the data type based on the schema. If it's a collection, make it read-only.
-                    //note: we don't expect collections inside of collections for a good reason, so we don't have to re-iliterate
-                    //multiple times. Fabricator is made for editing collections in individual nodes, and not for editing collections inside
-                    //collections or nodes inside of nodes.
-
-                    string type = kvl.selectedValType;
-                    object? res = LocalVars.DataTypeForString(type);
-
-                    int index = KeyValueSet.Rows.Add(kvl.selectedKey, res);
-                    DataGridViewRow? row = KeyValueSet.Rows[index];
-
-                    if (row != null)
-                    {
-                        //set the collection to read-only.
-                        if (kvl.selectedValType.Contains("Collection", StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            row.ReadOnly = true;
-                        }
-                    }
-                }
-            }
+            LocalFuncs.AddKeyValue(KeyValueSet);
         }
     }
 }

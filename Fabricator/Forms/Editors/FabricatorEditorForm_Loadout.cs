@@ -26,7 +26,7 @@ namespace Fabricator
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             savedFileName = "";
-            FabricatorEditorFormHelpers.Clear(KeyValueSet, NodeList, curFile);
+            LocalFuncs.Clear(KeyValueSet, NodeList, curFile);
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -38,10 +38,10 @@ namespace Fabricator
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
                     nodeIndex = -1;
-                    FabricatorEditorFormHelpers.Clear(KeyValueSet, NodeList, curFile);
+                    LocalFuncs.Clear(KeyValueSet, NodeList, curFile);
                     savedFileName = ofd.SafeFileName;
                     curFile = new Loadout(ofd.FileName);
-                    FabricatorEditorFormHelpers.ReloadNodeList(NodeList, curFile);
+                    LocalFuncs.ReloadNodeList(NodeList, curFile);
                 }
             }
         }
@@ -54,7 +54,7 @@ namespace Fabricator
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    if (FabricatorEditorFormHelpers.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile) != null)
+                    if (LocalFuncs.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile) != null)
                     {
                         savedFileName = Path.GetFileName(sfd.FileName);
                         curFile.Save(sfd.FileName);
@@ -65,46 +65,21 @@ namespace Fabricator
 
         private void createRowFromKeyListToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (FabricatorEditorFormHelpers.IsNodeOpen(NodeList))
+            if (LocalFuncs.IsNodeOpen(NodeList))
             {
-                using (var kvl = new FabricatorKeyvalueLoader())
-                {
-                    if (kvl.ShowDialog() == DialogResult.OK)
-                    {
-                        //this code determines the data type based on the schema. If it's a collection, make it read-only.
-                        //note that this file type doesn't use collections, so collections are only supported as a backup.
-
-                        string type = kvl.selectedValType;
-                        object? res = LocalVars.DataTypeForString(type);
-
-                        int index = KeyValueSet.Rows.Add(kvl.selectedKey, res);
-                        DataGridViewRow? row = KeyValueSet.Rows[index];
-
-                        if (row != null)
-                        {
-                            //set the collection to read-only.
-                            if (kvl.selectedValType.Contains("Collection", StringComparison.CurrentCultureIgnoreCase))
-                            {
-                                row.ReadOnly = true;
-                            }
-                        }
-                    }
-                }
+                LocalFuncs.AddKeyValue(KeyValueSet);
             }
         }
 
         private void addNodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Loadout.LoadoutNode node = new Loadout.LoadoutNode();
-            int count = curFile.entries.Count;
-            curFile.AddEntry(node);
-            FabricatorEditorFormHelpers.ReloadNodeList(NodeList, curFile);
-            NodeList.SelectedNode = NodeList.Nodes[count];
+            LocalFuncs.AddNode(NodeList, KeyValueSet, curFile, node);
         }
 
         private void deleteNodeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FabricatorEditorFormHelpers.DeleteNode(NodeList, KeyValueSet, curFile);
+            LocalFuncs.DeleteNode(NodeList, KeyValueSet, curFile);
             nodeIndex = -1;
         }
 
@@ -112,7 +87,7 @@ namespace Fabricator
         {
             if (e.Node != null)
             {
-                FabricatorEditorFormHelpers.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
+                LocalFuncs.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
                 KeyValueSet.Rows.Clear();
                 nodeIndex = e.Node.Index;
 
@@ -130,12 +105,17 @@ namespace Fabricator
 
         private void moveNodeUpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FabricatorEditorFormHelpers.MoveNode(NodeList, KeyValueSet, curFile);
+            LocalFuncs.MoveNode(NodeList, KeyValueSet, curFile);
         }
 
         private void moveNodeDownToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FabricatorEditorFormHelpers.MoveNode(NodeList, KeyValueSet, curFile, true);
+            LocalFuncs.MoveNode(NodeList, KeyValueSet, curFile, true);
+        }
+
+        private void duplicateNodeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LocalFuncs.DuplicateNode(NodeList, KeyValueSet, curFile);
         }
     }
 }

@@ -10,7 +10,6 @@ namespace Fabricator
         RewardList,
         Playlist,
         MapAdd,
-        Lang,
         Loadout
     }
 
