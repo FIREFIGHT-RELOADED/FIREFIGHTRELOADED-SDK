@@ -332,6 +332,7 @@ namespace Fabricator
             {
                 int nodeIndex = Convert.ToInt32(nodeList.SelectedNode.Text);
                 int actualIndex = nodeIndex - 1;
+                SaveLastCells(keyValueSet, nodeList, actualIndex, curFile);
                 AddNode(nodeList, keyValueSet, curFile, curFile.entries[actualIndex]);
             }
         }
@@ -341,6 +342,8 @@ namespace Fabricator
             if (nodeList.SelectedNode != null)
             {
                 int nodeIndex = Convert.ToInt32(nodeList.SelectedNode.Text);
+                int actualIndex = nodeIndex - 1;
+                SaveLastCells(keyValueSet, nodeList, actualIndex, curFile);
                 int newIndex = curFile.MoveEntry(nodeIndex, movedown);
                 keyValueSet.Rows.Clear();
                 ReloadNodeList(nodeList, curFile);
