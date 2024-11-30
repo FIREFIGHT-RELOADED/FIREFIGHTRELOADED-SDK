@@ -27,6 +27,7 @@ namespace Fabricator
 
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            nodeIndex = -1;
             savedFileName = "";
             LocalFuncs.Clear(KeyValueSet, NodeList, curFile);
         }
