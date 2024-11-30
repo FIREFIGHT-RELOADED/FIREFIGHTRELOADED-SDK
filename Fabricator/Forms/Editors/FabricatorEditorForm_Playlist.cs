@@ -88,19 +88,12 @@ namespace Fabricator
             if (e.Node != null)
             {
                 LocalFuncs.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
-
                 KeyValueSet.Rows.Clear();
-
                 nodeIndex = e.Node.Index;
+
                 KVObject kv = curFile.entries[nodeIndex];
 
-                if (kv != null)
-                {
-                    foreach (var child in kv.Children)
-                    {
-                        KeyValueSet.Rows.Add(child.Name, child.Value);
-                    }
-                }
+                LocalFuncs.AddRows(KeyValueSet, kv);
             }
         }
 

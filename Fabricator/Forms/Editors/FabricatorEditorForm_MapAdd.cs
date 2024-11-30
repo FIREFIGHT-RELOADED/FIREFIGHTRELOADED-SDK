@@ -94,31 +94,12 @@ namespace Fabricator
             if (e.Node != null)
             {
                 LocalFuncs.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
-
                 KeyValueSet.Rows.Clear();
-
                 nodeIndex = e.Node.Index;
+
                 KVObject kv = curFile.entries[nodeIndex];
 
-                if (kv != null)
-                {
-                    foreach (var child in kv.Children)
-                    {
-                        //This code is used for making collections read only when we load a node.
-                        //this shouldn't fail...hopefully.
-                        int index = KeyValueSet.Rows.Add(child.Name, child.Value);
-                        DataGridViewRow? row = KeyValueSet.Rows[index];
-
-                        if (row != null)
-                        {
-                            //set the collection to read-only.
-                            if (child.Value.ValueType == KVValueType.Collection)
-                            {
-                                row.ReadOnly = true;
-                            }
-                        }
-                    }
-                }
+                LocalFuncs.AddRows(KeyValueSet, kv);
             }
         }
 

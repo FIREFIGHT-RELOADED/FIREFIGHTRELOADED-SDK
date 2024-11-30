@@ -379,5 +379,28 @@ namespace Fabricator
                 }
             }
         }
+
+        public static void AddRows(DataGridView keyValueSet, KVObject kv)
+        {
+            if (kv != null)
+            {
+                foreach (var child in kv.Children)
+                {
+                    //This code is used for making collections read only when we load a node.
+                    //this shouldn't fail...hopefully.
+                    int index = keyValueSet.Rows.Add(child.Name, child.Value);
+                    DataGridViewRow? row = keyValueSet.Rows[index];
+
+                    if (row != null)
+                    {
+                        //set the collection to read-only.
+                        if (child.Value.ValueType == KVValueType.Collection)
+                        {
+                            row.ReadOnly = true;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
