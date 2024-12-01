@@ -10,6 +10,7 @@ namespace Fabricator
     {
         public static void ReloadNodeList(TreeView nodeList, FileCreatorBase curFile)
         {
+            //clear, and then add all of the nodes based on how many entries are in the list.
             nodeList.Nodes.Clear();
 
             for (var i = 0; i < curFile.entries.Count(); i++)
@@ -20,6 +21,7 @@ namespace Fabricator
 
         public static List<KVObject>? ListFromCurCellsLegacy(DataGridView keyValueSet)
         {
+            //generate a KVObject list with the rows from a datagridview
             List<KVObject>? list = new List<KVObject>();
 
             foreach (DataGridViewRow row in keyValueSet.Rows)
@@ -49,6 +51,7 @@ namespace Fabricator
 
         public static List<KVObject>? ListFromCurCells(DataGridView keyValueSet, int nodeIndex, FileCreatorBase curFile)
         {
+            //generate a KVObject list with the rows from a datagridview
             List<KVObject>? list = new List<KVObject>();
 
             foreach (DataGridViewRow row in keyValueSet.Rows)
@@ -90,6 +93,7 @@ namespace Fabricator
 
         public static KVObject? CurCellsToKVObject(DataGridView keyValueSet, TreeView nodeList, int nodeIndex, FileCreatorBase curFile)
         {
+            // find any empty cells and check if all the cells are empty before saving.
             int emptyCells = 0;
             int cells = 0;
 
@@ -113,6 +117,7 @@ namespace Fabricator
                 return null;
             }
 
+            //save our current node as a kvobject by creating a list built from current cells shown in the datagridview.
             List<KVObject>? list = ListFromCurCells(keyValueSet, nodeIndex, curFile);
             KVObject? result = null;
 
@@ -127,6 +132,7 @@ namespace Fabricator
 
         public static KVObject? SaveLastCells(DataGridView keyValueSet, TreeView nodeList, int nodeIndex, FileCreatorBase curFile)
         {
+            // find any empty cells and check if all the cells are empty before saving.
             int emptyCells = 0;
             int cells = 0;
 
@@ -169,6 +175,7 @@ namespace Fabricator
 
         public static void EditSettings(FileCreatorBase curFile)
         {
+            //opens up the collection editor to edit the file settings.
             KVObject? kv = curFile.SettingsToKVObject();
             if (kv != null)
             {
@@ -196,6 +203,8 @@ namespace Fabricator
         {
             if (nodeIndex > -1)
             {
+                //this opens up the collection editor and adds a new collection if [collection] is the current value text in a row. 
+
                 DataGridViewRow row = keyValueSet.Rows[rowIndex];
                 DataGridViewTextBoxCell cell = (DataGridViewTextBoxCell)row.Cells[columnIndex];
 
@@ -237,6 +246,8 @@ namespace Fabricator
         {
             if (nodeIndex > -1)
             {
+                //this opens up the collection editor and edits a collection if [collection] is the current value text in a row. 
+
                 DataGridViewRow row = keyValueSet.Rows[rowIndex];
                 DataGridViewTextBoxCell cell = (DataGridViewTextBoxCell)row.Cells[columnIndex];
 
@@ -276,6 +287,7 @@ namespace Fabricator
 
         public static bool IsNodeOpen(TreeView nodeList)
         {
+            //if we have more than 0 nodes and we have a selected node, the node is open.
             if (nodeList.Nodes.Count > 0 && nodeList.SelectedNode != null)
             {
                 return true;
@@ -286,6 +298,7 @@ namespace Fabricator
 
         public static void Clear(DataGridView keyValueSet, TreeView nodeList, FileCreatorBase curFile)
         {
+            // clear all entries in the list, and any rows or nodes.
             curFile.entries.Clear();
             if (curFile.FileUsesSettings && curFile.settings != null)
             {
@@ -299,6 +312,7 @@ namespace Fabricator
         {
             if (nodeList.SelectedNode != null)
             {
+                // Remove the node based on the index, then reload the list.
                 int nodeIndex = Convert.ToInt32(nodeList.SelectedNode.Text);
                 curFile.RemoveEntry(nodeIndex);
                 keyValueSet.Rows.Clear();
@@ -308,6 +322,7 @@ namespace Fabricator
 
         public static void AddNode(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile, FileCreatorBase.BaseNode node)
         {
+            // add the node entry, then run AddNodeInternal.
             int count = curFile.entries.Count;
             curFile.AddEntry(node);
             AddNodeInternal(nodeList, keyValueSet, curFile, count);
@@ -315,6 +330,7 @@ namespace Fabricator
 
         public static void AddNode(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile, KVObject node)
         {
+            // add the node entry, then run AddNodeInternal.
             int count = curFile.entries.Count;
             curFile.AddEntry(node);
             AddNodeInternal(nodeList, keyValueSet, curFile, count);
@@ -322,6 +338,7 @@ namespace Fabricator
 
         private static void AddNodeInternal(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile, int count)
         {
+            //reload the node list, then select the new node
             ReloadNodeList(nodeList, curFile);
             nodeList.SelectedNode = nodeList.Nodes[count];
         }
@@ -330,6 +347,7 @@ namespace Fabricator
         {
             if (nodeList.SelectedNode != null)
             {
+                //save the last node, then add that same node using the actual index.
                 int nodeIndex = Convert.ToInt32(nodeList.SelectedNode.Text);
                 int actualIndex = nodeIndex - 1;
                 SaveLastCells(keyValueSet, nodeList, actualIndex, curFile);
@@ -341,6 +359,7 @@ namespace Fabricator
         {
             if (nodeList.SelectedNode != null)
             {
+                //get the actual index of the node, then use the MoveEntry method to move it up or down.
                 int nodeIndex = Convert.ToInt32(nodeList.SelectedNode.Text);
                 int actualIndex = nodeIndex - 1;
                 SaveLastCells(keyValueSet, nodeList, actualIndex, curFile);
@@ -363,7 +382,7 @@ namespace Fabricator
                     //collections or nodes inside of nodes.
 
                     string type = kvl.selectedValType;
-                    object? res = LocalVars.DataTypeForString(type);
+                    object? res = DataTypeForString(type);
 
                     int index = keyValueSet.Rows.Add(kvl.selectedKey, res);
                     DataGridViewRow? row = keyValueSet.Rows[index];
@@ -401,6 +420,53 @@ namespace Fabricator
                     }
                 }
             }
+        }
+
+        public static object? DataTypeForString(string data)
+        {
+            object? res = null;
+
+            // if the string contains a certain data type name, it must be that data type,
+            // so return a representation of it in string form.
+            switch (data)
+            {
+                case string a when a.Contains("Boolean", StringComparison.CurrentCultureIgnoreCase):
+                case string c when c.Contains("Integer", StringComparison.CurrentCultureIgnoreCase):
+                case string j when j.Contains("Bool", StringComparison.CurrentCultureIgnoreCase):
+                case string k when k.Contains("Int", StringComparison.CurrentCultureIgnoreCase):
+                    res = 0;
+                    break;
+                case string d when d.Contains("Collection", StringComparison.CurrentCultureIgnoreCase):
+                case string m when m.Contains("List", StringComparison.CurrentCultureIgnoreCase):
+                case string n when n.Contains("Array", StringComparison.CurrentCultureIgnoreCase):
+                    res = "[Collection]";
+                    break;
+                case string f when f.Contains("Double", StringComparison.CurrentCultureIgnoreCase):
+                    res = 0.00d;
+                    break;
+                case string g when g.Contains("Float", StringComparison.CurrentCultureIgnoreCase):
+                    res = 0.0f;
+                    break;
+                case string b when b.Contains("String", StringComparison.CurrentCultureIgnoreCase):
+                    res = "Hello World!";
+                    break;
+                case string h when h.Contains("Color", StringComparison.CurrentCultureIgnoreCase):
+                    res = "255 255 255 255";
+                    break;
+                case string i when i.Contains("Vector", StringComparison.CurrentCultureIgnoreCase):
+                    res = "0 0 0";
+                    break;
+                case string l when l.Contains("FormattedStr", StringComparison.CurrentCultureIgnoreCase):
+                    {
+                        string format = data.Split()[1];
+                        res = format;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            return res;
         }
     }
 }
