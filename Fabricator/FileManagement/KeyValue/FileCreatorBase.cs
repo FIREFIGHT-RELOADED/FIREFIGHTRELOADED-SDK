@@ -458,7 +458,7 @@ namespace Fabricator
         }
 
         /// <summary>
-        /// Moves an entry in the list using a KVObject. Returns the new index of the node.
+        /// Moves an entry in the list using a KVObject to the top or bottom. Returns the new index of the node.
         /// </summary>
         /// <param name="oldIndex"></param>
         /// <param name="newIndex"></param>
