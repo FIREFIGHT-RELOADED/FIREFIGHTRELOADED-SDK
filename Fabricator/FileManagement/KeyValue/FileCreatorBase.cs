@@ -458,6 +458,41 @@ namespace Fabricator
         }
 
         /// <summary>
+        /// Moves an entry in the list using a KVObject. Returns the new index of the node.
+        /// </summary>
+        /// <param name="oldIndex"></param>
+        /// <param name="newIndex"></param>
+        public virtual int MoveEntryToEnd(int oldIndex, bool movedown = false)
+        {
+            int actualIndex = oldIndex - 1;
+
+            if (actualIndex >= 0 && actualIndex < entries.Count)
+            {
+                KVObject item = entries[actualIndex];
+
+                int newIndex;
+
+                if (movedown)
+                {
+                    newIndex = entries.Count - 1;
+                }
+                else
+                {
+                    newIndex = 0;
+                }
+
+                if (newIndex >= 0 && newIndex < entries.Count)
+                {
+                    entries.Move(actualIndex, newIndex);
+                    RefreshEntries();
+                    return newIndex;
+                }
+            }
+
+            return actualIndex;
+        }
+
+        /// <summary>
         /// Adds a setting to the settings list.
         /// </summary>
         /// <param name="kv"></param>

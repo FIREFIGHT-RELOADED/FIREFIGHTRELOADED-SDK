@@ -355,7 +355,7 @@ namespace Fabricator
             }
         }
 
-        public static void MoveNode(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile, bool movedown = false)
+        public static void MoveNode(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile, bool movedown = false, bool moveToEnd = false)
         {
             if (nodeList.SelectedNode != null)
             {
@@ -363,7 +363,15 @@ namespace Fabricator
                 int nodeIndex = Convert.ToInt32(nodeList.SelectedNode.Text);
                 int actualIndex = nodeIndex - 1;
                 SaveLastCells(keyValueSet, nodeList, actualIndex, curFile);
-                int newIndex = curFile.MoveEntry(nodeIndex, movedown);
+                int newIndex = -1;
+                if (!moveToEnd)
+                {
+                    newIndex = curFile.MoveEntry(nodeIndex, movedown);
+                }
+                else
+                {
+                    newIndex = curFile.MoveEntryToEnd(nodeIndex, movedown);
+                }
                 keyValueSet.Rows.Clear();
                 ReloadNodeList(nodeList, curFile);
                 nodeList.SelectedNode = nodeList.Nodes[newIndex];

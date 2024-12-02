@@ -37,6 +37,7 @@
             editToolStripMenuItem = new ToolStripMenuItem();
             createRowFromKeyListToolStripMenuItem = new ToolStripMenuItem();
             addNodeToolStripMenuItem = new ToolStripMenuItem();
+            duplicateNodeToolStripMenuItem = new ToolStripMenuItem();
             deleteNodeToolStripMenuItem = new ToolStripMenuItem();
             moveNodeUpToolStripMenuItem = new ToolStripMenuItem();
             moveNodeDownToolStripMenuItem = new ToolStripMenuItem();
@@ -47,7 +48,8 @@
             saveFileDialog1 = new SaveFileDialog();
             splitContainer1 = new SplitContainer();
             NodeList = new TreeView();
-            duplicateNodeToolStripMenuItem = new ToolStripMenuItem();
+            moveNodeToTopToolStripMenuItem = new ToolStripMenuItem();
+            moveNodeToBottomToolStripMenuItem = new ToolStripMenuItem();
             menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)KeyValueSet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -96,7 +98,7 @@
             // 
             // editToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem, addNodeToolStripMenuItem, duplicateNodeToolStripMenuItem, deleteNodeToolStripMenuItem, moveNodeUpToolStripMenuItem, moveNodeDownToolStripMenuItem });
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem, addNodeToolStripMenuItem, duplicateNodeToolStripMenuItem, deleteNodeToolStripMenuItem, moveNodeUpToolStripMenuItem, moveNodeDownToolStripMenuItem, moveNodeToTopToolStripMenuItem, moveNodeToBottomToolStripMenuItem });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             editToolStripMenuItem.Size = new Size(39, 20);
             editToolStripMenuItem.Text = "Edit";
@@ -114,6 +116,13 @@
             addNodeToolStripMenuItem.Size = new Size(206, 22);
             addNodeToolStripMenuItem.Text = "Add Node";
             addNodeToolStripMenuItem.Click += addNodeToolStripMenuItem_Click;
+            // 
+            // duplicateNodeToolStripMenuItem
+            // 
+            duplicateNodeToolStripMenuItem.Name = "duplicateNodeToolStripMenuItem";
+            duplicateNodeToolStripMenuItem.Size = new Size(206, 22);
+            duplicateNodeToolStripMenuItem.Text = "Duplicate Node";
+            duplicateNodeToolStripMenuItem.Click += duplicateNodeToolStripMenuItem_Click;
             // 
             // deleteNodeToolStripMenuItem
             // 
@@ -199,12 +208,19 @@
             NodeList.TabIndex = 0;
             NodeList.AfterSelect += NodeList_AfterSelect;
             // 
-            // duplicateNodeToolStripMenuItem
+            // moveNodeToTopToolStripMenuItem
             // 
-            duplicateNodeToolStripMenuItem.Name = "duplicateNodeToolStripMenuItem";
-            duplicateNodeToolStripMenuItem.Size = new Size(206, 22);
-            duplicateNodeToolStripMenuItem.Text = "Duplicate Node";
-            duplicateNodeToolStripMenuItem.Click += duplicateNodeToolStripMenuItem_Click;
+            moveNodeToTopToolStripMenuItem.Name = "moveNodeToTopToolStripMenuItem";
+            moveNodeToTopToolStripMenuItem.Size = new Size(206, 22);
+            moveNodeToTopToolStripMenuItem.Text = "Move Node to Top";
+            moveNodeToTopToolStripMenuItem.Click += moveNodeToTopToolStripMenuItem_Click;
+            // 
+            // moveNodeToBottomToolStripMenuItem
+            // 
+            moveNodeToBottomToolStripMenuItem.Name = "moveNodeToBottomToolStripMenuItem";
+            moveNodeToBottomToolStripMenuItem.Size = new Size(206, 22);
+            moveNodeToBottomToolStripMenuItem.Text = "Move Node to Bottom";
+            moveNodeToBottomToolStripMenuItem.Click += moveNodeToBottomToolStripMenuItem_Click;
             // 
             // FabricatorEditorForm_Loadout
             // 
@@ -250,5 +266,7 @@
         private ToolStripMenuItem moveNodeUpToolStripMenuItem;
         private ToolStripMenuItem moveNodeDownToolStripMenuItem;
         private ToolStripMenuItem duplicateNodeToolStripMenuItem;
+        private ToolStripMenuItem moveNodeToTopToolStripMenuItem;
+        private ToolStripMenuItem moveNodeToBottomToolStripMenuItem;
     }
 }

@@ -118,5 +118,15 @@ namespace Fabricator
         {
             LocalFuncs.DuplicateNode(NodeList, KeyValueSet, curFile);
         }
+
+        private void moveNodeToTopToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LocalFuncs.MoveNode(NodeList, KeyValueSet, curFile, false, true);
+        }
+
+        private void moveNodeToBottomToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LocalFuncs.MoveNode(NodeList, KeyValueSet, curFile, true, true);
+        }
     }
 }
