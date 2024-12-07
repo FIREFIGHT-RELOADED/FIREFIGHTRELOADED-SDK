@@ -474,7 +474,13 @@
     "Required": false
   },
   {
-    "Key": "MapSpecificMaxSpawnerDistance",
+    "Key": "MaxSpawnerDistanceOverride",
+    "FileType": "Other-MapInfo",
+    "ValType": "Boolean",
+    "Required": false
+  },
+  {
+    "Key": "HideFromPlayerOverride",
     "FileType": "Other-MapInfo",
     "ValType": "Boolean",
     "Required": false
@@ -895,7 +901,7 @@
   },
   {
     "Key": "kamikaze",
-    "FileType": "Other-NPCPreset-Headcrab",
+    "FileType": "Other-NPCPreset-Headcrab-FastZombie",
     "ValType": "Boolean",
     "Required": false
   },
