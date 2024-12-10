@@ -41,6 +41,8 @@ namespace Fabricator
                     savedFileName = ofd.SafeFileName;
                     curFile = new ShopCatalog(ofd.FileName);
                     LocalFuncs.ReloadNodeList(NodeList, curFile);
+                    //select the first node.
+                    NodeList.SelectedNode = NodeList.Nodes[0];
                 }
             }
         }
