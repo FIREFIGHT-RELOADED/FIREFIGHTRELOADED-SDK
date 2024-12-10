@@ -100,7 +100,10 @@ namespace Fabricator
                 AddKVObjectEntryStat("exp", classNode.exp);
                 AddKVObjectEntryStat("wildcard", classNode.wildcard, -2);
                 AddKVObjectEntryStat("weight", classNode.weight);
-                AddKVObjectEntryStat("grenades", classNode.grenades);
+                if (classNode.grenades != null)
+                {
+                	AddKVObjectEntryStat("grenades", classNode.grenades);
+                }
                 AddKVObjectEntryStat("subsitute", classNode.subsitute);
                 AddKVObjectEntryStat("kash", classNode.kash);
 

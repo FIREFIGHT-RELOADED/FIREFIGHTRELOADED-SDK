@@ -88,7 +88,10 @@ namespace Fabricator
                 AddKVObjectEntryStat("preset", classNode.preset);
                 AddKVObjectEntryStat("price", classNode.price);
                 AddKVObjectEntryStat("limit", classNode.limit);
-                AddKVObjectEntryStat("command", classNode.command);
+                if (classNode.command != null)
+                {
+                	AddKVObjectEntryStat("command", classNode.command);
+                }
             }
 
             return base.NodeToKVObject(node, index);

@@ -43,6 +43,7 @@ namespace Fabricator
 
         private void FabricatorCollectionEditor_Load(object sender, EventArgs e)
         {
+            //if we have an object to edit, add the rows
             if (objToEdit != null)
             {
                 foreach (KVObject child in objToEdit.Children)
@@ -57,6 +58,7 @@ namespace Fabricator
 
         private void FabricatorCollectionEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //save everything into a result if we have any rows.
             if (KeyValueSet.Rows.Count > 0)
             {
                 List<KVObject>? list = LocalFuncs.ListFromCurCellsLegacy(KeyValueSet);

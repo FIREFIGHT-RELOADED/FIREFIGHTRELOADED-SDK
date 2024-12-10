@@ -83,6 +83,7 @@ namespace Fabricator
     {
         public static List<JSONEntry>? LoadFile(string filePath)
         {
+            //load a JSON file and deserialize it.
             List<JSONEntry>? result = null;
 
             using (var stream = File.OpenRead(filePath))

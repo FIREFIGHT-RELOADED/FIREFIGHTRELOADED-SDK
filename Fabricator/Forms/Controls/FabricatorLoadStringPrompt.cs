@@ -23,6 +23,7 @@ namespace Fabricator
 
         private void Apply_Click(object sender, EventArgs e)
         {
+            //after the button is pressed, send it as the result.
             result = textBox1.Text;
             this.DialogResult = DialogResult.OK;
             this.Close();
