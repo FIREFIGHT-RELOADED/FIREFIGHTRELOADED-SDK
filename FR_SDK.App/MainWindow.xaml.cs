@@ -1,14 +1,15 @@
 ﻿using FR_SDK.Core;
-using KVLib;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.Versioning;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using ValveKeyValue;
 
 namespace FR_SDK.App
 {
@@ -74,20 +75,79 @@ namespace FR_SDK.App
             if (!File.Exists(GlobalVars.gameconfig))
             {
                 File.Create(GlobalVars.gameconfig).Dispose();
-                File.WriteAllText(GlobalVars.gameconfig, KeyValueCreators.GenerateGameConfig().ToString());
+
+                KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
+                using (FileStream stream = File.OpenWrite(GlobalVars.gameconfig))
+                {
+                    kv.Serialize(stream, KeyValueCreators.GenerateGameConfig());
+                }
             }
             else
             {
-                string gameConfigText = File.ReadAllText(GlobalVars.gameconfig);
-                KeyValue gameConfigValues = KVParser.ParseKeyValueText(gameConfigText);
-                KeyValue FGDPath = gameConfigValues["Games"]["FIREFIGHTRELOADED"]["Hammer"];
-                string FixedString = GlobalVars.fgd.Replace(" ", "");
-                string FGDFilePath = FGDPath["GameData0"].GetString();
+                KVObject? data = null;
 
-                if (!FGDFilePath.Equals(FixedString))
+                using (var stream = File.OpenRead(GlobalVars.gameconfig))
                 {
-                    File.Delete(GlobalVars.gameconfig);
-                    File.WriteAllText(GlobalVars.gameconfig, KeyValueCreators.GenerateGameConfig().ToString());
+                    KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
+                    data = kv.Deserialize(stream);
+                }
+
+                //fuck.
+                if (data != null)
+                {
+                    string FGDFilePath = "";
+
+                    foreach (KVObject item in data)
+                    {
+                        if (item.Name == "Games")
+                        {
+                            foreach (KVObject item2 in item)
+                            {
+                                if (item2.Name == "FIREFIGHT RELOADED")
+                                {
+                                    foreach (KVObject item3 in item2)
+                                    {
+                                        if (item3.Name == "Hammer")
+                                        {
+                                            FGDFilePath = item3["GameData0"].ToString();
+                                        }
+                                        else
+                                        {
+                                            continue;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    continue;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            continue;
+                        }
+                    }
+
+                    string FixedString = GlobalVars.fgd.Replace(" ", "");
+
+                    if (!string.IsNullOrWhiteSpace(FGDFilePath))
+                    {
+                        if (!FGDFilePath.Equals(FixedString))
+                        {
+                            File.Delete(GlobalVars.gameconfig);
+
+                            KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
+                            using (FileStream stream = File.OpenWrite(GlobalVars.gameconfig))
+                            {
+                                kv.Serialize(stream, KeyValueCreators.GenerateGameConfig());
+                            }
+                        }
+                    }
+                    else
+                    {
+                        throw new FileNotFoundException("FGD path not found.");
+                    }
                 }
             }
         }

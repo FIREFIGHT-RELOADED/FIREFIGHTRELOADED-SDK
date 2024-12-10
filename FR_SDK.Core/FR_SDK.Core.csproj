@@ -5,10 +5,11 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Facepunch.Steamworks.win32" />
-    <PackageReference Include="KVLib" />
     <PackageReference Include="System.Management" />
+    <PackageReference Include="ValveKeyValue" />
   </ItemGroup>
 </Project>

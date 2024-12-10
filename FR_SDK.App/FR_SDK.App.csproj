@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <AssemblyName>FR_SDKLauncher</AssemblyName>
     <Deterministic>false</Deterministic>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>default</LangVersion>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
@@ -23,6 +23,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Resource Include="game.ico" />
+    <Resource Include="graphics\fabricator.png">
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </Resource>
     <Resource Include="graphics\faceposer.png" />
     <Resource Include="graphics\fr.png" />
     <Resource Include="graphics\hammer.png" />
@@ -42,6 +45,7 @@
     <Compile Remove="Fabricator\obj\Release\.NETFramework,Version=v4.6.2.AssemblyAttributes.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="graphics\fabricator.png" />
     <None Remove="graphics\faceposer.png" />
     <None Remove="graphics\fr.png" />
     <None Remove="graphics\hammer.png" />

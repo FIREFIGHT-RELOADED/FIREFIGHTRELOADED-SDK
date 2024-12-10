@@ -43,7 +43,10 @@ namespace Fabricator
                     curFile = new RewardList(ofd.FileName);
                     LocalFuncs.ReloadNodeList(NodeList, curFile);
                     //select the first node.
-                    NodeList.SelectedNode = NodeList.Nodes[0];
+                    if (NodeList.Nodes.Count > 0)
+                    {
+                        NodeList.SelectedNode = NodeList.Nodes[0];
+                    }
                 }
             }
         }
