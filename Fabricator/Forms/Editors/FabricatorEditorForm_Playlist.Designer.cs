@@ -41,6 +41,8 @@
             deleteNodeToolStripMenuItem = new ToolStripMenuItem();
             moveNodeUpToolStripMenuItem = new ToolStripMenuItem();
             moveNodeDownToolStripMenuItem = new ToolStripMenuItem();
+            moveNodeToTopToolStripMenuItem = new ToolStripMenuItem();
+            moveNodeToBottomToolStripMenuItem = new ToolStripMenuItem();
             editSettingsToolStripMenuItem = new ToolStripMenuItem();
             KeyValueSet = new DataGridView();
             KeyColumn = new DataGridViewTextBoxColumn();
@@ -49,8 +51,7 @@
             saveFileDialog1 = new SaveFileDialog();
             splitContainer1 = new SplitContainer();
             NodeList = new TreeView();
-            moveNodeToTopToolStripMenuItem = new ToolStripMenuItem();
-            moveNodeToBottomToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
             menu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)KeyValueSet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
@@ -99,7 +100,7 @@
             // 
             // editToolStripMenuItem
             // 
-            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem, addNodeToolStripMenuItem, duplicateNodeToolStripMenuItem, deleteNodeToolStripMenuItem, moveNodeUpToolStripMenuItem, moveNodeDownToolStripMenuItem, moveNodeToTopToolStripMenuItem, moveNodeToBottomToolStripMenuItem, editSettingsToolStripMenuItem});
+            editToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createRowFromKeyListToolStripMenuItem, addNodeToolStripMenuItem, duplicateNodeToolStripMenuItem, deleteNodeToolStripMenuItem, moveNodeUpToolStripMenuItem, moveNodeDownToolStripMenuItem, moveNodeToTopToolStripMenuItem, moveNodeToBottomToolStripMenuItem, toolStripSeparator1, editSettingsToolStripMenuItem });
             editToolStripMenuItem.Name = "editToolStripMenuItem";
             editToolStripMenuItem.Size = new Size(39, 20);
             editToolStripMenuItem.Text = "Edit";
@@ -145,6 +146,20 @@
             moveNodeDownToolStripMenuItem.Size = new Size(206, 22);
             moveNodeDownToolStripMenuItem.Text = "Move Node Down";
             moveNodeDownToolStripMenuItem.Click += moveNodeDownToolStripMenuItem_Click;
+            // 
+            // moveNodeToTopToolStripMenuItem
+            // 
+            moveNodeToTopToolStripMenuItem.Name = "moveNodeToTopToolStripMenuItem";
+            moveNodeToTopToolStripMenuItem.Size = new Size(206, 22);
+            moveNodeToTopToolStripMenuItem.Text = "Move Node to Top";
+            moveNodeToTopToolStripMenuItem.Click += moveNodeToTopToolStripMenuItem_Click;
+            // 
+            // moveNodeToBottomToolStripMenuItem
+            // 
+            moveNodeToBottomToolStripMenuItem.Name = "moveNodeToBottomToolStripMenuItem";
+            moveNodeToBottomToolStripMenuItem.Size = new Size(206, 22);
+            moveNodeToBottomToolStripMenuItem.Text = "Move Node to Bottom";
+            moveNodeToBottomToolStripMenuItem.Click += moveNodeToBottomToolStripMenuItem_Click;
             // 
             // editSettingsToolStripMenuItem
             // 
@@ -216,19 +231,10 @@
             NodeList.TabIndex = 0;
             NodeList.AfterSelect += NodeList_AfterSelect;
             // 
-            // moveNodeToTopToolStripMenuItem
+            // toolStripSeparator1
             // 
-            moveNodeToTopToolStripMenuItem.Name = "moveNodeToTopToolStripMenuItem";
-            moveNodeToTopToolStripMenuItem.Size = new Size(206, 22);
-            moveNodeToTopToolStripMenuItem.Text = "Move Node to Top";
-            moveNodeToTopToolStripMenuItem.Click += moveNodeToTopToolStripMenuItem_Click;
-            // 
-            // moveNodeToBottomToolStripMenuItem
-            // 
-            moveNodeToBottomToolStripMenuItem.Name = "moveNodeToBottomToolStripMenuItem";
-            moveNodeToBottomToolStripMenuItem.Size = new Size(206, 22);
-            moveNodeToBottomToolStripMenuItem.Text = "Move Node to Bottom";
-            moveNodeToBottomToolStripMenuItem.Click += moveNodeToBottomToolStripMenuItem_Click;
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(203, 6);
             // 
             // FabricatorEditorForm_Playlist
             // 
@@ -277,5 +283,6 @@
         private ToolStripMenuItem duplicateNodeToolStripMenuItem;
         private ToolStripMenuItem moveNodeToTopToolStripMenuItem;
         private ToolStripMenuItem moveNodeToBottomToolStripMenuItem;
+        private ToolStripSeparator toolStripSeparator1;
     }
 }

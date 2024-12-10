@@ -8,6 +8,12 @@ namespace Fabricator
 {
     public class LocalFuncs
     {
+
+        /// <summary>
+        /// Reload the node list/tree view.
+        /// </summary>
+        /// <param name="nodeList"></param>
+        /// <param name="curFile"></param>
         public static void ReloadNodeList(TreeView nodeList, FileCreatorBase curFile)
         {
             //clear, and then add all of the nodes based on how many entries are in the list.
@@ -19,6 +25,12 @@ namespace Fabricator
             }
         }
 
+        
+        /// <summary>
+        /// Create a KVObject list from the current selected cells. Does not handle collections
+        /// </summary>
+        /// <param name="keyValueSet"></param>
+        /// <returns></returns>
         public static List<KVObject>? ListFromCurCellsLegacy(DataGridView keyValueSet)
         {
             //generate a KVObject list with the rows from a datagridview
@@ -49,6 +61,13 @@ namespace Fabricator
             return list;
         }
 
+        /// <summary>
+        /// Create a KVObject list from the current selected cells.
+        /// </summary>
+        /// <param name="keyValueSet"></param>
+        /// <param name="nodeIndex"></param>
+        /// <param name="curFile"></param>
+        /// <returns></returns>
         public static List<KVObject>? ListFromCurCells(DataGridView keyValueSet, int nodeIndex, FileCreatorBase curFile)
         {
             //generate a KVObject list with the rows from a datagridview
@@ -91,6 +110,15 @@ namespace Fabricator
             return list;
         }
 
+        
+        /// <summary>
+        /// Convert the selected cells into a KVObject.
+        /// </summary>
+        /// <param name="keyValueSet"></param>
+        /// <param name="nodeList"></param>
+        /// <param name="nodeIndex"></param>
+        /// <param name="curFile"></param>
+        /// <returns></returns>
         public static KVObject? CurCellsToKVObject(DataGridView keyValueSet, TreeView nodeList, int nodeIndex, FileCreatorBase curFile)
         {
             // find any empty cells and check if all the cells are empty before saving.
@@ -130,6 +158,15 @@ namespace Fabricator
             return result;
         }
 
+
+        /// <summary>
+        /// Save the last cells as KVObjects
+        /// </summary>
+        /// <param name="keyValueSet"></param>
+        /// <param name="nodeList"></param>
+        /// <param name="nodeIndex"></param>
+        /// <param name="curFile"></param>
+        /// <returns></returns>
         public static KVObject? SaveLastCells(DataGridView keyValueSet, TreeView nodeList, int nodeIndex, FileCreatorBase curFile)
         {
             // find any empty cells and check if all the cells are empty before saving.
@@ -173,6 +210,11 @@ namespace Fabricator
             return saveObject;
         }
 
+
+        /// <summary>
+        /// Open up the edit settings panel
+        /// </summary>
+        /// <param name="curFile"></param>
         public static void EditSettings(FileCreatorBase curFile)
         {
             //opens up the collection editor to edit the file settings.
@@ -199,6 +241,15 @@ namespace Fabricator
             }
         }
 
+        
+        /// <summary>
+        /// Edit the selected collection.
+        /// </summary>
+        /// <param name="keyValueSet"></param>
+        /// <param name="nodeIndex"></param>
+        /// <param name="curFile"></param>
+        /// <param name="rowIndex"></param>
+        /// <param name="columnIndex"></param>
         public static void AddCollection(DataGridView keyValueSet, int nodeIndex, FileCreatorBase curFile, int rowIndex, int columnIndex)
         {
             if (nodeIndex > -1)
@@ -242,6 +293,14 @@ namespace Fabricator
             }
         }
 
+        /// <summary>
+        /// Edit the selected collection.
+        /// </summary>
+        /// <param name="keyValueSet"></param>
+        /// <param name="nodeIndex"></param>
+        /// <param name="curFile"></param>
+        /// <param name="rowIndex"></param>
+        /// <param name="columnIndex"></param>
         public static void EditCollection(DataGridView keyValueSet, int nodeIndex, FileCreatorBase curFile, int rowIndex, int columnIndex)
         {
             if (nodeIndex > -1)
@@ -285,6 +344,12 @@ namespace Fabricator
             }
         }
 
+
+        /// <summary>
+        /// Check if the node is open.
+        /// </summary>
+        /// <param name="nodeList"></param>
+        /// <returns></returns>
         public static bool IsNodeOpen(TreeView nodeList)
         {
             //if we have more than 0 nodes and we have a selected node, the node is open.
@@ -296,6 +361,13 @@ namespace Fabricator
             return false;
         }
 
+
+        /// <summary>
+        /// Clear the panel.
+        /// </summary>
+        /// <param name="keyValueSet"></param>
+        /// <param name="nodeList"></param>
+        /// <param name="curFile"></param>
         public static void Clear(DataGridView keyValueSet, TreeView nodeList, FileCreatorBase curFile)
         {
             // clear all entries in the list, and any rows or nodes.
@@ -308,6 +380,13 @@ namespace Fabricator
             nodeList.Nodes.Clear();
         }
 
+
+        /// <summary>
+        /// Delete a node.
+        /// </summary>
+        /// <param name="nodeList"></param>
+        /// <param name="keyValueSet"></param>
+        /// <param name="curFile"></param>
         public static void DeleteNode(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile)
         {
             if (nodeList.SelectedNode != null)
@@ -320,6 +399,14 @@ namespace Fabricator
             }
         }
 
+
+        /// <summary>
+        /// Add a node.
+        /// </summary>
+        /// <param name="nodeList"></param>
+        /// <param name="keyValueSet"></param>
+        /// <param name="curFile"></param>
+        /// <param name="node"></param>
         public static void AddNode(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile, FileCreatorBase.BaseNode node)
         {
             // add the node entry, then run AddNodeInternal.
@@ -328,6 +415,13 @@ namespace Fabricator
             AddNodeInternal(nodeList, keyValueSet, curFile, count);
         }
 
+        /// <summary>
+        /// Add a node.
+        /// </summary>
+        /// <param name="nodeList"></param>
+        /// <param name="keyValueSet"></param>
+        /// <param name="curFile"></param>
+        /// <param name="node"></param>
         public static void AddNode(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile, KVObject node)
         {
             // add the node entry, then run AddNodeInternal.
@@ -336,6 +430,14 @@ namespace Fabricator
             AddNodeInternal(nodeList, keyValueSet, curFile, count);
         }
 
+
+        /// <summary>
+        /// Finish adding a node.
+        /// </summary>
+        /// <param name="nodeList"></param>
+        /// <param name="keyValueSet"></param>
+        /// <param name="curFile"></param>
+        /// <param name="count"></param>
         private static void AddNodeInternal(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile, int count)
         {
             //reload the node list, then select the new node
@@ -343,6 +445,13 @@ namespace Fabricator
             nodeList.SelectedNode = nodeList.Nodes[count];
         }
 
+
+        /// <summary>
+        /// Duplicate a selected node.
+        /// </summary>
+        /// <param name="nodeList"></param>
+        /// <param name="keyValueSet"></param>
+        /// <param name="curFile"></param>
         public static void DuplicateNode(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile)
         {
             if (nodeList.SelectedNode != null)
@@ -355,6 +464,15 @@ namespace Fabricator
             }
         }
 
+
+        /// <summary>
+        /// Move a selected node.
+        /// </summary>
+        /// <param name="nodeList"></param>
+        /// <param name="keyValueSet"></param>
+        /// <param name="curFile"></param>
+        /// <param name="movedown"></param>
+        /// <param name="moveToEnd"></param>
         public static void MoveNode(TreeView nodeList, DataGridView keyValueSet, FileCreatorBase curFile, bool movedown = false, bool moveToEnd = false)
         {
             if (nodeList.SelectedNode != null)
@@ -378,6 +496,11 @@ namespace Fabricator
             }
         }
 
+
+        /// <summary>
+        /// Add a row from a list of options.
+        /// </summary>
+        /// <param name="keyValueSet"></param>
         public static void AddKeyValue(DataGridView keyValueSet)
         {
             using (var kvl = new FabricatorKeyvalueLoader())
@@ -407,6 +530,12 @@ namespace Fabricator
             }
         }
 
+
+        /// <summary>
+        /// Add rows based on a KVObject's children.
+        /// </summary>
+        /// <param name="keyValueSet"></param>
+        /// <param name="kv"></param>
         public static void AddRows(DataGridView keyValueSet, KVObject kv)
         {
             if (kv != null)
@@ -430,6 +559,12 @@ namespace Fabricator
             }
         }
 
+
+        /// <summary>
+        /// Output an object of a specific data type specified in a string.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         public static object? DataTypeForString(string data)
         {
             object? res = null;
@@ -438,10 +573,10 @@ namespace Fabricator
             // so return a representation of it in string form.
             switch (data)
             {
-                case string a when a.Contains("Boolean", StringComparison.CurrentCultureIgnoreCase):
-                case string c when c.Contains("Integer", StringComparison.CurrentCultureIgnoreCase):
                 case string j when j.Contains("Bool", StringComparison.CurrentCultureIgnoreCase):
                 case string k when k.Contains("Int", StringComparison.CurrentCultureIgnoreCase):
+                case string a when a.Contains("Boolean", StringComparison.CurrentCultureIgnoreCase):
+                case string c when c.Contains("Integer", StringComparison.CurrentCultureIgnoreCase):
                     res = 0;
                     break;
                 case string d when d.Contains("Collection", StringComparison.CurrentCultureIgnoreCase):
