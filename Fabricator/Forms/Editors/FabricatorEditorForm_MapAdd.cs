@@ -133,6 +133,8 @@ namespace Fabricator
         {
             if (NodeList.SelectedNode != null)
             {
+                LocalFuncs.SaveLastCells(KeyValueSet, NodeList, nodeIndex, curFile);
+
                 using (var kvl = new FabricatorLoadStringPrompt())
                 {
                     kvl.Text = "Add Position from String";
