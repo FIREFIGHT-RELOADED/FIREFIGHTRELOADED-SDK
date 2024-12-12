@@ -53,12 +53,15 @@ namespace WorkshopUploader
         }
 
         [SupportedOSPlatform("windows")]
-        private async void LoadItem_Click(object sender, EventArgs e)
+        private async void LoadItemFromWorkshop(bool skipItemIdMessagebox = false)
         {
             if (string.IsNullOrWhiteSpace(ItemIDBox.Text))
             {
-                MessageBox.Show("Please specify an Item ID.",
-                    "Workshop Uploader - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!skipItemIdMessagebox)
+                {
+                    MessageBox.Show("Please specify an Item ID.",
+                        "Workshop Uploader - Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 return;
             }
 
@@ -115,6 +118,12 @@ namespace WorkshopUploader
 #pragma warning restore SYSLIB0014
 
             ItemChangesBox.Enabled = true;
+        }
+
+        [SupportedOSPlatform("windows")]
+        private void LoadItem_Click(object sender, EventArgs e)
+        {
+            LoadItemFromWorkshop();
         }
 
         private void ItemNameBox_TextChanged(object sender, EventArgs e)
@@ -403,6 +412,21 @@ namespace WorkshopUploader
 
             progressBar1.Value = 0;
             uploadAttempts = 0;
+        }
+
+        [SupportedOSPlatform("windows")]
+        private void ItemIDBox_TextChanged(object sender, EventArgs e)
+        {
+            string steamURL = "https://steamcommunity.com/sharedfiles/filedetails/?id=";
+
+            if (ItemIDBox.Text.Contains(steamURL))
+            {
+                ItemIDBox.Text = ItemIDBox.Text.Replace(steamURL, "");
+            }
+            else
+            {
+                LoadItemFromWorkshop(true);
+            }
         }
     }
 

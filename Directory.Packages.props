@@ -5,6 +5,7 @@
     <NoWarn>$(NoWarn);NU1507</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <PackageVersion Include="aelsi2.Facepunch.Steamworks" Version="2.3.4" />
     <PackageVersion Include="Facepunch.Steamworks" Version="2.3.3" />
     <PackageVersion Include="Facepunch.Steamworks.Dll" Version="1.53.0" />
     <PackageVersion Include="Facepunch.Steamworks.win32" Version="2.3.3" />

@@ -171,6 +171,7 @@ namespace WorkshopUploader
             ItemIDBox.Name = "ItemIDBox";
             ItemIDBox.Size = new System.Drawing.Size(135, 23);
             ItemIDBox.TabIndex = 12;
+            ItemIDBox.TextChanged += ItemIDBox_TextChanged;
             // 
             // LoadItem
             // 

@@ -57,4 +57,7 @@
     <None Remove="graphics\model.png" />
     <None Remove="graphics\resize.png" />
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="SET copypath=$(SolutionDir)build&#xD;&#xA;if not exist &quot;%25copypath%25&quot; mkdir &quot;%25copypath%25&quot;&#xD;&#xA;xcopy &quot;$(ProjectDir)$(OutDir)*.*&quot; &quot;%25copypath%25&quot; /e /Y" />
+  </Target>
 </Project>

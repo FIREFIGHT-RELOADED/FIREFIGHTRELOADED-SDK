@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="if not exist &quot;$(ProjectDir)$(OutDir)data&quot; mkdir &quot;$(ProjectDir)$(OutDir)data&quot;&#xD;&#xA;copy &quot;$(ProjectDir)data\*&quot; &quot;$(ProjectDir)$(OutDir)data&quot;" />
+    <Exec Command="if not exist &quot;$(ProjectDir)$(OutDir)data&quot; mkdir &quot;$(ProjectDir)$(OutDir)data&quot;&#xD;&#xA;copy &quot;$(ProjectDir)data\*&quot; &quot;$(ProjectDir)$(OutDir)data&quot;&#xD;&#xA;&#xD;&#xA;SET copypath=$(SolutionDir)build&#xD;&#xA;if not exist &quot;%25copypath%25&quot; mkdir &quot;%25copypath%25&quot;&#xD;&#xA;xcopy &quot;$(ProjectDir)$(OutDir)*.*&quot; &quot;%25copypath%25&quot; /e /Y" />
   </Target>
 
 </Project>

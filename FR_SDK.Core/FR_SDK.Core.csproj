@@ -8,8 +8,7 @@
     <LangVersion>default</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Facepunch.Steamworks.Dll" />
-    <PackageReference Include="Facepunch.Steamworks.win32" />
+    <PackageReference Include="aelsi2.Facepunch.Steamworks" />
     <PackageReference Include="System.Management" />
     <PackageReference Include="ValveKeyValue" />
   </ItemGroup>
