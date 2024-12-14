@@ -684,6 +684,18 @@
     "Required": false
   },
   {
+    "Key": "persist",
+    "FileType": "Other-NPCPreset",
+    "ValType": "Boolean",
+    "Required": false
+  },
+  {
+    "Key": "manual_spawn",
+    "FileType": "Other-NPCPreset",
+    "ValType": "Boolean",
+    "Required": false
+  },
+  {
     "Key": "disable_bullet_resistance_outline",
     "FileType": "Other-NPCPreset-CombineAce-Advisor",
     "ValType": "Boolean",
