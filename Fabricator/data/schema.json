@@ -695,6 +695,12 @@
     "ValType": "Boolean",
     "Required": false
   },
+    {
+    "Key": "use_server_ragdoll",
+    "FileType": "Other-NPCPreset",
+    "ValType": "Boolean",
+    "Required": false
+  },
   {
     "Key": "disable_bullet_resistance_outline",
     "FileType": "Other-NPCPreset-CombineAce-Advisor",
