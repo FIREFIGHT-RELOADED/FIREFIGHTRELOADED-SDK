@@ -12,6 +12,24 @@
     "Required": false
   },
   {
+    "Key": "randomizermode",
+    "FileType": "Loadout-Node",
+    "ValType": "Boolean",
+    "Required": true
+  },
+  {
+    "Key": "randmin",
+    "FileType": "Loadout-Node",
+    "ValType": "Integer",
+    "Required": false
+  },
+  {
+    "Key": "randmax",
+    "FileType": "Loadout-Node",
+    "ValType": "Integer",
+    "Required": false
+  },
+  {
     "Key": "weapon",
     "FileType": "Loadout-Node",
     "ValType": "String",
@@ -679,24 +697,6 @@
   },
   {
     "Key": "use_shotgun_secondary",
-    "FileType": "Other-NPCPreset",
-    "ValType": "Boolean",
-    "Required": false
-  },
-  {
-    "Key": "persist",
-    "FileType": "Other-NPCPreset",
-    "ValType": "Boolean",
-    "Required": false
-  },
-  {
-    "Key": "manual_spawn",
-    "FileType": "Other-NPCPreset",
-    "ValType": "Boolean",
-    "Required": false
-  },
-    {
-    "Key": "use_server_ragdoll",
     "FileType": "Other-NPCPreset",
     "ValType": "Boolean",
     "Required": false
