@@ -53,7 +53,6 @@ namespace Fabricator
             public string name { get; set; } = "#GameUI_Store_Buy_HealthKit";
             public RewardItemTypes itemType { get; set; } = RewardItemTypes.FR_HEALTHKIT;
             public string weaponClassName { get; set; } = "";
-            public int weaponPreset { get; set; } = -1;
             public BoolInt ammoIsPrimary { get; set; } = BoolInt.Invalid;
             public int ammoNum { get; set; } = -1;
             public int minLevel { get; set; } = 1;
@@ -91,7 +90,6 @@ namespace Fabricator
                 }
 
                 AddKVObjectEntryStat("weapon_classname", classNode.weaponClassName);
-                AddKVObjectEntryStat("weapon_preset", classNode.weaponPreset);
                 AddKVObjectEntryStat("ammo_isprimary", classNode.ammoIsPrimary);
                 AddKVObjectEntryStat("ammo_num", classNode.ammoNum);
                 AddKVObjectEntryStat("min_level", classNode.minLevel);
@@ -134,9 +132,6 @@ namespace Fabricator
                             break;
                         case "weapon_classname":
                             classNode.weaponClassName = child.Value.ToString(CultureInfo.CurrentCulture);
-                            break;
-                        case "weapon_preset":
-                            classNode.weaponPreset = child.Value.ToInt32(CultureInfo.CurrentCulture);
                             break;
                         case "ammo_isprimary":
                             classNode.ammoIsPrimary = (BoolInt)child.Value.ToInt32(CultureInfo.CurrentCulture);
