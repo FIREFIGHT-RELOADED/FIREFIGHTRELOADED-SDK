@@ -36,12 +36,6 @@
     "Required": true
   },
   {
-    "Key": "weaponpreset",
-    "FileType": "Loadout-Node",
-    "ValType": "Integer",
-    "Required": false
-  },
-  {
     "Key": "ammotype",
     "FileType": "Loadout-Node",
     "ValType": "String",
@@ -204,12 +198,6 @@
     "Required": false
   },
   {
-    "Key": "weapon_preset",
-    "FileType": "RewardList-Node",
-    "ValType": "Integer",
-    "Required": false
-  },
-  {
     "Key": "ammo_isprimary",
     "FileType": "RewardList-Node",
     "ValType": "Boolean",
@@ -262,12 +250,6 @@
     "FileType": "ShopCatalog-Node",
     "ValType": "String",
     "Required": true
-  },
-  {
-    "Key": "preset",
-    "FileType": "ShopCatalog-Node",
-    "ValType": "Integer",
-    "Required": false
   },
   {
     "Key": "price",
