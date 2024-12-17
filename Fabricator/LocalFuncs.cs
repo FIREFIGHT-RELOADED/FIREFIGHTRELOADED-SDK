@@ -203,7 +203,7 @@ namespace Fabricator
 
                 if (saveObject != null)
                 {
-                    curFile.EditEntry(saveObject);
+                    curFile.EditEntry(nodeIndex, saveObject);
                 }
             }
 
