@@ -25,11 +25,11 @@ namespace FR_SDK.Core
                                         new KVObject("BSP", GlobalVars.vbsp),
                                         new KVObject("Vis", GlobalVars.vvis),
                                         new KVObject("Light", GlobalVars.vrad),
-                                        new KVObject("GameExeDir", GlobalVars.vrad),
-                                        new KVObject("MapDir", GlobalVars.vrad),
-                                        new KVObject("BSPDir", GlobalVars.vrad),
-                                        new KVObject("CordonTexture", GlobalVars.vrad),
-                                        new KVObject("MaterialExcludeCount", GlobalVars.vrad),
+                                        new KVObject("GameExeDir", GlobalVars.gamedir),
+                                        new KVObject("MapDir", GlobalVars.mapsrcdir),
+                                        new KVObject("BSPDir", GlobalVars.mapdir),
+                                        new KVObject("CordonTexture", GlobalVars.CordonTexture),
+                                        new KVObject("MaterialExcludeCount", GlobalVars.MaterialExcludeCount)
                                 ])
                         ])
                 ]),
