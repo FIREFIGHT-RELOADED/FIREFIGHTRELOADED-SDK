@@ -72,83 +72,17 @@ namespace FR_SDK.App
                 }
             }
 
-            if (!File.Exists(GlobalVars.gameconfig))
+            if (File.Exists(GlobalVars.gameconfig))
             {
-                File.Create(GlobalVars.gameconfig).Dispose();
-
-                KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
-                using (FileStream stream = File.OpenWrite(GlobalVars.gameconfig))
-                {
-                    kv.Serialize(stream, KeyValueCreators.GenerateGameConfig());
-                }
+                File.Delete(GlobalVars.gameconfig);
             }
-            else
+
+            File.Create(GlobalVars.gameconfig).Dispose();
+
+            KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
+            using (FileStream stream = File.OpenWrite(GlobalVars.gameconfig))
             {
-                KVObject? data = null;
-
-                using (var stream = File.OpenRead(GlobalVars.gameconfig))
-                {
-                    KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
-                    data = kv.Deserialize(stream);
-                }
-
-                //fuck.
-                if (data != null)
-                {
-                    string FGDFilePath = "";
-
-                    foreach (KVObject item in data)
-                    {
-                        if (item.Name == "Games")
-                        {
-                            foreach (KVObject item2 in item)
-                            {
-                                if (item2.Name == "FIREFIGHT RELOADED")
-                                {
-                                    foreach (KVObject item3 in item2)
-                                    {
-                                        if (item3.Name == "Hammer")
-                                        {
-                                            FGDFilePath = item3["GameData0"].ToString();
-                                        }
-                                        else
-                                        {
-                                            continue;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    continue;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-
-                    string FixedString = GlobalVars.fgd.Replace(" ", "");
-
-                    if (!string.IsNullOrWhiteSpace(FGDFilePath))
-                    {
-                        if (!FGDFilePath.Equals(FixedString))
-                        {
-                            File.Delete(GlobalVars.gameconfig);
-
-                            KVSerializer kv = KVSerializer.Create(KVSerializationFormat.KeyValues1Text);
-                            using (FileStream stream = File.OpenWrite(GlobalVars.gameconfig))
-                            {
-                                kv.Serialize(stream, KeyValueCreators.GenerateGameConfig());
-                            }
-                        }
-                    }
-                    else
-                    {
-                        throw new FileNotFoundException("FGD path not found.");
-                    }
-                }
+                kv.Serialize(stream, KeyValueCreators.GenerateGameConfig());
             }
         }
 
