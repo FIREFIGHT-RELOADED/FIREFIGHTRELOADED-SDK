@@ -1,26 +1,36 @@
 ﻿
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Management;
+using System.Runtime.Versioning;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace FR_SDK.Core
 {
+    [SupportedOSPlatform("windows")]
     public static class GlobalVars
     {
         private static string SetCorrectDir()
         {
-            string dir = Directory.GetParent(Environment.CurrentDirectory).ToString();
+            /*string dir = Directory.GetParent(Environment.CurrentDirectory).ToString();
             if (!dir.Contains(@"\FIREFIGHT RELOADED"))
             {
                 dir = Directory.GetParent(Environment.CurrentDirectory).ToString() + @"\FIREFIGHT RELOADED";
+            }*/
+
+            string path = FirefightReloadedLocator.FR_Folder();
+
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                return path;
             }
 
-            return dir;
+            return "";
         }
 
         public static string gamedir = SetCorrectDir();
