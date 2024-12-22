@@ -55,27 +55,67 @@ namespace FR_SDK.Core
         public static string FR_Folder()
         {
             string result = "";
+            string log = "";
 
             var appFolders = LibraryFolders().Select(x => x + "\\SteamApps\\common");
             foreach (var folder in appFolders)
             {
                 try
                 {
+                    log += $"[LOG] Searching \"{folder}\".\n";
                     var matches = Directory.GetDirectories(folder, "FIREFIGHT RELOADED");
                     if (matches.Length >= 1)
                     {
                         result = matches[0];
+                        log += $"[LOG] Found directory \"{result}\"!\n";
                         break;
+                    }
+                    else
+                    {
+                        log += $"[LOG] Directory \"{folder}\" is invalid. Continuing.\n";
+                        continue;
                     }
                 }
                 catch (DirectoryNotFoundException)
                 {
+                    log += $"[LOG] Directory \"{folder}\" is invalid. Continuing.\n";
                     continue;
                 }
-
             }
 
+            string BasePath = AppContext.BaseDirectory;
+
             // Couldn't find folder, attempt another method
+            if (string.IsNullOrWhiteSpace(result))
+            {
+                log += $"[LOG] Couldn't find folder through registry/steam config. Trying to find it using current directory.\n";
+
+                string dir = BasePath.Replace("\\sdk\\", "");
+                if (dir.Contains("FIREFIGHT RELOADED"))
+                {
+                    result = dir;
+                    log += $"[LOG] Launching directly from \"{result}\"!\n";
+                }
+            }
+            else
+            {
+                log += $"[LOG] Found the game folder through the registry/steam config.\n";
+            }
+
+            if (string.IsNullOrWhiteSpace(result))
+            {
+                log += $"[LOG] Unable to find FIREFIGHT RELOADED directory.\n";
+            }
+
+            string logfile = BasePath + "\\log.txt";
+
+            if (File.Exists(logfile))
+            {
+                File.Delete(logfile);
+            }
+
+            File.WriteAllText(logfile, log);
+
             return result;
         }
     }

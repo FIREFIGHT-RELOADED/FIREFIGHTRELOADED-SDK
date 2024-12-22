@@ -17,12 +17,6 @@ namespace FR_SDK.Core
     {
         private static string SetCorrectDir()
         {
-            /*string dir = Directory.GetParent(Environment.CurrentDirectory).ToString();
-            if (!dir.Contains(@"\FIREFIGHT RELOADED"))
-            {
-                dir = Directory.GetParent(Environment.CurrentDirectory).ToString() + @"\FIREFIGHT RELOADED";
-            }*/
-
             string path = FirefightReloadedLocator.FR_Folder();
 
             if (!string.IsNullOrWhiteSpace(path))
