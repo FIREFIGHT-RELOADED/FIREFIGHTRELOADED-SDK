@@ -721,7 +721,7 @@
   },
   {
     "Key": "new_projectile",
-    "FileType": "Other-NPCPreset-Hunter-Bullsquid",
+    "FileType": "Other-NPCPreset-Hunter-Bullsquid-KillerScanner",
     "ValType": "Integer",
     "Required": false
   },
@@ -763,7 +763,7 @@
   },
   {
     "Key": "new_projectile_random",
-    "FileType": "Other-NPCPreset-Hunter-Bullsquid",
+    "FileType": "Other-NPCPreset-Hunter-Bullsquid-KillerScanner",
     "ValType": "Boolean",
     "Required": false
   },
@@ -934,5 +934,23 @@
     "FileType": "Other-NPCPreset-Stalker",
     "ValType": "Integer",
     "Required": false
-  }
+  },
+  {
+    "Key": "fire_rate",
+    "FileType": "Other-NPCPreset-KillerScanner",
+    "ValType": "Float",
+    "Required": false
+  },
+  {
+    "Key": "mag_size",
+    "FileType": "Other-NPCPreset-KillerScanner",
+    "ValType": "Integer",
+    "Required": false
+  },
+  {
+    "Key": "cycle_time",
+    "FileType": "Other-NPCPreset-KillerScanner",
+    "ValType": "Float",
+    "Required": false
+  },
 ]
