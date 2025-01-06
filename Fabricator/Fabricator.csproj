@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <SelfContained>true</SelfContained>
     <ApplicationIcon>635px-HLA_Resin.ico</ApplicationIcon>
     <AssemblyName>FR_Fabricator</AssemblyName>
   </PropertyGroup>

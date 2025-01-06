@@ -5,6 +5,7 @@
     <AssemblyName>FR_MapCompiler</AssemblyName>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
+    <SelfContained>true</SelfContained>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
     <LangVersion>default</LangVersion>
   </PropertyGroup>
