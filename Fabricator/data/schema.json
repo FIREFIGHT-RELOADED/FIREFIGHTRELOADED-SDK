@@ -952,5 +952,5 @@
     "FileType": "Other-NPCPreset-KillerScanner",
     "ValType": "Float",
     "Required": false
-  },
+  }
 ]
