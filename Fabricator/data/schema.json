@@ -462,7 +462,7 @@
     "Required": false
   },
   {
-    "Key": "DeckMapSpawnTimeOverride",
+    "Key": "MapSpawnTimeOverride",
     "FileType": "Other-MapInfo",
     "ValType": "Integer",
     "Required": false
