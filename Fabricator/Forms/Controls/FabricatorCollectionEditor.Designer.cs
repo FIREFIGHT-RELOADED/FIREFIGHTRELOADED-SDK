@@ -86,7 +86,7 @@
             // FabricatorCollectionEditor
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(519, 402);
             Controls.Add(KeyValueSet);
             Controls.Add(menuStrip1);

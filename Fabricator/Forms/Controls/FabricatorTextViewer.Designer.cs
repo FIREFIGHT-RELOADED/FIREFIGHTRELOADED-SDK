@@ -45,7 +45,7 @@
             // FabricatorTextViewer
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(823, 448);
             Controls.Add(richTextBox1);
             FormBorderStyle = FormBorderStyle.SizableToolWindow;

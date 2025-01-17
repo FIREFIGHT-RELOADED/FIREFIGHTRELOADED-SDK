@@ -250,8 +250,7 @@ namespace WorkshopUploader
             // 
             // WorkshopUploader
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             BackColor = System.Drawing.SystemColors.ControlLightLight;
             ClientSize = new System.Drawing.Size(811, 593);
             Controls.Add(tagsBox);

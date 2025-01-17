@@ -148,7 +148,7 @@
             // FabricatorOtherForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(578, 350);
             Controls.Add(KeyValueSet);
             Controls.Add(menu);

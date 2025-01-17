@@ -239,7 +239,7 @@
             // FabricatorEditorForm_Playlist
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(578, 380);
             Controls.Add(splitContainer1);
             Controls.Add(menu);

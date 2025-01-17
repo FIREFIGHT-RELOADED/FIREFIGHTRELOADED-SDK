@@ -47,7 +47,7 @@
             // FabricatorKeyvalueLoader
             // 
             AutoScaleDimensions = new SizeF(9F, 19F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleMode = AutoScaleMode.None;
             ClientSize = new Size(606, 458);
             Controls.Add(AvailableKeys);
             Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point);
