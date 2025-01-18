@@ -498,6 +498,12 @@
     "Required": false
   },
   {
+    "Key": "Hunter_LargeOutdoorMap",
+    "FileType": "Other-MapInfo",
+    "ValType": "Boolean",
+    "Required": false
+  },
+  {
     "Key": "CanWallrun",
     "FileType": "Other-MapInfo",
     "ValType": "Boolean",
