@@ -56,7 +56,6 @@
             Margin = new Padding(4, 4, 4, 4);
             Name = "FabricatorKeyvalueLoader";
             Text = "Available Keys";
-            Load += FabricatorKeyvalueLoader_Load;
             ResumeLayout(false);
         }
 

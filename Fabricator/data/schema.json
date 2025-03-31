@@ -342,7 +342,25 @@
     "Required": false
   },
   {
+    "Key": "manual_spawn",
+    "FileType": "Spawnlist-Node",
+    "ValType": "Boolean",
+    "Required": false
+  },
+  {
+    "Key": "persist",
+    "FileType": "Spawnlist-Node",
+    "ValType": "Boolean",
+    "Required": false
+  },
+  {
     "Key": "equipment",
+    "FileType": "Spawnlist-Node",
+    "ValType": "Collection",
+    "Required": false
+  },
+  {
+    "Key": "attributes",
     "FileType": "Spawnlist-Node",
     "ValType": "Collection",
     "Required": false

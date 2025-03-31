@@ -37,6 +37,15 @@ namespace Fabricator
                     {
                         AvailableKeys.Items.Add(entry.ToString());
                     }
+
+                    //add Other-NPCPreset to the spawnlist for use with the new attributes collection.
+                    if (LocalVars.SelectedType == FabType.Spawnlist)
+                    {
+                        if (entry.FileType.Contains("Other-NPCPreset", StringComparison.CurrentCultureIgnoreCase))
+                        {
+                            AvailableKeys.Items.Add(entry.ToString());
+                        }
+                    }
                 }
             }
         }
@@ -57,11 +66,6 @@ namespace Fabricator
                     this.Close();
                 }
             }
-        }
-
-        private void FabricatorKeyvalueLoader_Load(object sender, EventArgs e)
-        {
-
         }
     }
 
