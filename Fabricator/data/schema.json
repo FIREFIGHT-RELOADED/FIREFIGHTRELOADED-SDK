@@ -716,7 +716,37 @@
   {
     "Key": "team",
     "FileType": "Other-NPCPreset",
+    "ValType": "Integer",
+    "Required": false
+  },
+  {
+    "Key": "use_team_colors",
+    "FileType": "Other-NPCPreset",
     "ValType": "Boolean",
+    "Required": false
+  },
+  {
+    "Key": "use_team_material_colors",
+    "FileType": "Other-NPCPreset",
+    "ValType": "Boolean",
+    "Required": false
+  },
+  {
+    "Key": "use_team_colors_red_adjust",
+    "FileType": "Other-NPCPreset",
+    "ValType": "Integer",
+    "Required": false
+  },
+  {
+    "Key": "use_team_colors_green_adjust",
+    "FileType": "Other-NPCPreset",
+    "ValType": "Integer",
+    "Required": false
+  },
+  {
+    "Key": "use_team_colors_blue_adjust",
+    "FileType": "Other-NPCPreset",
+    "ValType": "Integer",
     "Required": false
   },
   {
