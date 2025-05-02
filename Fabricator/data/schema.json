@@ -672,6 +672,12 @@
     "Required": false
   },
   {
+    "Key": "is_boss",
+    "FileType": "Other-NPCPreset",
+    "ValType": "Boolean",
+    "Required": false
+  },
+  {
     "Key": "has_outlines",
     "FileType": "Other-NPCPreset",
     "ValType": "Boolean",
@@ -703,6 +709,12 @@
   },
   {
     "Key": "use_shotgun_secondary",
+    "FileType": "Other-NPCPreset",
+    "ValType": "Boolean",
+    "Required": false
+  },
+  {
+    "Key": "team",
     "FileType": "Other-NPCPreset",
     "ValType": "Boolean",
     "Required": false
@@ -859,6 +871,12 @@
   },
   {
     "Key": "gibs",
+    "FileType": "Other-NPCPreset-Combine",
+    "ValType": "Boolean",
+    "Required": false
+  },
+  {
+    "Key": "decap",
     "FileType": "Other-NPCPreset-Combine",
     "ValType": "Boolean",
     "Required": false
