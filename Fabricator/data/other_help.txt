@@ -59,3 +59,4 @@ TEAM_CYAN		11
 TEAM_TURQUOISE	12
 TEAM_PINK		13
 TEAM_MAGENTA		14 (Default for Boss/Advisor/Advisor Drones)
+TEAM_RANDOM		15
