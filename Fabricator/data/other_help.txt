@@ -46,6 +46,7 @@ kRenderFxRagdoll = 13,			// HACKHACK: TEST CODE for signalling death of a ragdol
 kRenderFxPulseFastWider = 24,
 
 Available Teams (represents killfeed/killog colors):
+TEAM_ANY		-2 (Used for random teams)
 TEAM_RED		2 (Default for NPCs)
 TEAM_BLUE		3 (Default for Player Ally NPCs)
 TEAM_YELLOW		4
@@ -58,5 +59,6 @@ TEAM_ORANGE		10 (Default for Rare NPCs)
 TEAM_CYAN		11
 TEAM_TURQUOISE	12
 TEAM_PINK		13
-TEAM_MAGENTA		14 (Default for Boss/Advisor/Advisor Drones)
-TEAM_RANDOM		15
+TEAM_MAGENTA		14  (Default for Boss/Advisor/Advisor Drones)
+TEAM_SMOD		15
+TEAM_FR		16
