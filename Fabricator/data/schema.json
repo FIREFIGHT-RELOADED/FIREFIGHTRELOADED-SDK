@@ -78,12 +78,6 @@
     "Required": false
   },
   {
-    "Key": "disableincrementhealthmax",
-    "FileType": "Loadout-Node",
-    "ValType": "Boolean",
-    "Required": false
-  },
-  {
     "Key": "resetupgrades",
     "FileType": "Loadout-Node",
     "ValType": "Boolean",
@@ -103,12 +97,6 @@
   },
   {
     "Key": "incrementarmor",
-    "FileType": "Loadout-Node",
-    "ValType": "Boolean",
-    "Required": false
-  },
-  {
-    "Key": "disableincrementarmormax",
     "FileType": "Loadout-Node",
     "ValType": "Boolean",
     "Required": false
