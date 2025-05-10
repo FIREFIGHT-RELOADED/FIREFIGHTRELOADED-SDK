@@ -15,7 +15,7 @@
     "Key": "randomizermode",
     "FileType": "Loadout-Node",
     "ValType": "Boolean",
-    "Required": true
+    "Required": false
   },
   {
     "Key": "randmin",
