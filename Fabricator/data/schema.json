@@ -468,6 +468,12 @@
     "Required": false
   },
   {
+    "Key": "additional_mapadd_label",
+    "FileType": "Other-MapInfo",
+    "ValType": "String",
+    "Required": false
+  },
+  {
     "Key": "AllowMusicSystem",
     "FileType": "Other-MapInfo",
     "ValType": "Boolean",
