@@ -534,6 +534,18 @@
     "Required": false
   },
   {
+    "Key": "gamepadui_metadata_name",
+    "FileType": "Other-MapInfo-GamepadUI-Metadata",
+    "ValType": "String",
+    "Required": false
+  },
+  {
+    "Key": "gamepadui_metadata_origin",
+    "FileType": "Other-MapInfo-GamepadUI-Metadata",
+    "ValType": "String",
+    "Required": false
+  },
+  {
     "Key": "name",
     "FileType": "Other-NPCPreset",
     "ValType": "String",
