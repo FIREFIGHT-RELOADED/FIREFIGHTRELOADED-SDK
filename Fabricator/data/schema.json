@@ -120,6 +120,12 @@
     "Required": false
   },
   {
+    "Key": "resetlevel",
+    "FileType": "Loadout-Node",
+    "ValType": "Boolean",
+    "Required": false
+  },
+  {
     "Key": "kash",
     "FileType": "Loadout-Node",
     "ValType": "Integer",
