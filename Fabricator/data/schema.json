@@ -378,6 +378,18 @@
     "Required": false
   },
   {
+    "Key": "task_selection_ignore",
+    "FileType": "Spawnlist-Node",
+    "ValType": "Boolean",
+    "Required": false
+  },
+  {
+    "Key": "ally",
+    "FileType": "Spawnlist-Node",
+    "ValType": "Boolean",
+    "Required": false
+  },
+  {
     "Key": "entity",
     "FileType": "MapAdd-Node",
     "ValType": "String",
